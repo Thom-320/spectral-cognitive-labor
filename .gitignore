@@ -1,0 +1,26 @@
+# Entorno virtual
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+
+# Resultados generados (reproducibles via scripts)
+data/results/
+figures/
+
+# Paper / LaTeX
+paper/
+
+# PDFs sueltos
+*.pdf
+
+# Docs internos
+docs/
+
+# Claude Code
+.claude/
