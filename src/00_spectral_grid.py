@@ -6,12 +6,12 @@ Proyecto: Eficiencia Espectral de la División del Trabajo Humano
 
 Este script calcula las propiedades espectrales del grafo base SIN datos humanos:
 - Matriz de adyacencia A (8-conectividad)
-- Matriz Laplaciana L = D - A
+- Matriz Laplaciana combinatoria L = D - A
 - Eigenvalores y eigenvectores de L
 - Valor de Fiedler λ₂ y vector de Fiedler v₂
 - Bisección de Fiedler S_Fiedler
 - Conductancia h(S_Fiedler)
-- Cota de Cheeger λ₂/2
+- Cota de Cheeger usando el Laplaciano normalizado
 
 Autor: [Tu nombre]
 Fecha: Febrero 2026
@@ -195,7 +195,7 @@ def optimal_fiedler_cut(fiedler_vector, A, degrees):
 
 def conductance(S, A, degrees):
     """
-    Calcula la conductancia de una partición (S, V\S).
+    Calcula la conductancia de una particion (S, V\\S).
     
     h(S) = cut(S, S̄) / min(vol(S), vol(S̄))
     
@@ -322,7 +322,7 @@ def plot_fiedler_grid(fiedler_vector, S_fiedler, n=8, save_path=None):
     plt.show()
     return fig
 
-def plot_spectrum(eigenvalues, lambda2, save_path=None):
+def plot_spectrum(eigenvalues, lambda2, cheeger_lower=None, save_path=None):
     """
     Visualiza el espectro del Laplaciano.
     """
@@ -331,8 +331,9 @@ def plot_spectrum(eigenvalues, lambda2, save_path=None):
     ax.bar(range(len(eigenvalues)), eigenvalues, color='steelblue', alpha=0.7)
     ax.axhline(y=lambda2, color='red', linestyle='--', 
                label=f'$\\lambda_2$ = {lambda2:.4f}')
-    ax.axhline(y=lambda2/2, color='orange', linestyle=':', 
-               label=f'$\\lambda_2/2$ = {lambda2/2:.4f} (Cheeger bound)')
+    if cheeger_lower is not None:
+        ax.axhline(y=cheeger_lower, color='orange', linestyle=':',
+                   label=f'$\\lambda_2^{{norm}}/2$ = {cheeger_lower:.4f}')
     
     ax.set_xlabel('Índice del eigenvalor', fontsize=12)
     ax.set_ylabel('$\\lambda_i$', fontsize=12)
@@ -376,6 +377,12 @@ def main():
     print(f"    - λ₂ = {lambda2:.6f} (conectividad algebraica)")
     print(f"    - λ₃ = {eigenvalues[2]:.6f}")
     print(f"    - λ_max = {eigenvalues[-1]:.6f}")
+
+    # 3b. Laplaciano normalizado para cota de Cheeger
+    print("\n[3b] Calculando Laplaciano normalizado para referencia de Cheeger...")
+    L_norm = compute_normalized_laplacian(A)
+    eigenvalues_norm, eigenvectors_norm, lambda2_norm, _ = spectral_analysis(L_norm)
+    print(f"    - λ₂^norm = {lambda2_norm:.6f}")
     
     # 4. Bisección de Fiedler
     print("\n[4] Calculando bisección de Fiedler...")
@@ -396,13 +403,13 @@ def main():
     print(f"    - S̄ es conexo: {S_bar_connected}")
     
     # 7. Cota de Cheeger
-    print("\n[7] Desigualdad de Cheeger:")
-    cheeger_lower = lambda2 / 2
-    cheeger_upper = np.sqrt(2 * lambda2)
-    print(f"    λ₂/2 ≤ h(G) ≤ √(2λ₂)")
+    print("\n[7] Desigualdad de Cheeger (Laplaciano normalizado):")
+    cheeger_lower = lambda2_norm / 2
+    cheeger_upper = np.sqrt(2 * lambda2_norm)
+    print(f"    λ₂^norm/2 ≤ h(G) ≤ √(2λ₂^norm)")
     print(f"    {cheeger_lower:.6f} ≤ h(G) ≤ {cheeger_upper:.6f}")
     print(f"    h(S_Fiedler) = {h_optimal:.6f}")
-    print(f"    Gap sobre cota inferior: Δ = h - λ₂/2 = {h_optimal - cheeger_lower:.6f}")
+    print(f"    Gap sobre cota inferior: Δ = h - λ₂^norm/2 = {h_optimal - cheeger_lower:.6f}")
     
     # 8. Resumen
     print("\n" + "=" * 70)
@@ -411,14 +418,16 @@ def main():
     print(f"  Grafo: 8×8 grilla con 8-conectividad")
     print(f"  |V| = 64, |E| = {int(np.sum(A)/2)}")
     print(f"  λ₂ (conectividad algebraica) = {lambda2:.6f}")
+    print(f"  λ₂^norm = {lambda2_norm:.6f}")
     print(f"  h(S_Fiedler) = {h_optimal:.6f}")
-    print(f"  λ₂/2 (Cheeger lower bound) = {cheeger_lower:.6f}")
-    print(f"  √(2λ₂) (Cheeger upper bound) = {cheeger_upper:.6f}")
+    print(f"  λ₂^norm/2 (Cheeger lower bound) = {cheeger_lower:.6f}")
+    print(f"  √(2λ₂^norm) (Cheeger upper bound) = {cheeger_upper:.6f}")
     print("=" * 70)
     
     # 9. Guardar resultados
     results = {
         'lambda2': lambda2,
+        'lambda2_norm': lambda2_norm,
         'h_fiedler': h_optimal,
         'cheeger_lower': cheeger_lower,
         'cheeger_upper': cheeger_upper,
@@ -431,19 +440,21 @@ def main():
     
     np.savez(ROOT / 'data' / 'results' / 'spectral_results.npz',
              lambda2=lambda2,
+             lambda2_norm=lambda2_norm,
              h_fiedler=h_optimal,
              cheeger_lower=cheeger_lower,
              cheeger_upper=cheeger_upper,
              S_fiedler=np.array(list(S_optimal)),
              fiedler_vector=fiedler_vector,
-             eigenvalues=eigenvalues)
+             eigenvalues=eigenvalues,
+             eigenvalues_norm=eigenvalues_norm)
     print("\nResultados guardados en: spectral_results.npz")
     
     # 10. Visualización
     print("\n[8] Generando visualizaciones...")
     plot_fiedler_grid(fiedler_vector, S_optimal, n=8, 
                       save_path=ROOT / 'figures' / 'fiedler_grid.png')
-    plot_spectrum(eigenvalues, lambda2,
+    plot_spectrum(eigenvalues, lambda2, cheeger_lower=cheeger_lower,
                   save_path=ROOT / 'figures' / 'spectrum.png')
     
     return results

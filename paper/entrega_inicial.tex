@@ -1,0 +1,272 @@
+\documentclass[journal]{IEEEtran}
+\usepackage[utf8]{inputenc}
+% babel-spanish no disponible en este entorno; tildes via inputenc utf8
+% \usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{cite}
+\usepackage{url}
+
+% ============================================================
+% Entrega Inicial – Teoría de Grafos 2026-I
+% Secciones: Introducción, Descripción del Problema,
+%            Objetivo General y Objetivos Específicos,
+%            Bibliografía
+% ============================================================
+
+\begin{document}
+
+\title{Eficiencia Espectral de la División del Trabajo Humano:\\ %
+       Comparación de Particiones Emergentes con Bisecciones de Fiedler}
+
+\author{\IEEEauthorblockN{Thomas Chísica Londoño}
+\IEEEauthorblockA{Programa de Matemáticas Aplicadas y Ciencias de la Computación\\
+Universidad del Rosario, Bogotá, Colombia\\
+Teoría de Grafos 2026-I \quad Profesor: Daniel Alfonso Bojacá Torres\\
+\texttt{thomas.chisica@urosario.edu.co}}}
+
+\maketitle
+
+\begin{abstract}
+Este trabajo estudia si las divisiones del trabajo espacial que emergen espontáneamente
+entre pares de agentes humanos que actúan sin comunicación explícita son
+\emph{espectralmente eficientes}. Modelamos el espacio de interacción como un grafo
+$G=(V,E)$ de $64$ nodos con 8-conectividad y utilizamos la bisección de Fiedler como
+referente teórico de optimalidad. La hipótesis central es que las díadas con divisiones
+focales (izquierda-derecha o arriba-abajo) convergen a particiones cuya conductancia es
+comparable a la de la bisección espectral óptima $h(S_{\text{Fiedler}})$, mientras que
+las díadas con divisiones mixtas exhiben ineficiencia espectral.
+\end{abstract}
+
+\begin{IEEEkeywords}
+teoría algebraica de grafos, vector de Fiedler, conductancia, desigualdad de Cheeger,
+coordinación multi-agente, división del trabajo, bisección espectral.
+\end{IEEEkeywords}
+
+
+% ============================================================
+\section{Introducción}
+% ============================================================
+
+La coordinación entre agentes que no pueden comunicarse explícitamente es un
+problema fundamental en sistemas multi-agente, ciencias cognitivas y teoría de
+juegos~\cite{mesbahi2010}. Cuando múltiples individuos deben colaborar para cubrir
+un espacio compartido sin negociación directa, emergen patrones de división del trabajo
+que organizan el sistema de manera espontánea. Este fenómeno---conocido como
+\emph{auto-organización}---ha sido documentado tanto en colonias de insectos como en
+grupos humanos~\cite{goldstone2024}. Comprenderlo matemáticamente exige herramientas
+que capturen la estructura geométrica del espacio de interacción y la calidad de sus
+posibles particiones.
+
+La teoría algebraica de grafos proporciona exactamente esas herramientas. El espectro
+del operador Laplaciano de un grafo codifica propiedades globales de conectividad y,
+a través de la \emph{Desigualdad de Cheeger}~\cite{chung1997,cheeger1970}, vincula el
+segundo eigenvalor más pequeño $\lambda_2$ con la conductancia isoperimétrica $h(G)$.
+El vector de Fiedler~\cite{fiedler1973}---el eigenvector asociado a $\lambda_2$---
+produce una bisección del grafo que minimiza la conductancia entre todas las particiones
+de mitad de tamaño. Este resultado es la base del \emph{spectral partitioning} y del
+\emph{spectral clustering}~\cite{vonluxburg2007}, y constituye el benchmark teórico
+de optimalidad que se empleará en este trabajo.
+
+El punto de partida empírico es el experimento ``Seeking the Unicorn'' de
+Andrade-Lotero y Goldstone~\cite{andrade2021}, en el cual parejas de participantes
+humanos buscan un objetivo oculto en un tablero compartido de $8\times 8$ celdas sin
+comunicación explícita. A lo largo de sesenta rondas, las díadas desarrollan divisiones
+espaciales emergentes---típicamente izquierda-derecha o arriba-abajo---que minimizan la
+redundancia y maximizan la cobertura conjunta. La pregunta que motiva este proyecto es:
+\textbf{¿son esas divisiones espectralmente eficientes?}
+
+Este trabajo no busca re-demostrar la Desigualdad de Cheeger sino \emph{usarla} como
+lupa analítica: compararemos la conductancia de las particiones humanas observadas
+$h(S_{\text{obs}})$ contra la conductancia de la bisección de Fiedler
+$h(S_{\text{Fiedler}})$ y contra la cota inferior teórica $\lambda_2/2$. El análisis
+aportará evidencia sobre si la coordinación implícita humana converge a soluciones
+cercanas al óptimo espectral.
+
+
+% ============================================================
+\section{Descripción del Problema}
+% ============================================================
+
+\subsection{Contexto experimental}
+
+El conjunto de datos \emph{Self-Organized Division of Cognitive Labor}
+(SODCL)~\cite{andrade2021} registra el comportamiento de 45 díadas durante 60 rondas
+cada una. En cada ronda, cada jugador selecciona hasta 32 celdas de un tablero de
+$8\times 8$ para ``cubrir''. Las celdas visitadas simultáneamente por ambos jugadores
+representan redundancia; las no visitadas por ninguno, pérdida de cobertura. Sin
+instrucción explícita ni canal de comunicación, las díadas convergen a divisiones
+espaciales auto-organizadas.
+
+Un análisis exploratorio preliminar ilustra la nitidez del fenómeno: la díada
+435\nobreakdash-261 exhibe una divergencia izquierda-derecha del $93.07\,\%$ en las
+rondas tardías. El Jugador\,1 acumula $887$ visitas en las columnas 5--8 frente a $43$
+en las columnas 1--4; el Jugador\,2 muestra el patrón exactamente invertido ($889$
+versus $21$). Esta auto-segregación constituye el objeto de análisis espectral del
+presente proyecto.
+
+\subsection{Formulación graph-teórica}
+
+\textbf{Definición 1 (Grafo del tablero).}
+Sea $G=(V,E)$ el grafo donde $V=\{(i,j):1\le i,j\le 8\}$ representa las $64$ celdas
+del tablero y $E$ contiene todas las aristas entre celdas adyacentes bajo
+\mbox{8-conectividad} (horizontal, vertical y diagonal). Se tiene $|V|=64$ y
+$|E|=224$.
+
+\textbf{Definición 2 (Matriz Laplaciana).}
+Sea $A$ la matriz de adyacencia de $G$ y $D=\operatorname{diag}(d_1,\ldots,d_n)$ la
+matriz de grados. La \emph{matriz Laplaciana} es $L=D-A$. Sus eigenvalores satisfacen
+$0=\lambda_1\le\lambda_2\le\cdots\le\lambda_n$.
+
+\textbf{Definición 3 (Valor y vector de Fiedler).}
+El segundo eigenvalor más pequeño de $L$, denotado $\lambda_2$, se denomina
+\emph{conectividad algebraica} o \emph{valor de Fiedler}. El eigenvector asociado
+$\mathbf{v}_2$ es el \emph{vector de Fiedler}.
+
+\textbf{Definición 4 (Conductancia de una partición).}
+Para una bipartición $(S,\bar{S})$ de $V$, la conductancia se define como
+\begin{equation}
+  h(S) \;=\;
+  \frac{\bigl|\{(u,v)\in E : u\in S,\,v\in\bar{S}\}\bigr|}
+       {\min\!\bigl(\operatorname{vol}(S),\,\operatorname{vol}(\bar{S})\bigr)},
+\end{equation}
+donde $\operatorname{vol}(S)=\sum_{v\in S}d_v$ es el volumen del conjunto $S$.
+
+\textbf{Teorema (Desigualdad de Cheeger~\cite{chung1997}).}
+Para cualquier grafo $G$,
+\begin{equation}
+  \frac{\lambda_2}{2} \;\le\; h(G) \;\le\; \sqrt{2\lambda_2},
+\end{equation}
+donde $h(G)=\min_S h(S)$ es la constante isoperimétrica del grafo.
+
+\subsection{El problema central}
+
+Dadas las particiones observadas $S_{\text{obs}}^d$ de cada díada $d$ y la bisección
+espectral $S_{\text{Fiedler}}$ obtenida a partir del vector de Fiedler de $G$, el
+problema que se aborda es el siguiente:
+
+\begin{enumerate}
+  \item \textbf{Eficiencia espectral:} ¿Qué tan cerca se encuentra $h(S_{\text{obs}}^d)$
+        de la cota inferior teórica $\lambda_2/2$, que representa el límite de optimalidad
+        garantizado por el Teorema de Cheeger?
+
+  \item \textbf{Comparación con Fiedler:} ¿Es $h(S_{\text{obs}}^d)\approx
+        h(S_{\text{Fiedler}})$? Es decir, ¿los humanos alcanzan particiones
+        comparables a la bisección espectral computada explícitamente?
+
+  \item \textbf{Diferencia por tipo de división:} ¿Las divisiones focales
+        (izquierda-derecha o arriba-abajo) son más eficientes espectralmente que las
+        divisiones mixtas?
+\end{enumerate}
+
+La relevancia del problema radica en que, si la coordinación implícita humana converge
+a soluciones cercanas al óptimo espectral, ello sugeriría que los mecanismos cognitivos
+de auto-organización responden, de forma no deliberada, a la estructura algebraica
+subyacente del espacio de interacción.
+
+
+% ============================================================
+\section{Objetivo General y Objetivos Específicos}
+% ============================================================
+
+\subsection{Objetivo general}
+
+Determinar si las divisiones del trabajo espacial que emergen espontáneamente en díadas
+humanas sin comunicación son espectralmente eficientes, mediante la comparación entre la
+conductancia de las particiones observadas, la bisección de Fiedler y la cota de Cheeger
+del grafo del tablero experimental.
+
+\subsection{Objetivos específicos}
+
+\begin{enumerate}
+
+  \item \textbf{Modelar} el tablero experimental $8\times 8$ como un grafo
+        $G=(V,E)$ con 8-conectividad, construir su matriz Laplaciana $L=D-A$ y
+        verificar sus propiedades algebraicas fundamentales (simetría, semidefinición
+        positiva, eigenvalor nulo).
+
+  \item \textbf{Calcular} el valor de Fiedler $\lambda_2$ y el vector de Fiedler
+        $\mathbf{v}_2$ del grafo $G$, y derivar la bisección espectral
+        $S_{\text{Fiedler}}=\{v: v_2(v)\ge 0\}$ junto con su conductancia
+        $h(S_{\text{Fiedler}})$.
+
+  \item \textbf{Extraer} las particiones observadas $S_{\text{obs}}^d$ para cada
+        díada $d$ del conjunto de datos SODCL, a partir de las frecuencias de visita
+        acumuladas por jugador en las rondas de convergencia.
+
+  \item \textbf{Comparar} la conductancia de las particiones humanas
+        $h(S_{\text{obs}}^d)$ con la conductancia espectral $h(S_{\text{Fiedler}})$ y
+        con la cota inferior $\lambda_2/2$, cuantificando la eficiencia relativa
+        mediante el ratio $\eta_d = h(S_{\text{Fiedler}})/h(S_{\text{obs}}^d)$.
+
+  \item \textbf{Analizar} si existe diferencia estadísticamente significativa en la
+        eficiencia espectral entre díadas con divisiones focales (izquierda-derecha,
+        arriba-abajo) y díadas con divisiones mixtas.
+
+  \item \textbf{Implementar} en Python todos los algoritmos involucrados (construcción
+        del Laplaciano, descomposición espectral, bisección de Fiedler, cálculo de
+        conductancia mediante recorrido en grafos) de manera reproducible y documentada.
+
+\end{enumerate}
+
+
+% ============================================================
+\bibliographystyle{IEEEtran}
+\begin{thebibliography}{10}
+
+\bibitem{andrade2021}
+E.\ Andrade-Lotero and R.\ L.\ Goldstone,
+``Self-organized division of cognitive labor,''
+\textit{PLOS ONE}, vol.~16, no.~7, p.~e0254532, Jul.\ 2021.
+
+\bibitem{chung1997}
+F.\ R.\ K.\ Chung,
+\textit{Spectral Graph Theory}.
+Providence, RI: American Mathematical Society, 1997.
+
+\bibitem{fiedler1973}
+M.\ Fiedler,
+``Algebraic connectivity of graphs,''
+\textit{Czechoslovak Mathematical Journal}, vol.~23, no.~2, pp.~298--305, 1973.
+
+\bibitem{cheeger1970}
+J.\ Cheeger,
+``A lower bound for the smallest eigenvalue of the Laplacian,''
+in \textit{Problems in Analysis}, R.\ C.\ Gunning, Ed.
+Princeton, NJ: Princeton University Press, 1970, pp.~195--199.
+
+\bibitem{vonluxburg2007}
+U.\ von Luxburg,
+``A tutorial on spectral clustering,''
+\textit{Statistics and Computing}, vol.~17, no.~4, pp.~395--416, Dec.\ 2007.
+
+\bibitem{mesbahi2010}
+M.\ Mesbahi and M.\ Egerstedt,
+\textit{Graph Theoretic Methods in Multiagent Networks}.
+Princeton, NJ: Princeton University Press, 2010.
+
+\bibitem{mohar1991}
+B.\ Mohar,
+``The Laplacian spectrum of graphs,''
+in \textit{Graph Theory, Combinatorics, and Applications}, vol.~2,
+Y.\ Alavi et al., Eds.\ New York: Wiley, 1991, pp.~871--898.
+
+\bibitem{newman2018}
+M.\ E.\ J.\ Newman,
+\textit{Networks}, 2nd~ed.
+Oxford: Oxford University Press, 2018.
+
+\bibitem{goldstone2024}
+R.\ L.\ Goldstone, E.\ Andrade-Lotero, R.\ D.\ Hawkins, and M.\ E.\ Roberts,
+``The emergence of specialized roles within groups,''
+\textit{Topics in Cognitive Science}, 2024.
+
+\bibitem{spielman2007}
+D.\ A.\ Spielman,
+``Spectral graph theory and its applications,''
+in \textit{Proc.\ 48th Annu.\ IEEE Symp.\ Foundations Comput.\ Sci.\ (FOCS)},
+Providence, RI, 2007, pp.~29--38.
+
+\end{thebibliography}
+
+\end{document}

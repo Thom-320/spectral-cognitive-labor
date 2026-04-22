@@ -1,4 +1,4 @@
-# Entorno virtual
+# Entornos locales
 .venv/
 venv/
 
@@ -9,18 +9,20 @@ __pycache__/
 # macOS
 .DS_Store
 
-# Resultados generados (reproducibles via scripts)
-data/results/
-figures/
-
-# Paper / LaTeX
-paper/
-
-# PDFs sueltos
-*.pdf
-
-# Docs internos
-docs/
-
-# Claude Code
+# Herramientas locales
 .claude/
+
+# Artefactos LaTeX
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.pdf
+paper/*.toc
+paper/*.synctex.gz
+paper/missfont.log
+
+# PDFs locales en raiz
+/*.pdf
+
+# Temporales locales
+tmp/

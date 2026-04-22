@@ -1,0 +1,223 @@
+\documentclass[journal]{IEEEtran}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-tabla,es-noquoting]{babel}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\graphicspath{{../figures/}}
+\usepackage{booktabs}
+\usepackage{array}
+\renewcommand{\arraystretch}{1.15}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage{cite}
+\usepackage{hyperref}
+\usepackage{microtype}
+
+\hypersetup{%
+  hidelinks,
+  pdftitle={Ruptura de Simetria y Especializacion Axial Temprana en Seeking the Unicorn},
+  pdfauthor={Thomas Chisica},
+  pdfsubject={Teoria de Grafos 2026-I, Segunda entrega},
+  pdfkeywords={Fiedler, conductancia, simetria D4, SODCL, especializacion axial}
+}
+
+\newcommand{\vol}{\mathrm{vol}}
+\newcommand{\cut}{\mathrm{cut}}
+\newcommand{\Sobs}{S_{\mathrm{obs}}}
+\newcommand{\Sing}{S^{\mathrm{ing}}_{\mathrm{Fiedler}}}
+
+\begin{document}
+\pagestyle{empty}
+
+\title{Ruptura de Simetría y Especialización Axial\\Temprana en \emph{Seeking the Unicorn}}
+
+\author{Thomas Chisica\\
+Universidad del Rosario\\
+Teoría de Grafos 2026-I\\
+Profesor: Daniel Alfonso Bojacá Torres}
+
+\maketitle
+
+\begin{abstract}
+Este manuscrito reformula el análisis del paradigma \emph{Seeking the Unicorn} en términos espectrales. El tablero experimental, dotado de conectividad de rey, se modela como el producto fuerte $G = P_8 \boxtimes P_8$, cuyo grupo de automorfismos diédrico $D_4$ induce una degeneración del segundo eigenvalor del Laplaciano, $\lambda_2 = \lambda_3$, y por tanto un eigenespacio de Fiedler bidimensional. En presencia de dicha degeneración, la bisección obtenida mediante el signo de un vector de Fiedler arbitrario depende de la base numérica y no constituye un baseline geométrico bien definido. Como consecuencia, se descarta la comparación directa ``humano contra Fiedler'' empleada en formulaciones previas y se adopta una solución en dos capas. La primera capa establece un baseline espectral consistente con la degeneración, sensible a las orientaciones axiales privilegiadas por la simetría. La segunda capa introduce un problema predictivo: se construye una señal geométrica temprana, calculada sobre las primeras cinco rondas ausentes comunes de cada díada, y se evalúa su valor para anticipar la emergencia de especialización axial estable en ventanas tardías del experimento. El manuscrito desarrolla el marco teórico, el modelamiento y la solución propuesta, y justifica la ruta hacia los resultados y la implementación completa de la entrega final.
+\end{abstract}
+
+\begin{IEEEkeywords}
+teoría de grafos, producto fuerte, valor de Fiedler, ruptura de simetría, especialización de roles, coordinación multiagente
+\end{IEEEkeywords}
+
+\section{Introducción}
+
+\IEEEPARstart{L}{a} coordinación entre agentes que carecen de comunicación explícita constituye un problema central en sistemas multiagente, ciencia cognitiva y análisis del comportamiento colectivo \cite{andrade2021,goldstone2024}. En el paradigma \emph{Seeking the Unicorn}, dos participantes exploran simultáneamente un tablero de $8\times8$ en busca de un objetivo cuya posición se desconoce y, a lo largo de sucesivas rondas, desarrollan convenciones espaciales que reducen la redundancia de sus visitas y mejoran la cobertura conjunta \cite{andrade2021}. La existencia de estas convenciones, así como su relación con categorías focales como \emph{axial} o \emph{mixed}, fue establecida en el estudio original. El objeto de este trabajo no es, por consiguiente, redescubrir la emergencia de coordinación, sino precisar qué aporta una formulación en términos de teoría espectral de grafos al análisis de su estructura geométrica.
+
+Una formulación inicial del problema, basada en contrastar la partición humana con una bisección obtenida del vector de Fiedler y concluir que ciertas díadas ``superan'' dicho baseline, resulta inadecuada por dos razones de distinto orden. En primer lugar, la focalidad espacial y la división eficiente del trabajo en este experimento ya fueron documentadas \cite{andrade2021}; reproducirlas bajo otro nombre no constituye una contribución. En segundo lugar, y más relevante desde el punto de vista matemático, la simetría diédrica del tablero cuadrado induce una degeneración espectral $\lambda_2 = \lambda_3$, de modo que el vector de Fiedler no es único y la bisección ingenua depende de una elección arbitraria de base.
+
+La tesis central de esta segunda entrega puede enunciarse de la siguiente manera. En el grafo $P_8 \boxtimes P_8$, la simetría induce un eigenespacio de Fiedler degenerado cuyas direcciones axiales canónicas coinciden con las orientaciones LR (izquierda--derecha) y TB (arriba--abajo) observadas empíricamente; una fracción sustancial de díadas exitosas estabiliza su coordinación sobre alguna de estas orientaciones, y una señal geométrica extraída de las primeras rondas ausentes comunes permite anticipar dicha estabilización antes de que la división del trabajo se consolide. Esta reformulación reubica el aporte del proyecto dentro de la teoría de grafos, define baselines matemáticamente coherentes y delimita un problema predictivo verificable.
+
+\section{Descripción del problema}
+
+El problema aplicado se origina en el conjunto de datos \emph{Self-Organized Division of Cognitive Labor} (SODCL), asociado al paradigma \emph{Seeking the Unicorn} \cite{andrade2021}. En cada ronda del experimento, los dos miembros de una díada inspeccionan celdas del tablero sin comunicación explícita y deciden si el unicornio está presente o ausente. Con el paso de las rondas emergen convenciones de exploración espacial que el trabajo original caracterizó cualitativamente.
+
+Desde el punto de vista de la teoría de grafos, el problema admite una descomposición en dos niveles complementarios:
+\begin{enumerate}
+\item \textbf{Problema estructural.} Definir un baseline espectral correcto cuando el tablero cuadrado produce un eigenespacio de Fiedler degenerado y, en consecuencia, la bisección de Fiedler depende de la base elegida.
+\item \textbf{Problema predictivo.} Determinar si una señal geométrica temprana, calculada antes de que la especialización espacial se haya consolidado, permite anticipar la estabilización axial posterior de una díada.
+\end{enumerate}
+
+El análisis requiere distinguir con precisión las dos fuentes oficiales de datos, resumidas en la Tabla~\ref{tab:datasets}. El archivo \emph{performances.csv} contiene las 60 rondas completas (presentes y ausentes) de las 45 díadas y se reserva para evaluar la transferencia a medidas de desempeño conductual. El archivo \emph{humans\_only\_absent.csv}, en cambio, contiene exclusivamente las rondas ausentes y agrega variables derivadas ($DLIndex$, \emph{Similarity}, \emph{Consistency}, \emph{Joint}); sobre este subconjunto se formulan todos los cálculos de partición, conductancia y señales geométricas. Esta distinción es crítica porque compromete el denominador: los análisis espectrales no operan sobre las 60 rondas de cada díada, sino sobre un subconjunto estructurado que debe reportarse explícitamente.
+
+\begin{table}[t]
+\centering
+\caption{Fuentes de datos empleadas en el proyecto.}
+\label{tab:datasets}
+\begin{tabular}{@{}lrp{0.55\columnwidth}@{}}
+\toprule
+\textbf{Archivo} & \textbf{Filas} & \textbf{Rol en el análisis} \\
+\midrule
+\emph{performances.csv} & 5\,400 & 45 díadas, 60 rondas completas; evaluación de transferencia a desempeño. \\
+\addlinespace
+\emph{humans\_only\_absent.csv} & 1\,244 & Solo rondas ausentes, con métricas derivadas; extracción de señales geométricas y de la partición observada. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Objetivo general y objetivos específicos}
+
+\subsection{Objetivo general}
+
+Formular el análisis del paradigma \emph{Seeking the Unicorn} como un problema de teoría espectral de grafos sobre el producto fuerte $P_8 \boxtimes P_8$, a fin de caracterizar el papel de la simetría diédrica del tablero en la emergencia de especialización axial y de evaluar si una señal geométrica temprana permite anticipar dicha especialización.
+
+\subsection{Objetivos específicos}
+
+\begin{enumerate}
+\item Modelar el tablero experimental como el producto fuerte $P_8 \boxtimes P_8$ y caracterizar su espectro, en particular la multiplicidad de $\lambda_2$.
+\item Formular baselines espectrales consistentes con la degeneración del eigenespacio de Fiedler y contrastarlos con baselines \emph{axis-aligned} que reflejan las direcciones privilegiadas por la simetría $D_4$.
+\item Derivar, a partir de ventanas tardías de rondas ausentes, una etiqueta binaria que codifique la estabilización de orientación axial de cada díada.
+\item Construir una señal geométrica temprana, definida sobre las primeras cinco rondas ausentes comunes, y especificar su comparabilidad con las métricas oficiales tempranas del dataset.
+\item Establecer el protocolo de evaluación predictiva mediante validación cruzada \emph{leave-one-out} y delimitar la relación entre especialización axial tardía y desempeño conductual.
+\item Consolidar una implementación computacional reproducible que sirva de base al desarrollo de resultados de la entrega final.
+\end{enumerate}
+
+\section{Marco teórico}
+
+\subsection{Coordinación y especialización de roles}
+
+El estudio original documentó que la mayoría de díadas humanas logra una división espacial del trabajo y que dicha coordinación se organiza alrededor de unas pocas configuraciones focales \cite{andrade2021}. Trabajos posteriores han situado este paradigma dentro de una literatura más amplia sobre emergencia de roles especializados en grupos pequeños \cite{goldstone2024}, lo que permite interpretar el fenómeno como un caso de \emph{role specialization} y no como una mera descripción empírica de particiones.
+
+\subsection{Grafo del tablero y producto fuerte}
+
+El tablero con conectividad de rey se modela naturalmente como el producto fuerte de dos grafos camino. Dados dos grafos $G_1=(V_1,E_1)$ y $G_2=(V_2,E_2)$, su producto fuerte $G_1 \boxtimes G_2$ tiene como conjunto de vértices $V_1\times V_2$ y dos vértices $(u_1,u_2)$, $(v_1,v_2)$ son adyacentes si y solo si $(u_i=v_i \text{ o } u_iv_i\in E_i)$ para $i=1,2$ y $(u_1,u_2)\neq (v_1,v_2)$ \cite{hammack2011}. Sobre el tablero $8\times 8$ se define
+\[
+G = P_8 \boxtimes P_8,
+\]
+con $|V(G)|=64$ y $|E(G)|=210$; los grados varían entre $3$ en las cuatro esquinas, $5$ en los bordes y $8$ en el interior.
+
+\subsection{Laplaciano y degeneración del valor de Fiedler}
+
+Sea $A$ la matriz de adyacencia de $G$ y $D$ la matriz diagonal de grados. El Laplaciano combinatorial $L = D - A$ es simétrico y semidefinido positivo, con eigenvalores
+\[
+0 = \lambda_1 \le \lambda_2 \le \cdots \le \lambda_n,
+\]
+y la desigualdad $\lambda_2 > 0$ si y solo si $G$ es conexo \cite{chung1997,vonluxburg2007}. El segundo eigenvalor $\lambda_2$ se denomina valor de Fiedler y cualquier eigenvector asociado, vector de Fiedler \cite{fiedler1973}. El procedimiento estándar de bisección espectral consiste en inducir una partición $(S,\bar S)$ a partir del signo de las componentes del vector de Fiedler.
+
+En el grafo $G = P_8 \boxtimes P_8$ se verifica
+\[
+\lambda_2 = \lambda_3 \approx 0{,}4164,
+\]
+de modo que el eigenespacio asociado al valor de Fiedler es bidimensional. Esta degeneración se sigue directamente de la invarianza de $G$ bajo el grupo diédrico $D_4$, generado por la reflexión horizontal y la rotación de $90^\circ$; las direcciones privilegiadas dentro del eigenespacio son precisamente las axiales canónicas LR y TB. Como consecuencia, el signo de una combinación lineal genérica dentro del eigenespacio depende de la base numérica y no induce una bisección geométricamente estable. Un baseline espectral bien definido debe, por tanto, tomar en cuenta la estructura de $D_4$ y no una elección arbitraria de vector.
+
+\subsection{Conductancia y señales informacionales}
+
+La calidad geométrica de una partición $(S,\bar S)$ se cuantifica mediante la conductancia
+\begin{equation}
+h(S)=\frac{\cut(S,\bar S)}{\min\bigl(\vol(S),\vol(\bar S)\bigr)},
+\label{eq:conductance}
+\end{equation}
+donde $\cut(S,\bar S)$ denota el número de aristas con un extremo en $S$ y otro en $\bar S$, y $\vol(S)=\sum_{v\in S}\deg(v)$. Sobre $G=P_8\boxtimes P_8$, el corte obtenido por la bisección de Fiedler ingenua alcanza $h=28/210\approx 0{,}1333$, mientras que los cortes axiales LR y TB --- ambos dentro del eigenespacio degenerado --- alcanzan $h=22/210\approx 0{,}1048$, valor que constituye el baseline \emph{axis-aligned} canónico.
+
+La conductancia no agota, sin embargo, la estructura informacional del problema. Para evaluar la separación funcional entre los dos jugadores se emplean la información mutua entre la identidad del jugador y la celda visitada \cite{cover2006}, y la divergencia de Jensen--Shannon entre las distribuciones marginales de visitas por jugador \cite{lin1991}. Estas cantidades proveen indicadores complementarios a los baselines geométricos y permiten contrastar la señal espectral con las métricas conductuales $DLIndex$, \emph{Similarity} y \emph{Consistency} ya disponibles en el dataset oficial.
+
+\section{Modelamiento del problema}
+
+\subsection{Representación del tablero}
+
+A cada celda $(i,j)$ del tablero, con $1 \le i,j \le 8$, se asocia un vértice de $G = P_8 \boxtimes P_8$. Dos celdas son adyacentes si su distancia de Chebyshev es igual a uno, lo cual coincide con la conectividad de rey del juego. Esta representación admite descomposición espectral, cálculo de conductancia mediante \eqref{eq:conductance} y construcción de particiones geométricamente interpretables.
+
+\subsection{Partición observada y etiqueta axial tardía}
+
+Para cada díada $d$ y cada ronda ausente, el campo de visitas por jugador induce una partición dura $\Sobs^{(d)}\subseteq V(G)$, consistente con asignar cada celda al jugador que la inspeccionó con mayor frecuencia relativa. Para caracterizar la orientación consolidada, el análisis se restringe a ventanas tardías del experimento --- rondas $30$--$60$, $40$--$60$ y $50$--$60$ --- y sobre cada una se evalúa el campo firmado de dominancia espacial. Se clasifica la orientación de cada ventana como LR, TB o MIXED según el eje que concentre la mayor fracción de dominancia, y se define la variable binaria
+\[
+y_d = \begin{cases} 1, & \text{si la díada estabiliza orientación LR o TB,}\\ 0, & \text{en caso contrario.}\end{cases}
+\]
+Esta variable no pretende representar el conjunto completo de estrategias focales documentadas, sino únicamente la especialización axial que la lente espectral puede caracterizar de forma inequívoca.
+
+\subsection{Señal geométrica temprana}
+
+Para cada díada se seleccionan las primeras cinco rondas ausentes comunes a ambos jugadores disponibles en \emph{humans\_only\_absent.csv}. Sean $f_1(v)$ y $f_2(v)$ las visitas acumuladas tempranas de los dos jugadores a la celda $v$; se define el campo de margen firmado
+\[
+m(v) = f_1(v) - f_2(v).
+\]
+Sobre la grilla se proyecta $m$ contra dos plantillas centradas $T_{\mathrm{LR}}$ y $T_{\mathrm{TB}}$, correspondientes a las orientaciones axiales. Denotando por $\rho_{\mathrm{LR}}$ y $\rho_{\mathrm{TB}}$ las correlaciones normalizadas entre $m$ y cada plantilla, la señal geométrica temprana se define como
+\begin{equation}
+g_d = \max\bigl\{|\rho_{\mathrm{LR}}|,\ |\rho_{\mathrm{TB}}|\bigr\}.
+\label{eq:signal}
+\end{equation}
+La expresión \eqref{eq:signal} cuantifica el grado en que el campo temprano de visitas ya se alinea con alguna de las dos direcciones axiales privilegiadas por la simetría $D_4$ del tablero, antes de que la coordinación entre los jugadores haya cristalizado.
+
+\subsection{Variables de comparación y conjuntos analíticos}
+
+Junto con $g_d$, el modelo considera el vector de métricas oficiales tempranas
+\[
+\mathbf{m}_d = \bigl(DLIndex_d,\ Similarity_d,\ Consistency_d\bigr),
+\]
+promediado sobre las mismas cinco rondas ausentes comunes. Para controlar explícitamente la población de análisis, se definen dos conjuntos. El conjunto \emph{all\_dyads\_audit} contiene las 45 díadas y se utiliza para auditoría descriptiva y para la evaluación predictiva completa. El conjunto \emph{primary\_analysis\_set} restringe el análisis a las díadas cuya partición observada $\Sobs$ admite una evaluación válida de conductancia en el sentido de \eqref{eq:conductance}; las 16 díadas excluidas se documentan de manera individual en un reporte de exclusiones, evitando filtrados silenciosos. Esta estratificación hace explícita una limitación del alcance: la lente espectral resulta más informativa para estrategias axiales y captura con menor resolución categorías como \emph{ALL}, \emph{NOTHING} o \emph{RS}.
+
+\section{Solución propuesta}
+
+La solución al problema descrito se organiza en dos capas complementarias. La primera capa aborda el problema estructural mediante una reformulación del baseline espectral. La segunda capa desarrolla el problema predictivo a partir de la señal $g_d$. Ambas capas se implementan sobre la misma representación del tablero y comparten el conjunto de variables definidas en la sección anterior.
+
+\subsection{Capa estructural: baselines espectrales consistentes con la simetría}
+
+En lugar de contrastar la partición observada con una bisección inducida por un único vector de Fiedler, se propone un conjunto de baselines que refleja la estructura del eigenespacio degenerado. Se distinguen tres referencias. El \emph{baseline ingenuo} corresponde al corte inducido por un vector de Fiedler arbitrario y se reporta únicamente con fines comparativos, dado que depende de la base numérica. El \emph{baseline symmetry-aware} se obtiene maximizando $h$ sobre particiones generadas por combinaciones del eigenespacio bidimensional, y alcanza los cortes axiales LR y TB con $h=22/210$. Los \emph{baselines axiales} LR y TB, finalmente, pueden interpretarse como instancias canónicas dentro del eigenespacio degenerado y sirven como referencia mínima no parametrizada.
+
+Esta capa no afirma que los participantes humanos optimicen la conductancia. Su objetivo es fijar un punto de comparación matemáticamente coherente con la geometría del tablero, de modo que los análisis posteriores no confundan arbitrariedad de la base con diferencia estructural.
+
+\subsection{Capa predictiva: anticipación de la especialización axial}
+
+Sobre la etiqueta $y_d$ y la señal $g_d$ definidas previamente, se formula un problema de clasificación binaria con validación cruzada \emph{leave-one-out}. Se evalúan tres modelos: (i) $g_d$ como predictor único; (ii) el vector oficial $\mathbf{m}_d$; y (iii) el modelo combinado $(g_d, \mathbf{m}_d)$. La métrica de comparación es el área bajo la curva ROC (AUC), reportada tanto dentro de muestra como bajo validación cruzada. La comparación entre (i), (ii) y (iii) delimita el valor incremental de la señal geométrica frente a las métricas ya presentes en el dataset.
+
+\subsection{Implementación y pipeline computacional}
+
+La solución propuesta se instrumenta mediante un pipeline reproducible organizado en cuatro etapas. En la primera se calcula el espectro del Laplaciano de $G$ y se verifican numéricamente la degeneración $\lambda_2=\lambda_3$ y los valores de conductancia de los baselines axiales. En la segunda se construyen, para cada díada, la partición observada $\Sobs$ y la orientación estable tardía sobre las ventanas $30$--$60$, $40$--$60$ y $50$--$60$, obteniendo la etiqueta $y_d$. En la tercera se extraen las primeras cinco rondas ausentes comunes y se calculan $g_d$ y $\mathbf{m}_d$. En la cuarta se ajustan los tres modelos predictivos bajo validación cruzada \emph{leave-one-out}, se comparan sus valores de AUC y se evalúa la relación entre especialización axial estable y desempeño en la tarea completa usando \emph{performances.csv}. Esta estructura separa explícitamente los pasos estructural y predictivo, mantiene la auditoría de exclusiones visible en cada etapa y prepara el camino para los resultados definitivos de la entrega final.
+
+\bibliographystyle{IEEEtran}
+\begin{thebibliography}{10}
+
+\bibitem{andrade2021}
+E. Andrade-Lotero and R. L. Goldstone, ``Self-organized division of cognitive labor,'' \textit{PLOS ONE}, vol. 16, no. 7, p. e0254532, Jul. 2021.
+
+\bibitem{chung1997}
+F. R. K. Chung, \textit{Spectral Graph Theory}. Providence, RI: American Mathematical Society, 1997.
+
+\bibitem{fiedler1973}
+M. Fiedler, ``Algebraic connectivity of graphs,'' \textit{Czechoslovak Mathematical Journal}, vol. 23, no. 2, pp. 298--305, 1973.
+
+\bibitem{vonluxburg2007}
+U. von Luxburg, ``A tutorial on spectral clustering,'' \textit{Statistics and Computing}, vol. 17, no. 4, pp. 395--416, Dec. 2007.
+
+\bibitem{hammack2011}
+R. Hammack, W. Imrich, and S. Klav\v{z}ar, \textit{Handbook of Product Graphs}, 2nd ed. Boca Raton, FL: CRC Press, 2011.
+
+\bibitem{cover2006}
+T. M. Cover and J. A. Thomas, \textit{Elements of Information Theory}, 2nd ed. Hoboken, NJ: Wiley-Interscience, 2006.
+
+\bibitem{lin1991}
+J. Lin, ``Divergence measures based on the Shannon entropy,'' \textit{IEEE Transactions on Information Theory}, vol. 37, no. 1, pp. 145--151, Jan. 1991.
+
+\bibitem{goldstone2024}
+R. L. Goldstone, E. Andrade-Lotero, R. D. Hawkins, and M. E. Roberts, ``The emergence of specialized roles within groups,'' \textit{Topics in Cognitive Science}, 2024.
+
+\end{thebibliography}
+
+\end{document}

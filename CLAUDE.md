@@ -1,14 +1,20 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code when working in this repository.
 
-## Project Overview
+## Project overview
 
-Academic research project analyzing whether humans are intuitive spectral optimizers. Compares human-generated partitions from the SODCL experiment ("Seeking the Unicorn", Andrade-Lotero & Goldstone, PLOS ONE 2021) against Fiedler bisection using conductance as the metric. The core graph is an 8x8 grid with 8-connectivity (64 nodes, 210 edges).
+This repo studies SODCL / Seeking the Unicorn through graph theory, but the working thesis is now:
 
-**Key finding:** lambda2 has multiplicity 2 in the 8x8 square grid (2D Fiedler eigenspace). Axis-aligned cuts (LR/TB) achieve h=22/210, beating the naive Fiedler median cut (h=28/210). Human dyads with clear spatial splits converge to these axis-aligned optima.
+- the square king-grid `P_8 ⊠ P_8` has a degenerate Fiedler eigenspace,
+- successful dyads often break that symmetry into stable axial roles,
+- and an early geometric signal helps predict later role specialization.
 
-**Author:** Thomas Chisica - Universidad del Rosario, Teoria de Grafos 2026-I
+Do not frame the project as:
+
+- "humans beat Fiedler"
+- "conductance replaces the official metrics"
+- or "the current analysis explains all focal strategies in the original paper"
 
 ## Commands
 
@@ -16,45 +22,74 @@ Academic research project analyzing whether humans are intuitive spectral optimi
 # Setup
 python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
 
-# Interactive menu (handles venv automatically)
+# Interactive menu
 ./run.sh
 
-# Run individual scripts (venv must be active)
-python src/00_spectral_grid.py            # Base spectral analysis -> spectral_results.npz
-python src/01_single_dyad_analysis.py     # Single dyad example (requires spectral_results.npz)
-python src/02_full_comparison.py          # All 29 dyads comparison
-python src/03_power_iteration.py          # Power iteration with axis-aligned bias (pedagogical)
-python src/03_power_iteration_fiedler.py  # Fiedler vector via power iteration + deflation
-python src/04_temporal_dynamics.py        # Temporal h(S) tracking over 60 rounds
-python src/05_counterexample_P6xP8.py    # Rectangular grid counterexample (no degeneracy)
+# Main scripts
+python src/00_spectral_grid.py
+python src/01_single_dyad_analysis.py
+python src/02_full_comparison.py
+python src/03_power_iteration.py
+python src/03_power_iteration_fiedler.py
+python src/04_temporal_dynamics.py
+python src/05_counterexample_P6xP8.py
+python src/06_partition_robustness.py
+python src/07_entropy_analysis.py
+python src/08_early_prediction.py
+
+# Compile the second-delivery draft
+cd paper && pdflatex entrega2.tex && pdflatex entrega2.tex && cd ..
 ```
 
-Scripts must run from the project root directory. Script 00 must run before 01/02 (produces `spectral_results.npz`). Scripts 03-05 are standalone.
+## Data split
 
-## Architecture
+- `data/raw/humans_only_absent.csv`
+  - absent rounds only
+  - used for the spectral and early-prediction analyses
+- `data/raw/performances.csv`
+  - full 60-round dataset
+  - used for transfer-to-performance summaries
 
-**Pipeline:** Scripts are numbered and sequential. Each reads from `data/raw/` or `data/results/`, produces outputs to `data/results/` (NPZ/CSV) and `figures/` (PNG).
+## Core analysis structure
 
-**Shared computational patterns across scripts (not factored into a shared module):**
-- `build_grid_graph(n=8)` - 8x8 grid with 8-connectivity (king moves)
-- `compute_laplacian(A)` - Combinatorial Laplacian L = D - A
-- `spectral_analysis(L)` - Eigendecomposition via `scipy.linalg.eigh`
-- `conductance(S, A, degrees)` - h(S) = cut(S,S') / min(vol(S), vol(S'))
-- `fiedler_bisection()` - Partition by Fiedler vector (2nd eigenvector)
-- `is_connected(S, A)` - BFS connectivity check
+- `src/02_full_comparison.py`
+  - audits all 45 dyads,
+  - defines the primary conductance set,
+  - compares `h(S_obs)` against naive Fiedler and axis-aligned baselines,
+  - keeps `DLIndex`, `Similarity`, `Consistency`, `Joint`, and `Size_visited`.
+- `src/06_partition_robustness.py`
+  - derives stable late orientation from absent rounds.
+- `src/07_entropy_analysis.py`
+  - reports MI/JSD and builds the Andrade summary figure.
+- `src/08_early_prediction.py`
+  - builds the early geometric signal from the first 5 common absent rounds,
+  - compares it against early official metrics,
+  - summarizes transfer to full-task performance,
+  - reports the incremental-value diagnostic for late `h_obs`.
 
-Each script redefines these functions locally. If adding a new script, copy the pattern from an existing one.
+## Important outputs
 
-**Key metric:** eta = h(S_Fiedler) / h(S_obs) -- efficiency ratio comparing spectral optimum to human partition.
-
-**Data flow:** `humans_only_absent.csv` (raw experiment data) -> scripts extract visit frequencies per cell per dyad -> derive observed partition S_obs -> compare against Fiedler bisection.
-
-**Root path convention:** Scripts use `ROOT = Path(__file__).parent.parent` to resolve paths relative to project root.
+- `data/results/spectral_analysis_audit.csv`
+- `data/results/spectral_comparison_results.csv`
+- `data/results/partition_stability_summary.csv`
+- `data/results/early_prediction_features.csv`
+- `data/results/early_prediction_summary.csv`
+- `data/results/performance_transfer_summary.csv`
+- `data/results/present_performance_increment.csv`
+- `figures/andrade_summary.png`
+- `figures/early_prediction_summary.png`
+- `paper/entrega2.tex`
 
 ## Conventions
 
-- All code comments are in **Spanish without accent marks** (tildes)
-- All file paths must be **relative** to project root (no absolute paths -- this was a past bug, see `docs/CORRECCIONES.md`)
-- No test framework; validation is through figure inspection and CSV output
-- No linter configured
-- LaTeX manuscript uses IEEEtran class (`paper/` directory)
+- Code comments must be in Spanish without accents.
+- Paths must remain relative to the project root.
+- Keep the denominator explicit:
+  - absent-only analyses are absent-only analyses,
+  - do not write about "60 rounds per player" when using `humans_only_absent.csv`.
+- Prefer explicit audit trails over silent filtering.
+- When writing results, the correct thesis is:
+  - symmetry breaking,
+  - stable axial specialization,
+  - early prediction,
+  - and cautious comparison against official metrics.

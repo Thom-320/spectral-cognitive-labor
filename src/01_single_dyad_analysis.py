@@ -153,20 +153,20 @@ def main():
     # 7. Cargar resultados espectrales
     print("\n[6] Comparando con bisección de Fiedler...")
     spectral = np.load(ROOT / 'data' / 'results' / 'spectral_results.npz')
-    lambda2 = spectral['lambda2']
+    mu2_norm = spectral['lambda2_norm']
     h_fiedler = spectral['h_fiedler']
     S_fiedler = set(spectral['S_fiedler'])
     
-    print(f"    λ₂ = {lambda2:.6f}")
+    print(f"    mu_2^norm = {mu2_norm:.6f}")
     print(f"    h(S_Fiedler) = {h_fiedler:.6f}")
     
     # 8. Calcular métricas
     print("\n[7] Métricas de eficiencia espectral:")
     eta = h_fiedler / h_obs if h_obs > 0 else float('inf')
-    delta = h_obs - lambda2 / 2
+    delta = h_obs - mu2_norm / 2
     
     print(f"    η = h(S_Fiedler) / h(S_obs) = {eta:.4f}")
-    print(f"    Δ = h(S_obs) - λ₂/2 = {delta:.6f}")
+    print(f"    delta_Cheeger = h(S_obs) - mu_2^norm/2 = {delta:.6f}")
     
     if eta > 0.8:
         print("    → Interpretación: Partición CERCA del óptimo espectral")

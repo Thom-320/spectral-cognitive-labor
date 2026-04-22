@@ -1,0 +1,315 @@
+\documentclass[conference]{IEEEtran}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{cite}
+\usepackage{hyperref}
+
+\begin{document}
+
+\title{Eficiencia Espectral de la División del Trabajo Humano: Comparación de Particiones Observadas con Bisecciones de Fiedler}
+
+\author{\IEEEauthorblockN{Thomas Chísica, [Compañera 1], [Compañero 2], [Compañero 3]}
+\IEEEauthorblockA{Universidad del Rosario\\
+Teoría de Grafos 2026-I\\
+Profesor: Daniel Alfonso Bojacá Torres}}
+
+\maketitle
+
+% ============================================================================
+\section{Introducción}
+% ============================================================================
+
+La coordinación entre agentes que no pueden comunicarse explícitamente representa un problema fundamental en sistemas multi-agente y ciencias cognitivas. Cuando múltiples individuos deben colaborar para completar una tarea compartida sin posibilidad de negociación directa, emergen patrones de división del trabajo que optimizan el rendimiento grupal de manera auto-organizada \cite{andrade2021}. Este fenómeno puede modelarse mediante teoría algebraica de grafos, donde el espacio de interacción constituye un grafo y las divisiones emergentes corresponden a particiones cuya calidad puede cuantificarse espectralmente.
+
+En el experimento ``Seeking the Unicorn'' desarrollado por Andrade-Lotero y Goldstone \cite{andrade2021}, parejas de participantes humanos buscan un objetivo oculto en un tablero compartido de $8 \times 8$ celdas. Sin comunicación explícita, las díadas desarrollan divisiones espaciales del trabajo---típicamente izquierda-derecha o arriba-abajo---que minimizan la redundancia y maximizan la cobertura conjunta. La pregunta central de este proyecto es: \textbf{¿cómo se relaciona la estructura espectral del tablero con las divisiones espaciales que emergen en humanos?}
+
+Este proyecto utiliza la bisección de Fiedler \cite{fiedler1973} como \textit{baseline} de redondeo espectral, no como garantía absoluta de optimalidad. Se comparará la conductancia de las particiones empíricas generadas por los humanos contra dos referencias: (i) el redondeo espectral ingenuo obtenido a partir de un autovector de Fiedler devuelto por la descomposición estándar, y (ii) una referencia \textit{symmetry-aware} que explora direcciones relevantes dentro del eigenespacio degenerado. Un aspecto central del análisis es que el grafo del tablero presenta un eigenespacio de Fiedler degenerado inducido por simetría, lo que implica que la bisección espectral estándar no es única. La meta no es afirmar que los humanos ``superan a Fiedler'' en abstracto, sino evaluar si se alinean con las direcciones geométricamente privilegiadas dentro de ese espacio ambiguo.
+
+% ============================================================================
+\section{Descripción del Problema}
+% ============================================================================
+
+\subsection{Contexto Experimental}
+
+El dataset ``Self-Organized Division of Cognitive Labor'' (SODCL) \cite{andrade2021} contiene datos de comportamiento de 45 díadas humanas a lo largo de 60 rondas cada una. En cada ronda, dos jugadores seleccionan simultáneamente celdas de un tablero de $8 \times 8$ para buscar un objetivo oculto. Las celdas cubiertas por ambos jugadores representan redundancia. A lo largo del experimento, las díadas desarrollan divisiones espaciales emergentes sin comunicación explícita.
+
+Un análisis exploratorio preliminar revela patrones claros: por ejemplo, la díada 435-261 exhibe una divergencia izquierda-derecha del 93\%, donde el Jugador~1 acumula 887 visitas en columnas 5--8 versus 43 en columnas 1--4, mientras el Jugador~2 muestra el patrón inverso (889 vs.\ 21). Este tipo de división espacial es típico de las díadas que logran alta coordinación.
+
+\subsection{Formulación del Problema}
+
+El tablero de $8 \times 8$ con conectividad a 8 vecinos (horizontal, vertical y diagonal) se modela como el producto fuerte de dos grafos camino, $G = P_8 \boxtimes P_8$, resultando en un grafo con 64 nodos y 210 aristas. La división del trabajo de cada díada induce una partición del grafo en dos subconjuntos: las celdas dominadas por cada jugador.
+
+La calidad de una partición $(S, \bar{S})$ se mide mediante su \textit{conductancia}:
+\begin{equation}
+h(S) = \frac{|E(S, \bar{S})|}{\min(\mathrm{vol}(S), \mathrm{vol}(\bar{S}))}
+\end{equation}
+donde $|E(S, \bar{S})|$ es el número de aristas entre $S$ y su complemento, y $\mathrm{vol}(S)$ es la suma de los grados de los vértices en $S$. Una conductancia baja indica una partición con pocos conflictos en la frontera.
+
+El benchmark teórico es la \textit{bisección de Fiedler}, obtenida al particionar el grafo según el signo del segundo eigenvector de la matriz Laplaciana \cite{fiedler1973, vonluxburg2007}. El problema central consiste en determinar si las particiones generadas por los humanos son comparables---o incluso superiores---a esta bisección espectral.
+
+La dificultad técnica adicional es que el grafo $G$ posee simetría diédrica $D_4$, lo cual genera un eigenespacio de Fiedler degenerado con multiplicidad~2. Esto significa que existen múltiples bisecciones espectrales válidas, con calidades de corte que varían según la dirección elegida dentro del eigenespacio. El proyecto investigará si las díadas humanas convergen a las direcciones óptimas de este espacio.
+
+% ============================================================================
+\section{Objetivo General y Objetivos Específicos}
+% ============================================================================
+
+\subsection{Objetivo General}
+
+Determinar si las divisiones del trabajo emergentes en coordinación humana sin comunicación se alinean con direcciones espectrales favorables del tablero, comparando la conductancia de las particiones observadas contra baselines espectrales ingenuos y \textit{symmetry-aware}, y analizar cómo la degeneración del eigenespacio de Fiedler se relaciona con las estrategias humanas observadas.
+
+\subsection{Objetivos Específicos}
+
+\begin{enumerate}
+    \item Modelar el tablero experimental como el grafo $G = P_8 \boxtimes P_8$ y construir su matriz Laplaciana.
+    
+    \item Analizar el eigenespacio de Fiedler, incluyendo la multiplicidad del segundo eigenvalor y la estructura de las bisecciones dentro del eigenespacio degenerado.
+    
+    \item Extraer las particiones observadas para cada díada a partir de las frecuencias de visita acumuladas.
+    
+    \item Comparar la conductancia de las particiones observadas con la conductancia de la bisección espectral y la cota inferior teórica.
+    
+    \item Clasificar las divisiones por tipo (izquierda-derecha, arriba-abajo, mixta) y evaluar su eficiencia espectral relativa.
+
+    \item Incorporar una extensión informacional basada en entropía, información mutua y divergencia Jensen-Shannon para cuantificar cuán nítida es la especialización espacial entre jugadores.
+\end{enumerate}
+
+% ============================================================================
+\section{Marco Teórico}
+% ============================================================================
+
+\subsection{Laplaciano, espectro y conectividad algebraica}
+
+Sea $G = (V,E)$ un grafo simple no dirigido con matriz de adyacencia $A$ y matriz de grados $D = \mathrm{diag}(d_1,\dots,d_n)$. Su Laplaciano combinatorio se define como
+\begin{equation}
+L = D - A.
+\end{equation}
+El espectro de $L$ está compuesto por autovalores reales no negativos
+\begin{equation}
+0 = \lambda_1 \le \lambda_2 \le \cdots \le \lambda_n.
+\end{equation}
+Para grafos conexos, $\lambda_1 = 0$ es simple y $\lambda_2$ se denomina \textit{conectividad algebraica} \cite{fiedler1973,mohar1991}. El autovector asociado a $\lambda_2$ se conoce como \textit{vector de Fiedler} y captura una dirección espectral natural para separar el grafo en dos regiones \cite{chung1997,vonluxburg2007}. En este trabajo el Laplaciano combinatorio se usa para estudiar la geometría del eigenespacio degenerado en la grilla cuadrada.
+
+\subsection{Conductancia y referencia de Cheeger con Laplaciano normalizado}
+
+Dado un subconjunto $S \subset V$, la conductancia de la partición $(S,\bar{S})$ se define por
+\begin{equation}
+h(S)=\frac{|E(S,\bar{S})|}{\min(\mathrm{vol}(S),\mathrm{vol}(\bar{S}))},
+\end{equation}
+donde $\mathrm{vol}(S)=\sum_{v\in S} d(v)$ \cite{chung1997}. Una conductancia baja indica una frontera pequeña respecto al volumen de los dos lados y, por tanto, una partición espacialmente eficiente.
+
+La bisección espectral clásica se obtiene umbralando el vector de Fiedler; en este proyecto se utilizará la partición inducida por la mediana:
+\begin{equation}
+S_{\mathrm{Fiedler}}=\{v \in V : v_2(v)\ge \mathrm{mediana}(v_2)\}.
+\end{equation}
+
+Para conectar conductancia con una cota inferior teórica se introduce además el Laplaciano normalizado
+\begin{equation}
+\mathcal{L} = D^{-1/2}LD^{-1/2},
+\end{equation}
+cuyos autovalores se denotarán por
+\begin{equation}
+0=\mu_1 \le \mu_2 \le \cdots \le \mu_n.
+\end{equation}
+La desigualdad de Cheeger, en la formulación compatible con conductancia basada en volumen, relaciona la calidad del mejor corte con $\mu_2$:
+\begin{equation}
+\frac{\mu_2}{2}\le h(G)\le \sqrt{2\mu_2}.
+\end{equation}
+Aquí $h(G)=\min_{S \subset V} h(S)$ es la constante isoperimétrica del grafo \cite{chung1997,cheeger1970}. En consecuencia, $\mu_2/2$ funciona como una cota inferior teórica para cualquier partición observada. Esta distinción es importante: en el proyecto se usa $L$ para estudiar la ambigüedad geométrica del eigenespacio de Fiedler y $\mathcal{L}$ para reportar la referencia de Cheeger de forma matemáticamente consistente.
+
+\subsection{Simetría del tablero y degeneración del eigenespacio de Fiedler}
+
+El tablero experimental con conectividad a ocho vecinos puede modelarse como el producto fuerte
+\begin{equation}
+G = P_8 \boxtimes P_8,
+\end{equation}
+esto es, la grilla king de tamaño $8\times 8$ \cite{hammack2011}. Este grafo es invariante bajo el grupo diédrico $D_4$, generado por rotaciones y reflexiones del cuadrado. Debido a esta simetría, el segundo autovalor no es simple: computacionalmente se obtiene
+\begin{equation}
+\lambda_2=\lambda_3 \approx 0.4164,
+\end{equation}
+por lo que el eigenespacio de Fiedler es bidimensional.
+
+Esta degeneración tiene una consecuencia metodológica importante: la rutina estándar de descomposición espectral retorna una base ortonormal arbitraria de ese espacio bidimensional. Por tanto, dos autovectores válidos pueden inducir cortes geométricamente distintos aunque correspondan al mismo autovalor. En la grilla cuadrada, una base ``diagonal'' produce cortes con 28 aristas de frontera, mientras que una base axis-aligned produce cortes izquierda-derecha o arriba-abajo con 22 aristas. El fenómeno central del proyecto es estudiar si los humanos convergen precisamente a estas direcciones axis-aligned, que son las más favorables dentro del eigenespacio degenerado explorado.
+
+\subsection{Especialización informacional: entropía, información mutua y divergencia Jensen-Shannon}
+
+La conductancia mide la calidad geométrica de una partición, pero no distingue por sí sola cuán nítida es la asignación funcional de celdas entre jugadores. Para complementar el análisis se introduce una capa informacional basada en distribuciones empíricas de visita.
+
+Sea $X \in \{1,2\}$ la variable aleatoria ``jugador'' y sea $Y \in V$ la variable ``celda visitada''. Si $c_{xv}$ denota el número acumulado de visitas del jugador $x$ a la celda $v$, la distribución conjunta empírica queda definida por
+\begin{equation}
+p_{X,Y}(x,v)=\frac{c_{xv}}{\sum_{x' \in \{1,2\}} \sum_{u \in V} c_{x'u}}.
+\end{equation}
+La entropía de Shannon de una variable discreta $Z$ es
+\begin{equation}
+H(Z)=-\sum_z p_Z(z)\log_2 p_Z(z),
+\end{equation}
+y la información mutua entre jugador y celda se define como
+\begin{equation}
+I(X;Y)=H(X)+H(Y)-H(X,Y).
+\end{equation}
+Esta cantidad mide cuánta información aporta conocer la celda para inferir qué jugador la visita \cite{cover2006}. Si ambos jugadores exploran casi las mismas regiones, entonces $I(X;Y)$ es baja; si la especialización espacial es clara, $I(X;Y)$ se acerca a su máximo.
+
+De forma complementaria, para las distribuciones marginales por jugador
+\begin{equation}
+p_1(v)=p_{Y|X=1}(v), \qquad p_2(v)=p_{Y|X=2}(v),
+\end{equation}
+se utilizará la divergencia de Jensen-Shannon
+\begin{equation}
+\mathrm{JSD}(p_1,p_2)=H\left(\frac{p_1+p_2}{2}\right)-\frac{1}{2}H(p_1)-\frac{1}{2}H(p_2),
+\end{equation}
+que es simétrica, siempre finita y está acotada entre 0 y 1 cuando se usan logaritmos en base 2 \cite{lin1991}. En este contexto, valores altos de $\mathrm{JSD}$ indican que los territorios explorados por ambos jugadores están bien separados.
+
+Para esta segunda entrega se priorizarán $I(X;Y)$ y $\mathrm{JSD}$ sobre una entropía de von Neumann del subgrafo inducido, porque las primeras cuantifican directamente la división del trabajo observada en los datos, mientras que la segunda describe desorden estructural del grafo y no la asignación espacial entre agentes.
+
+% ============================================================================
+\section{Modelamiento del Problema}
+% ============================================================================
+
+\subsection{Tablero como grafo king 8x8}
+
+El espacio de búsqueda del experimento se modela como un grafo no dirigido $G=(V,E)$ con $|V|=64$ nodos, uno por celda del tablero. Dos celdas $(i,j)$ y $(k,\ell)$ están conectadas si son vecinas horizontales, verticales o diagonales; equivalentemente,
+\begin{equation}
+(i,j)\sim(k,\ell) \iff \max\{|i-k|,|j-\ell|\}=1.
+\end{equation}
+Esta construcción produce exactamente 210 aristas y grados variables según la posición: esquinas, bordes e interior. Tal geometría justifica el uso de conductancia como medida de calidad de corte, pues la frontera entre regiones puede expresarse directamente como conjunto de aristas cortadas.
+
+\subsection{De datos SODCL a particiones observadas}
+
+Para cada díada $d$ y cada jugador $x \in \{1,2\}$ se define la frecuencia acumulada de visitas a la celda $v$ como
+\begin{equation}
+f_x^{(d,t)}(v)=\sum_{r \le t} a_{xrv},
+\end{equation}
+donde $a_{xrv}=1$ si el jugador $x$ visitó la celda $v$ en la ronda $r$ y $0$ en otro caso. La partición observada acumulada hasta la ronda $t$ se define por dominancia de frecuencias:
+\begin{equation}
+S_{\mathrm{obs}}^{(d,t)}=\{v \in V : f_1^{(d,t)}(v) > f_2^{(d,t)}(v)\}.
+\end{equation}
+Para el análisis estático principal se tomará la ventana tardía del experimento, esto es, las rondas $40$ a $60$, con el fin de aislar el comportamiento una vez la coordinación ya emergió. En ese caso se usa la versión agregada
+\begin{equation}
+S_{\mathrm{obs}}^{(d)}=\{v \in V : f_1^{(d)}(v) > f_2^{(d)}(v)\},
+\end{equation}
+donde $f_x^{(d)}$ acumula únicamente rondas tardías.
+
+\subsection{Clasificación de díadas y escalas de análisis}
+
+Las díadas se clasifican según la variable categórica del dataset en la fase tardía:
+\begin{itemize}
+    \item \textbf{LR}: aparecen simultáneamente las categorías LEFT y RIGHT.
+    \item \textbf{TB}: aparecen simultáneamente las categorías TOP y BOTTOM.
+    \item \textbf{MIXED}: cualquier otro patrón.
+\end{itemize}
+Las categorías LR y TB representan divisiones focales claras; el grupo MIXED funciona como control de particiones difusas o inestables. El modelamiento se estudiará en dos escalas: una escala estática tardía para comparar eficiencia final y una escala temporal para describir la trayectoria de aprendizaje desde la ronda 1 hasta la 60.
+
+\subsection{Métricas de evaluación}
+
+Para cada díada se calcularán las siguientes métricas:
+\begin{itemize}
+    \item \textbf{Conductancia observada} $h(S_{\mathrm{obs}})$.
+    \item \textbf{Ratio de eficiencia espectral}
+    \begin{equation}
+    \eta_d=\frac{h(S_{\mathrm{Fiedler}})}{h(S_{\mathrm{obs}}^{(d)})}.
+    \end{equation}
+    Si $\eta_d > 1$, la partición humana mejora al baseline espectral ingenuo.
+    \item \textbf{Gap de Cheeger}
+    \begin{equation}
+    \Delta_d=h(S_{\mathrm{obs}}^{(d)})-\frac{\mu_2}{2}.
+    \end{equation}
+    \item \textbf{Especialización informacional}: $I(X;Y)$ y $\mathrm{JSD}(p_1,p_2)$.
+\end{itemize}
+
+% ============================================================================
+\section{Solución Propuesta}
+% ============================================================================
+
+\subsection{Baseline 1: bisección de Fiedler ingenua}
+
+El primer baseline consiste en aplicar la descomposición espectral estándar al Laplaciano $L$ y construir la bisección
+\begin{equation}
+S_{\mathrm{Fiedler}}=\{v : v_2(v)\ge \mathrm{mediana}(v_2)\}.
+\end{equation}
+Este baseline es el análogo directo del particionamiento espectral clásico y sirve como referencia mínima para responder si las divisiones humanas se aproximan al óptimo espectral o no. Su limitación es que ignora la degeneración del eigenespacio cuando $\lambda_2$ tiene multiplicidad mayor que uno.
+
+\subsection{Baseline 2: resolución symmetry-aware del eigenespacio degenerado}
+
+El segundo baseline explota explícitamente la estructura bidimensional del eigenespacio de Fiedler. Si $\{v_2,v_3\}$ es una base ortonormal de dicho espacio, se consideran combinaciones lineales
+\begin{equation}
+u(\theta)=\cos(\theta)v_2+\sin(\theta)v_3, \qquad \theta \in [0,\pi).
+\end{equation}
+La idea es explorar las direcciones relevantes dentro del eigenespacio para identificar cortes axis-aligned. En la práctica, esto puede implementarse de dos formas equivalentes:
+\begin{itemize}
+    \item construir directamente las combinaciones $w_{\mathrm{TB}}=(v_2+v_3)/\sqrt{2}$ y $w_{\mathrm{LR}}=(v_2-v_3)/\sqrt{2}$;
+    \item realizar un barrido angular fino sobre $u(\theta)$ y escoger la menor conductancia observada.
+\end{itemize}
+Este baseline symmetry-aware no reemplaza al baseline ingenuo; lo contextualiza. Si los humanos mejoran al método ingenuo pero coinciden con la mejor dirección encontrada dentro del eigenespacio degenerado, la conclusión correcta no es que ``vencen al espectro'', sino que resuelven una ambigüedad geométrica que el algoritmo estándar deja abierta.
+
+\subsection{Comparación con particiones humanas}
+
+La solución computacional completa sigue el siguiente pipeline:
+\begin{enumerate}
+    \item construir el grafo del tablero y su Laplaciano;
+    \item calcular $\lambda_2$, el eigenespacio de Fiedler y los baselines espectrales;
+    \item extraer $S_{\mathrm{obs}}^{(d)}$ para cada díada a partir de frecuencias acumuladas;
+    \item calcular $h(S_{\mathrm{obs}}^{(d)})$, $\eta_d$, $\Delta_d$ y conectividad de los subgrafos inducidos;
+    \item comparar grupos LR/TB frente a MIXED mediante resúmenes estadísticos y pruebas de hipótesis;
+    \item repetir el análisis en escala temporal usando $S_{\mathrm{obs}}^{(d,t)}$.
+\end{enumerate}
+El resultado esperado es una caracterización de tres niveles: calidad geométrica del corte, tipo de división espacial y momento temporal en el que cada díada cruza o no el umbral del baseline espectral.
+
+\subsection{Extensión entrópica}
+
+La extensión informacional se incorporará como una segunda capa de análisis, no como sustituto de la conductancia. La conductancia responde si una partición tiene poca frontera; la información mutua y la divergencia Jensen-Shannon responden si la asignación espacial entre jugadores es nítida.
+
+Formalmente, para cada díada $d$ se calcularán:
+\begin{equation}
+I_d = I(X;Y), \qquad J_d = \mathrm{JSD}(p_1,p_2).
+\end{equation}
+La hipótesis es doble:
+\begin{itemize}
+    \item las díadas LR/TB tendrán valores altos de $I_d$ y $J_d$, porque cada celda aporta mucha información sobre qué jugador la visita;
+    \item $I_d$ y $J_d$ estarán positivamente asociados con $\eta_d$, de modo que particiones espectralmente eficientes también serán particiones informacionalmente especializadas.
+\end{itemize}
+Esta extensión permite articular una lectura más fuerte del fenómeno: las díadas humanas no solo reducen frontera en el grafo, sino que construyen territorios de exploración distinguibles desde la teoría de la información.
+
+% ============================================================================
+\section{Aporte Esperado}
+% ============================================================================
+
+El aporte esperado de este proyecto es conceptual y metodológico. Conceptualmente, busca mostrar que en un problema de coordinación sin comunicación explícita la simetría del entorno puede inducir ambigüedad espectral, y que las díadas humanas con divisiones claras tienden a alinearse con direcciones geométricamente privilegiadas dentro de ese espacio ambiguo. Metodológicamente, propone una comparación en dos capas: una capa espectral basada en conductancia, degeneración y referencia de Cheeger, y una capa informacional basada en entropía, información mutua y divergencia Jensen-Shannon. Si ambas capas convergen en la misma conclusión, el proyecto ofrecerá evidencia de que la división del trabajo humano puede entenderse como una forma de ruptura de simetría espacial.
+
+% ============================================================================
+\bibliographystyle{IEEEtran}
+\begin{thebibliography}{10}
+
+\bibitem{andrade2021}
+E. Andrade-Lotero and R. L. Goldstone, ``Self-organized division of cognitive labor,'' \textit{PLOS ONE}, vol. 16, no. 7, p. e0254532, Jul. 2021.
+
+\bibitem{chung1997}
+F. R. K. Chung, \textit{Spectral Graph Theory}. Providence, RI: American Mathematical Society, 1997.
+
+\bibitem{fiedler1973}
+M. Fiedler, ``Algebraic connectivity of graphs,'' \textit{Czechoslovak Mathematical Journal}, vol. 23, no. 2, pp. 298--305, 1973.
+
+\bibitem{mesbahi2010}
+M. Mesbahi and M. Egerstedt, \textit{Graph Theoretic Methods in Multiagent Networks}. Princeton, NJ: Princeton University Press, 2010.
+
+\bibitem{vonluxburg2007}
+U. von Luxburg, ``A tutorial on spectral clustering,'' \textit{Statistics and Computing}, vol. 17, no. 4, pp. 395--416, Dec. 2007.
+
+\bibitem{cheeger1970}
+J. Cheeger, ``A lower bound for the smallest eigenvalue of the Laplacian,'' in \textit{Problems in Analysis}, Princeton, NJ: Princeton University Press, 1970, pp. 195--199.
+
+\bibitem{mohar1991}
+B. Mohar, ``The Laplacian spectrum of graphs,'' in \textit{Graph Theory, Combinatorics, and Applications}, vol. 2, Y. Alavi et al., Eds. New York: Wiley, 1991, pp. 871--898.
+
+\bibitem{hammack2011}
+R. Hammack, W. Imrich, and S. Klav\v{z}ar, \textit{Handbook of Product Graphs}, 2nd ed. Boca Raton, FL: CRC Press, 2011.
+
+\bibitem{cover2006}
+T. M. Cover and J. A. Thomas, \textit{Elements of Information Theory}, 2nd ed. Hoboken, NJ: Wiley, 2006.
+
+\bibitem{lin1991}
+J. Lin, ``Divergence measures based on the Shannon entropy,'' \textit{IEEE Transactions on Information Theory}, vol. 37, no. 1, pp. 145--151, Jan. 1991.
+
+\end{thebibliography}
+
+\end{document}

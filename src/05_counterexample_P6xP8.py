@@ -77,6 +77,14 @@ def compute_laplacian(A):
     return L, D, degrees
 
 
+def compute_normalized_laplacian(A):
+    """Calcula L_norm = D^(-1/2) L D^(-1/2)."""
+    degrees = np.sum(A, axis=1)
+    D_inv_sqrt = np.diag(1.0 / np.sqrt(degrees))
+    L = np.diag(degrees) - A
+    return D_inv_sqrt @ L @ D_inv_sqrt
+
+
 def spectral_analysis(L):
     """Eigendescomposicion completa del Laplaciano."""
     eigenvalues, eigenvectors = linalg.eigh(L)
@@ -208,10 +216,14 @@ def analyze_grid(rows, cols):
     print(f"    Aristas de corte = {cut_edges}")
     print(f"    h(S_Fiedler) = {h_opt:.6f}")
 
-    # Cheeger
-    cheeger_lower = lambda2 / 2
-    cheeger_upper = np.sqrt(2 * lambda2)
-    print(f"\n  Cheeger: {cheeger_lower:.6f} <= h(G) <= {cheeger_upper:.6f}")
+    # Cheeger con Laplaciano normalizado
+    L_norm = compute_normalized_laplacian(A)
+    evals_norm, _ = linalg.eigh(L_norm)
+    lambda2_norm = np.sort(evals_norm)[1]
+    cheeger_lower = lambda2_norm / 2
+    cheeger_upper = np.sqrt(2 * lambda2_norm)
+    print(f"\n  Cheeger (Laplaciano normalizado):")
+    print(f"    {cheeger_lower:.6f} <= h(G) <= {cheeger_upper:.6f}")
     print(f"    h(S_Fiedler) = {h_opt:.6f}")
 
     # Conectividad
@@ -219,33 +231,13 @@ def analyze_grid(rows, cols):
     sb_conn = is_connected(S_bar, A)
     print(f"    S conexo: {s_conn}, S' conexo: {sb_conn}")
 
-    # Derivacion analitica de eigenvalores via formula del strong product
-    # lambda(k,l) = mu_k + nu_l + mu_k * nu_l
-    # donde mu_k = 2(1 - cos(pi*k/n)) son eigenvalores del path P_n
-    print(f"\n  Verificacion analitica (formula del strong product):")
-    mu = [2 * (1 - np.cos(np.pi * k / rows)) for k in range(rows)]
-    nu = [2 * (1 - np.cos(np.pi * l / cols)) for l in range(cols)]
-
-    # lambda(1,0) y lambda(0,1)
-    lam_10 = mu[1] + nu[0] + mu[1] * nu[0]  # nu[0] = 0
-    lam_01 = mu[0] + nu[1] + mu[0] * nu[1]  # mu[0] = 0
-    lam_11 = mu[1] + nu[1] + mu[1] * nu[1]
-
-    print(f"    mu_1(P{rows}) = 2(1-cos(pi/{rows})) = {mu[1]:.8f}")
-    print(f"    nu_1(P{cols}) = 2(1-cos(pi/{cols})) = {nu[1]:.8f}")
-    print(f"    lambda(1,0) = mu_1 = {lam_10:.8f}")
-    print(f"    lambda(0,1) = nu_1 = {lam_01:.8f}")
-    print(f"    lambda(1,1) = mu_1 + nu_1 + mu_1*nu_1 = {lam_11:.8f}")
-
+    print(f"\n  Observacion estructural:")
     if rows == cols:
-        print(f"    >>> n=m => lambda(1,0) = lambda(0,1) = {lam_10:.8f} (DEGENERADO)")
+        print("    >>> La simetria cuadrada favorece degenerancia en el eigenspace de Fiedler")
     else:
-        print(f"    >>> n!=m => lambda(1,0) != lambda(0,1) (NO degenerado)")
-        print(f"    >>> El menor es lambda2 = {min(lam_10, lam_01):.8f}")
-        if lam_10 < lam_01:
-            print(f"    >>> Fiedler corresponde a corte HORIZONTAL (a lo largo de filas)")
-        else:
-            print(f"    >>> Fiedler corresponde a corte VERTICAL (a lo largo de columnas)")
+        print("    >>> Al romper la simetria cuadrada, el segundo autovalor se separa")
+        if lambda2 < lambda3:
+            print("    >>> La direccion de Fiedler queda esencialmente fijada por la geometria rectangular")
 
     return {
         'rows': rows,
@@ -264,9 +256,7 @@ def analyze_grid(rows, cols):
         'h_opt': h_opt,
         'cut_edges': cut_edges,
         'degrees': degrees,
-        'lam_10': lam_10,
-        'lam_01': lam_01,
-        'lam_11': lam_11,
+        'lambda2_norm': lambda2_norm,
     }
 
 
@@ -414,13 +404,10 @@ def print_summary_table(res_square, res_rect):
           f"{'Estandar':>15}")
     print(f"{'-'*65}")
 
-    # Eigenvalores analiticos
-    print(f"\n  Verificacion analitica (strong product):")
-    print(f"    P8⊠P8: lambda(1,0) = lambda(0,1) = {res_square['lam_10']:.6f}"
-          f"  =>  IGUALES (simetria D4)")
-    print(f"    P6⊠P8: lambda(1,0) = {res_rect['lam_10']:.6f}, "
-          f"lambda(0,1) = {res_rect['lam_01']:.6f}"
-          f"  =>  DISTINTOS")
+    # Conclusiones estructurales
+    print(f"\n  Observacion estructural:")
+    print("    P8⊠P8 presenta degenerancia por simetria cuadrada")
+    print("    P6⊠P8 rompe esa simetria y separa el segundo autovalor")
     print(f"\n  Conclusion: La degenerancia del eigenespacio de Fiedler es una")
     print(f"  consecuencia EXCLUSIVA de la simetria cuadrada (n = m).")
     print(f"  Cuando n != m, el Fiedler estandar basta.")
@@ -464,11 +451,9 @@ def main():
              rect_multiplicity=res_rect['multiplicity'],
              rect_h_fiedler=res_rect['h_opt'],
              rect_cut_edges=res_rect['cut_edges'],
-             # Analiticos
-             sq_lam_10=res_square['lam_10'],
-             sq_lam_01=res_square['lam_01'],
-             rect_lam_10=res_rect['lam_10'],
-             rect_lam_01=res_rect['lam_01'])
+             # Laplaciano normalizado
+             sq_lambda2_norm=res_square['lambda2_norm'],
+             rect_lambda2_norm=res_rect['lambda2_norm'])
 
     print(f"\nResultados guardados en: data/results/counterexample_P6xP8.npz")
 

@@ -1,0 +1,10 @@
+target,model,feature_set,n,loocv_r2,loocv_mae
+score_present,official_only,"DLIndex_mean,Similarity_mean,Consistency_mean",29,0.6542551458469577,7.215412563886037
+score_present,official_plus_h,"DLIndex_mean,Similarity_mean,Consistency_mean,h_obs",29,0.49674038543846666,8.260696560640703
+score_present,official_plus_eta,"DLIndex_mean,Similarity_mean,Consistency_mean,eta",29,0.574527187717038,7.946025124679078
+acc_present,official_only,"DLIndex_mean,Similarity_mean,Consistency_mean",29,0.6280526035126902,0.06910536058223542
+acc_present,official_plus_h,"DLIndex_mean,Similarity_mean,Consistency_mean,h_obs",29,0.4442110328323301,0.07889048761198192
+acc_present,official_plus_eta,"DLIndex_mean,Similarity_mean,Consistency_mean,eta",29,0.5136280569327702,0.07546714459780525
+joint_present,official_only,"DLIndex_mean,Similarity_mean,Consistency_mean",29,0.24709448624851515,1.5880183468432927
+joint_present,official_plus_h,"DLIndex_mean,Similarity_mean,Consistency_mean,h_obs",29,0.10293612834106469,1.760618682980575
+joint_present,official_plus_eta,"DLIndex_mean,Similarity_mean,Consistency_mean,eta",29,0.21155153919217407,1.6150911139842672
