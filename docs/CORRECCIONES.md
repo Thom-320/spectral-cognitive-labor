@@ -6,19 +6,19 @@
 
 ### 1. Rutas Hardcoded (Paths Incorrectos)
 
-**Problema:** Los scripts tenian rutas absolutas que apuntaban a `/home/claude/` en lugar del directorio correcto del proyecto.
+**Problema:** Los scripts tenian rutas absolutas que apuntaban a un directorio externo en lugar del directorio correcto del proyecto.
 
 **Archivos Corregidos:**
 
 - `00_spectral_grid.py`
-  - Linea 427: `np.savez('/home/claude/grafos_proyecto/spectral_results.npz', ...)` → `np.savez('spectral_results.npz', ...)`
-  - Linea 440: `save_path='/home/claude/grafos_proyecto/fiedler_grid.png'` → `save_path='fiedler_grid.png'`
-  - Linea 442: `save_path='/home/claude/grafos_proyecto/spectrum.png'` → `save_path='spectrum.png'`
+  - Linea 427: `np.savez('/ruta/absoluta/anterior/grafos_proyecto/spectral_results.npz', ...)` → `np.savez('spectral_results.npz', ...)`
+  - Linea 440: `save_path='/ruta/absoluta/anterior/grafos_proyecto/fiedler_grid.png'` → `save_path='fiedler_grid.png'`
+  - Linea 442: `save_path='/ruta/absoluta/anterior/grafos_proyecto/spectrum.png'` → `save_path='spectrum.png'`
 
 - `01_single_dyad_analysis.py`
-  - Linea 84: `pd.read_csv('/home/claude/performances.csv')` → `pd.read_csv('humans_only_absent.csv')`
-  - Linea 150: `np.load('/home/claude/grafos_proyecto/spectral_results.npz')` → `np.load('spectral_results.npz')`
-  - Linea 249: `plt.savefig('/home/claude/grafos_proyecto/dyad_435_261_analysis.png', ...)` → `plt.savefig('dyad_435_261_analysis.png', ...)`
+  - Linea 84: `pd.read_csv('/ruta/absoluta/anterior/performances.csv')` → `pd.read_csv('humans_only_absent.csv')`
+  - Linea 150: `np.load('/ruta/absoluta/anterior/grafos_proyecto/spectral_results.npz')` → `np.load('spectral_results.npz')`
+  - Linea 249: `plt.savefig('/ruta/absoluta/anterior/grafos_proyecto/dyad_435_261_analysis.png', ...)` → `plt.savefig('dyad_435_261_analysis.png', ...)`
 
 - `02_full_comparison.py`
   - ✓ Ya estaba correcto con rutas relativas
