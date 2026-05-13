@@ -1,90 +1,261 @@
-\documentclass[landscape]{article}
-\usepackage[paperwidth=42in,paperheight=24in,margin=0.65in]{geometry}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
+\documentclass{article}
+\usepackage[paperwidth=118.9cm,paperheight=84.1cm,margin=3.2cm]{geometry}
 \usepackage[spanish,es-noquoting]{babel}
-\usepackage{amsmath,amssymb}
+\usepackage{fontspec}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{unicode-math}
 \usepackage{graphicx}
 \usepackage{xcolor}
-\usepackage{multicol}
 \usepackage{booktabs}
+\usepackage{array}
+\usepackage{microtype}
+\usepackage{tikz}
 \pagestyle{empty}
 \graphicspath{{../figures/}}
 
-\definecolor{ink}{HTML}{17212B}
-\definecolor{accent}{HTML}{1F6F8B}
-\definecolor{soft}{HTML}{EEF6F8}
+\definecolor{paper}{HTML}{FAFAF8}
+\definecolor{ink}{HTML}{16161A}
+\definecolor{inkSoft}{HTML}{5A5A5E}
+\definecolor{rule}{HTML}{D8D6CF}
+\definecolor{urBlue}{HTML}{1A3A6E}
+\definecolor{urBurgundy}{HTML}{7A1F2B}
+\definecolor{chipBg}{HTML}{F0EEE6}
 
-\newcommand{\panel}[2]{%
-  \fcolorbox{accent}{soft}{%
-    \begin{minipage}[t]{0.31\textwidth}
-      {\color{accent}\LARGE\bfseries #1}\par\vspace{0.35cm}
-      \large #2
-      \vspace{0.35cm}
-    \end{minipage}}
-}
+\setmainfont{STIX Two Text}
+\setsansfont{Helvetica}
+\setmathfont{STIX Two Math}
+
+\newcommand{\cut}{\mathrm{cut}}
+\newcommand{\vol}{\mathrm{vol}}
+\newcommand{\Sobs}{S_{\mathrm{obs}}}
+
+\newcommand{\eyebrow}[1]{%
+  {\color{urBlue}\rule{1.1cm}{2.4pt}}\quad
+  {\sffamily\bfseries\fontsize{16}{20}\selectfont\color{urBlue}\MakeUppercase{#1}}\par\vspace{0.16cm}}
+
+\newcommand{\blocktitle}[1]{%
+  {\sffamily\bfseries\fontsize{31}{37}\selectfont\color{ink}#1\par}
+  \vspace{0.14cm}{\color{rule}\rule{\linewidth}{0.9pt}}\vspace{0.34cm}}
+
+\newcommand{\captiontext}[1]{%
+  {\sffamily\fontsize{14.5}{18.5}\selectfont\color{inkSoft}#1\par}}
+
+\newcommand{\bodytext}[1]{%
+  {\sffamily\fontsize{18.5}{24}\selectfont\color{ink}#1\par}}
+
+\newcommand{\softtext}[1]{%
+  {\sffamily\fontsize{15.5}{20.5}\selectfont\color{inkSoft}#1\par}}
+
+\newcommand{\figbox}[2]{%
+  \fcolorbox{rule}{white}{%
+    \begin{minipage}{#1}
+      \centering
+      \includegraphics[width=\linewidth]{#2}
+    \end{minipage}}}
+
+\newcommand{\resultrow}[3]{#1 & #2 & #3\\}
 
 \begin{document}
+\pagecolor{paper}
 \color{ink}
 
-\begin{center}
-{\Huge\bfseries Ruptura de Simetría y Predicción Temprana de Especialización Axial}\\[0.25cm]
-{\LARGE \emph{Seeking the Unicorn} como problema de teoría de grafos}\\[0.15cm]
-{\Large Thomas Chisica · Universidad del Rosario · Teoría de Grafos 2026-I · Entrega final Codex}
-\end{center}
+\begin{tikzpicture}[remember picture,overlay]
+  \fill[urBlue] (current page.north west) rectangle ([yshift=-0.55cm]current page.north east);
+\end{tikzpicture}
 
-\vspace{0.45cm}
-
-\panel{Pregunta}{
-Dos jugadores exploran una grilla $8\times8$ sin comunicación. El trabajo pregunta si la geometría del tablero ayuda a explicar y anticipar la aparición de roles espaciales axiales.
-}
-\hfill
-\panel{Modelo}{
-El tablero con conectividad de rey se modela como $P_8\boxtimes P_8$: 64 vértices y 210 aristas. Su simetría cuadrada induce $\lambda_2=\lambda_3\approx0{,}4164$.
-}
-\hfill
-\panel{Herramienta}{
-Pipeline reproducible en Python: construcción del grafo, análisis espectral, particiones humanas, conductancia, MI/JSD, robustez temporal y predicción temprana.
-}
-
-\vspace{0.55cm}
-
-\begin{minipage}[t]{0.32\textwidth}
-{\color{accent}\Huge\bfseries Resultado estructural}\par
-\vspace{0.25cm}
-\includegraphics[width=\textwidth]{counterexample_P6xP8.png}
-\large
-El caso cuadrado produce un eigenespacio de Fiedler degenerado; al pasar a un rectángulo, la degeneración se rompe. Esto explica por qué un único vector de Fiedler no es un baseline canónico.
+% Header
+\noindent
+\begin{minipage}[t]{0.20\textwidth}
+  \vspace{0.55cm}
+  {\sffamily\bfseries\fontsize{20}{25}\selectfont Teoría de Grafos · 2026-I\par}
+  \softtext{Universidad del Rosario · MACC}
+  \softtext{Prof. Daniel Alfonso Bojacá Torres}
 \end{minipage}
 \hfill
-\begin{minipage}[t]{0.32\textwidth}
-{\color{accent}\Huge\bfseries Separación axial/mixta}\par
-\vspace{0.25cm}
-\includegraphics[width=\textwidth]{andrade_summary.png}
-\large
-En el set primario, 21 díadas axiales tienen menor conductancia y mayor especialización informacional que 8 díadas mixtas. El resultado es fuerte descriptivamente, pero parcial.
+\begin{minipage}[t]{0.58\textwidth}
+  \centering
+  {\sffamily\bfseries\fontsize{70}{78}\selectfont Ruptura de simetría y especialización axial\par}
+  {\rmfamily\itshape\fontsize{58}{65}\selectfont en Seeking the Unicorn\par}
+  \vspace{0.75cm}
+  {\sffamily\fontsize{28}{34}\selectfont Thomas Chisica · Juan Sebastián Mora · Ángel Amaya · Sara Figueredo Laserna\par}
+  \vspace{0.35cm}
+  {\sffamily\fontsize{20}{26}\selectfont\color{inkSoft}Entrega final · 45 díadas · 60 rondas · Andrade-Lotero \& Goldstone (2021)\par}
 \end{minipage}
 \hfill
-\begin{minipage}[t]{0.32\textwidth}
-{\color{accent}\Huge\bfseries Predicción temprana}\par
-\vspace{0.25cm}
-\includegraphics[width=\textwidth]{early_prediction_summary.png}
-\large
-Con las primeras cinco rondas ausentes, la señal geométrica alcanza AUC LOOCV $0{,}804$; métricas oficiales tempranas, $0{,}736$; modelo combinado, $0{,}860$.
+\begin{minipage}[t]{0.16\textwidth}
+  \vspace{0.45cm}
+  \raggedleft
+  {\rmfamily\itshape\fontsize{34}{40}\selectfont\color{urBurgundy}Universidad\par del Rosario\par}
+  \vspace{0.25cm}
+  {\sffamily\fontsize{13}{16}\selectfont\color{inkSoft}MACC · Bogotá · 2026-I\par}
 \end{minipage}
 
-\vspace{0.65cm}
+\vspace{1.0cm}
+{\color{rule}\rule{\linewidth}{1.1pt}}
+\vspace{0.9cm}
 
-\begin{minipage}[t]{0.48\textwidth}
-{\color{accent}\Huge\bfseries Conclusión}\par
-\Large
-La contribución no es afirmar que los humanos optimizan conductancia. La contribución es mostrar que la simetría del grafo induce direcciones axiales privilegiadas y que una señal temprana de alineación geométrica ayuda a anticipar la especialización posterior.
+% Question
+\noindent
+\eyebrow{Pregunta central}
+{\sffamily\fontsize{38}{47}\selectfont
+¿Cuál es la referencia espectral correcta para comparar particiones humanas cuando el tablero cuadrado induce un eigenespacio de Fiedler degenerado, y puede una señal geométrica temprana anticipar la especialización axial estable?\par}
+\vspace{0.35cm}
+\softtext{Dos jugadores sin comunicación exploran una grilla $8\times8$. El análisis se concentra en rondas ausentes para particiones y usa la tabla completa para transferencia descriptiva a desempeño.}
+
+\vspace{1.25cm}
+
+% Main row
+\noindent
+\begin{minipage}[t]{0.315\textwidth}
+  \eyebrow{Modelo}
+  \blocktitle{Tablero como producto fuerte $P_8\boxtimes P_8$}
+
+  \bodytext{$|V|=64$ celdas · $|E|=210$ aristas · conectividad de rey.}
+  \vspace{0.35cm}
+  {\rmfamily\fontsize{36}{43}\selectfont
+  \[
+    G=P_8\boxtimes P_8,\qquad L=D-A
+  \]
+  \[
+    \lambda_2=\lambda_3\approx0{,}4164
+  \]
+  }
+
+  \figbox{\linewidth}{fiedler_grid.png}
+  \vspace{0.35cm}
+  \captiontext{\textbf{Fig. 1.} Vector de Fiedler y bisección ingenua. La degeneración hace que un único autovector no sea referencia canónica.}
+
+  \vspace{0.65cm}
+  {\rmfamily\fontsize{31}{38}\selectfont
+  \[
+    u_\theta=\cos(\theta)v_2+\sin(\theta)v_3,\quad \theta\in[0,\pi)
+  \]
+  \[
+    g_d=\max\{|\langle\tilde m,a_{\mathrm{LR}}\rangle|,\;|\langle\tilde m,a_{\mathrm{TB}}\rangle|\}
+  \]
+  }
+  \softtext{$g_d$ resume la alineación temprana del margen de visitas con plantillas axiales LR/TB.}
 \end{minipage}
 \hfill
-\begin{minipage}[t]{0.48\textwidth}
-{\color{accent}\Huge\bfseries Trabajo futuro}\par
-\Large
-La predicción experimental natural es romper la simetría: tableros rectangulares u obstáculos deberían reducir la ambigüedad LR/TB y cambiar la distribución de convenciones humanas.
+\begin{minipage}[t]{0.315\textwidth}
+  \eyebrow{Separación}
+  \blocktitle{Las díadas axiales separan limpiamente el tablero}
+
+  \figbox{\linewidth}{spectral_comparison_summary.png}
+  \vspace{0.35cm}
+  \captiontext{\textbf{Fig. 2.} Conductancia, eficiencia espectral, relación con $DLIndex$ y métricas informacionales.}
+
+  \vspace{0.55cm}
+  {\sffamily\fontsize{25}{31}\selectfont
+  \begin{tabular}{@{}lcc@{}}
+    \toprule
+    Métrica & Axial $(n=21)$ & Mixta $(n=8)$\\
+    \midrule
+    \resultrow{$h(\Sobs)$}{0,142}{0,714}
+    \resultrow{$\eta=h_F/h_{\mathrm{obs}}$}{1,12}{0,20}
+    \resultrow{$DLIndex$}{0,919}{0,514}
+    \resultrow{MI}{0,839}{0,260}
+    \resultrow{JSD}{0,842}{0,284}
+    \bottomrule
+  \end{tabular}}
+
+  \vspace{0.65cm}
+  \noindent
+  \fcolorbox{urBurgundy}{paper}{%
+    \begin{minipage}{0.94\linewidth}
+      \vspace{0.35cm}
+      {\sffamily\bfseries\fontsize{29}{35}\selectfont\color{urBurgundy}Mann--Whitney: $p=3{,}07\times10^{-5}$\par}
+      \vspace{0.15cm}
+      \softtext{Conjunto primario de conductancia: 29 díadas. La separación axial/mixta es fuerte, pero describe una subfamilia del fenómeno SODCL.}
+      \vspace{0.30cm}
+    \end{minipage}}
+
+  \vspace{0.75cm}
+  \figbox{\linewidth}{counterexample_P6xP8.png}
+  \vspace{0.35cm}
+  \captiontext{\textbf{Fig. 3.} En el contraejemplo rectangular $P_6\boxtimes P_8$, $\lambda_2=0{,}4041$ y $\lambda_3=0{,}7288$: el segundo autovalor es simple.}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.315\textwidth}
+  \eyebrow{Predicción}
+  \blocktitle{La geometría temprana anticipa la cristalización axial}
+
+  \figbox{\linewidth}{early_prediction_summary.png}
+  \vspace{0.35cm}
+  \captiontext{\textbf{Fig. 4.} Señal temprana, AUC por modelo y transferencia descriptiva a desempeño.}
+
+  \vspace{0.65cm}
+  \noindent
+  \colorbox{chipBg}{%
+    \begin{minipage}{0.96\linewidth}
+      \vspace{0.6cm}
+      {\sffamily\bfseries\fontsize{20}{25}\selectfont\color{urBlue}\MakeUppercase{Hallazgo principal}\par}
+      \vspace{0.3cm}
+      {\sffamily\fontsize{27}{34}\selectfont AUC LOOCV para orientación axial estable\par}
+      \vspace{0.25cm}
+      {\sffamily\bfseries\fontsize{115}{120}\selectfont\color{urBurgundy}0,860\par}
+      \vspace{0.25cm}
+      \bodytext{Modelo combinado: $g_d$ + métricas oficiales. $n=45$ díadas.}
+      \vspace{0.45cm}
+      {\sffamily\fontsize{23}{30}\selectfont
+      \begin{tabular}{@{}lc@{}}
+        $g_d$ sola & 0,804\\
+        Oficiales $(DLI, Sim, Cons)$ & 0,736\\
+        \textbf{Combinado} & \textbf{0,860}\\
+      \end{tabular}}
+      \vspace{0.55cm}
+    \end{minipage}}
+
+  \vspace{0.7cm}
+  \eyebrow{Límite honesto}
+  \bodytext{La conductancia tardía no reemplaza las métricas originales: $\eta$ y $DLIndex$ están fuertemente correlacionados.}
+  \vspace{0.25cm}
+  {\rmfamily\fontsize{42}{50}\selectfont\color{urBlue}
+  \[
+    \rho_{\mathrm{Spearman}}=0{,}894,\qquad p=6{,}23\times10^{-11}
+  \]
+  }
+  \softtext{La transferencia a desempeño es descriptiva, no causal. El modelo bipartito explica bien estrategias axiales, no todas las categorías del experimento.}
+\end{minipage}
+
+\vspace{1.15cm}
+{\color{rule}\rule{\linewidth}{1.1pt}}
+\vspace{0.75cm}
+
+% Conclusions
+\noindent
+\eyebrow{Conclusión}
+\begin{minipage}[t]{0.31\textwidth}
+  {\sffamily\bfseries\fontsize{28}{34}\selectfont 01 · Degeneración estructural\par}
+  \bodytext{La igualdad $\lambda_2=\lambda_3$ impide elegir un único Fiedler. La familia $S_\theta$ corrige la referencia espectral en la grilla cuadrada.}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.31\textwidth}
+  {\sffamily\bfseries\fontsize{28}{34}\selectfont 02 · Predicción temprana\par}
+  \bodytext{$g_d$ sola ya predice orientación axial estable; el modelo combinado alcanza AUC LOOCV $0{,}860$.}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.31\textwidth}
+  {\sffamily\bfseries\fontsize{28}{34}\selectfont 03 · Siguiente paso\par}
+  \bodytext{Romper la simetría con rectángulos u obstáculos permitiría evaluar causalmente si cambia la distribución de convenciones humanas.}
+\end{minipage}
+
+\vfill
+{\color{rule}\rule{\linewidth}{1.1pt}}
+\vspace{0.3cm}
+\noindent
+\begin{minipage}[t]{0.74\textwidth}
+  {\sffamily\fontsize{15}{20}\selectfont\color{inkSoft}
+  [1] E. Andrade-Lotero y R. L. Goldstone, ``Self-organized division of cognitive labor,'' \emph{PLOS ONE}, 2021.
+  \quad [2] M. Fiedler, ``Algebraic connectivity of graphs,'' \emph{Czechoslovak Mathematical Journal}, 1973.
+  \quad [3] F. R. K. Chung, \emph{Spectral Graph Theory}, AMS, 1997.
+  \quad [4] R. Hammack, W. Imrich y S. Klav\v{z}ar, \emph{Handbook of Product Graphs}, CRC, 2011.}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.23\textwidth}
+  \raggedleft
+  {\sffamily\bfseries\fontsize{16}{20}\selectfont Thomas Chisica · J. S. Mora · Ángel Amaya · S. Figueredo Laserna\par}
+  {\sffamily\fontsize{14}{19}\selectfont\color{inkSoft}Repositorio: github.com/Thom-320/spectral-cognitive-labor\par}
 \end{minipage}
 
 \end{document}
