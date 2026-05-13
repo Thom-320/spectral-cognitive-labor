@@ -1,0 +1,450 @@
+\documentclass[aspectratio=169,11pt]{beamer}
+\usetheme{default}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage[spanish,es-noquoting]{babel}
+\usepackage{fontspec}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{unicode-math}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{microtype}
+
+\graphicspath{{../figures/}}
+
+\definecolor{urBg}{HTML}{FAFAF8}
+\definecolor{urInk}{HTML}{16161A}
+\definecolor{urMid}{HTML}{5A5A5E}
+\definecolor{urRule}{HTML}{D8D6CF}
+\definecolor{urBlue}{HTML}{1A3A6E}
+\definecolor{urBurgundy}{HTML}{7A1F2B}
+\definecolor{urCard}{HTML}{FFFFFF}
+
+\setmainfont{STIX Two Text}
+\setsansfont{Helvetica}
+\setmathfont{STIX Two Math}
+
+\setbeamercolor{background canvas}{bg=urBg}
+\setbeamercolor{normal text}{fg=urInk,bg=urBg}
+\setbeamercolor{frametitle}{fg=urInk,bg=urBg}
+\setbeamerfont{normal text}{size=\normalsize}
+\setbeamerfont{frametitle}{family=\rmfamily,size=\Large,series=\mdseries}
+\setbeamerfont{footline}{family=\sffamily,size=\scriptsize}
+\setbeamersize{text margin left=0.58cm,text margin right=0.58cm}
+
+\newcommand{\cut}{\mathrm{cut}}
+\newcommand{\vol}{\mathrm{vol}}
+\newcommand{\Sobs}{S_{\mathrm{obs}}}
+\newcommand{\currentspeaker}{Thomas Chisica}
+
+\newcommand{\eyebrow}[2][urMid]{%
+  {\sffamily\fontsize{7.8pt}{9pt}\selectfont\color{#1}\MakeUppercase{#2}}\par\vspace{0.35em}}
+
+\newcommand{\slidetitle}[2][urInk]{%
+  {\rmfamily\fontsize{20.5pt}{23pt}\selectfont\color{#1}#2\par}%
+  \vspace{0.18em}{\color{urBlue}\rule{2.35cm}{1.25pt}}\par\vspace{0.48em}}
+
+\newcommand{\burgtitle}[1]{%
+  {\rmfamily\fontsize{20.5pt}{23pt}\selectfont\color{urBurgundy}#1\par}%
+  \vspace{0.18em}{\color{urBurgundy}\rule{2.35cm}{1.25pt}}\par\vspace{0.48em}}
+
+\newcommand{\lede}[1]{%
+  {\rmfamily\fontsize{14.8pt}{17.5pt}\selectfont\color{urInk}#1\par}}
+
+\newcommand{\smallcaption}[1]{%
+  {\rmfamily\itshape\fontsize{8.6pt}{10pt}\selectfont\color{urMid}#1\par}}
+
+\newcommand{\figcard}[2]{%
+  \begin{beamercolorbox}[wd=\linewidth,sep=0.7ex,rounded=false,shadow=false]{figurecard}
+    \centering\includegraphics[width=#1\linewidth]{#2}
+  \end{beamercolorbox}}
+
+\newcommand{\bignum}[2]{%
+  {\sffamily\scriptsize\color{urMid}\MakeUppercase{#1}}\par
+  {\rmfamily\fontsize{29pt}{31pt}\selectfont\color{urBlue}#2\par}}
+
+\setbeamercolor{figurecard}{bg=urCard,fg=urInk}
+
+\setbeamertemplate{itemize item}{\color{urBlue}\raisebox{0.2ex}{\tiny$\blacktriangleright$}}
+\setbeamertemplate{itemize subitem}{\color{urMid}\tiny$\bullet$}
+\setbeamercolor{itemize item}{fg=urBlue}
+
+\setbeamertemplate{footline}{%
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=.35\paperwidth,ht=2.8ex,dp=1.1ex,leftskip=0.8cm]{footline}%
+      \color{urInk}\currentspeaker%
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=.65\paperwidth,ht=2.8ex,dp=1.1ex,rightskip=0.8cm]{footline}%
+      \hfill\color{urMid}Universidad del Rosario · MACC · Teoría de Grafos · 2026-I · {\color{urBlue}\insertframenumber/12}%
+    \end{beamercolorbox}%
+  }%
+}
+
+\title{Ruptura de simetría y predicción temprana de especialización axial en \emph{Seeking the Unicorn}}
+\subtitle{\texorpdfstring{Un reanálisis espectral del paradigma SODCL sobre el producto fuerte $P_8 \boxtimes P_8$}{Un reanalisis espectral del paradigma SODCL sobre el producto fuerte P8 x P8}}
+\author{Thomas Chisica \and Juan Sebastián Mora \and Ángel Amaya \and Sara Figueredo Laserna}
+\institute{Universidad del Rosario · MACC · Teoría de Grafos 2026-I\\Profesor: Daniel Alfonso Bojacá Torres}
+\date{Defensa final · Semana 17}
+
+\begin{document}
+
+% 1
+\renewcommand{\currentspeaker}{Thomas Chisica}
+\begin{frame}[plain]
+  \vspace{1.0cm}
+  {\sffamily\scriptsize\color{urMid}\MakeUppercase{Proyecto final · Teoría de Grafos}}\par
+  \vspace{0.35cm}
+  {\rmfamily\fontsize{29pt}{33pt}\selectfont\color{urInk}
+  Ruptura de simetría y predicción temprana de especialización axial en \emph{Seeking the Unicorn}\par}
+  \vspace{0.25cm}
+  {\color{urBlue}\rule{4.2cm}{1.6pt}}\par
+  \vspace{0.45cm}
+  {\rmfamily\fontsize{15pt}{18pt}\selectfont
+  Un reanálisis espectral del paradigma SODCL sobre $P_8 \boxtimes P_8$\par}
+  \vfill
+  \begin{columns}[t,onlytextwidth]
+    \column{0.48\textwidth}
+    {\sffamily\small\color{urMid}Equipo}\par
+    Thomas Chisica · Juan Sebastián Mora\par
+    Ángel Amaya · Sara Figueredo Laserna
+    \column{0.48\textwidth}
+    {\sffamily\small\color{urMid}Curso}\par
+    Universidad del Rosario · MACC\par
+    Profesor: Daniel Alfonso Bojacá Torres\par
+    Bogotá · 2026-I
+  \end{columns}
+  \note[item]{Saludo y presentación del equipo.}
+  \note[item]{Tema: simetría espectral en SODCL.}
+  \note[item]{Duración aproximada: 12 minutos, cuatro turnos.}
+\end{frame}
+
+% 2
+\renewcommand{\currentspeaker}{Thomas Chisica}
+\begin{frame}[t]
+  \eyebrow{§ 01 · Contexto experimental}
+  \slidetitle{El paradigma \emph{Seeking the Unicorn}}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.43\textwidth}
+      \lede{Dos personas exploran un tablero $8\times8$ sin comunicarse. ¿Cómo se dividen el trabajo?}
+      \vspace{1.0em}
+      \begin{itemize}
+        \item Tarea pública de Andrade-Lotero y Goldstone.
+        \item 45 díadas, 60 rondas, presentes y ausentes.
+        \item La división espacial emerge sin instrucción.
+      \end{itemize}
+    \column{0.51\textwidth}
+      \centering
+      \begin{tikzpicture}[scale=0.46]
+        \foreach \x in {0,...,7}
+          \foreach \y in {0,...,7}
+            \draw[urRule, thin] (\x,\y) rectangle (\x+1,\y+1);
+        \draw[urInk, thick] (0,0) rectangle (8,8);
+        \fill[urBlue] (0.5,7.5) circle (0.32);
+        \fill[urBurgundy] (7.5,0.5) circle (0.32);
+        \node[text=urBlue,font=\sffamily\scriptsize] at (0.5,8.55) {Jugador 1};
+        \node[text=urBurgundy,font=\sffamily\scriptsize] at (7.5,-0.55) {Jugador 2};
+      \end{tikzpicture}
+      \vspace{0.2em}
+      \smallcaption{El tablero induce un problema geométrico de cobertura y coordinación.}
+  \end{columns}
+  \note[item]{Búsqueda simultánea, sin canal explícito.}
+  \note[item]{Pregunta geométrica de coordinación.}
+  \note[item]{El fenómeno ya fue documentado por SODCL.}
+\end{frame}
+
+% 3
+\renewcommand{\currentspeaker}{Thomas Chisica}
+\begin{frame}[t]
+  \eyebrow{§ 02 · Modelo de grafo}
+  \slidetitle{El tablero como producto fuerte $P_8 \boxtimes P_8$}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.43\textwidth}
+      \[
+        G=P_8\boxtimes P_8,\qquad L=D-A
+      \]
+      \[
+        0=\lambda_1\le \lambda_2\le\cdots\le\lambda_n
+      \]
+      \vspace{0.4em}
+      \begin{itemize}
+        \item $|V|=64$ celdas.
+        \item $|E|=210$ aristas.
+        \item Grados: 3, 5 y 8.
+        \item Vecindad de rey: $d_\infty(u,v)=1$.
+      \end{itemize}
+    \column{0.53\textwidth}
+      \figcard{1.0}{fiedler_grid.png}
+      \smallcaption{Vector $v_2$ y bisección $S_{\mathrm{Fiedler}}$ sobre $P_8\boxtimes P_8$.}
+  \end{columns}
+  \note[item]{Producto fuerte captura adyacencia de rey.}
+  \note[item]{$|V|=64$ y $|E|=210$.}
+  \note[item]{Sobre $G$ definimos Laplaciano y espectro.}
+\end{frame}
+
+% 4
+\renewcommand{\currentspeaker}{Juan Sebastián Mora}
+\begin{frame}[t]
+  \eyebrow[urBurgundy]{§ 03 · Obstáculo espectral}
+  \burgtitle{El eigenespacio de Fiedler es degenerado}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.40\textwidth}
+      {\color{urBurgundy}
+      \[
+        \lambda_2=\lambda_3\approx0{,}4164
+      \]
+      \[
+        \mathcal{E}_2=\mathrm{span}\{v_2,v_3\}\subset\mathbb{R}^{64}
+      \]}
+      \vspace{0.1em}
+      {\rmfamily\fontsize{13pt}{15pt}\selectfont Consecuencia estructural de la simetría diédrica $D_4$ del cuadrado.\par}
+      \vspace{0.45em}
+      {\sffamily\scriptsize\color{urBurgundy}Comparar una díada contra un solo vector de Fiedler depende de una elección arbitraria de base.}
+    \column{0.56\textwidth}
+      \figcard{1.0}{fiedler_analysis.png}
+      \smallcaption{Dos eigenvectores ortogonales generan el mismo eigenespacio de Fiedler.}
+  \end{columns}
+  \note[item]{Simetría $D_4$ produce $\lambda_2=\lambda_3$.}
+  \note[item]{$\mathcal{E}_2$ es bidimensional.}
+  \note[item]{Un único corte no es referencia canónica.}
+\end{frame}
+
+% 5
+\renewcommand{\currentspeaker}{Juan Sebastián Mora}
+\begin{frame}[t]
+  \eyebrow{§ 04 · Solución, capa 1}
+  \slidetitle{Familia paramétrica de cortes en $\mathcal{E}_2$}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.50\textwidth}
+      \[
+        u_\theta=\cos\theta\,v_2+\sin\theta\,v_3
+      \]
+      \[
+        S_\theta=\{v\in V:u_\theta(v)\ge \mathrm{med}(u_\theta)\}
+      \]
+      \[
+        h(S)=\frac{\cut(S,\bar S)}{\min\{\vol(S),\vol(\bar S)\}}
+      \]
+    \column{0.44\textwidth}
+      \begin{itemize}
+        \item LR: plantilla izquierda-derecha.
+        \item TB: plantilla arriba-abajo.
+        \item Fiedler ingenuo: $h=28/210\approx0{,}133$.
+        \item Mejor $S_\theta$: $h=22/210\approx0{,}105$.
+      \end{itemize}
+      \vspace{0.8em}
+      {\sffamily\small\color{urBlue}Eficiencia espectral: }
+      {\rmfamily\large\color{urBlue}$\eta=h(\mathrm{Fiedler})/h(\Sobs)$}
+  \end{columns}
+  \note[item]{$u_\theta$ recorre el eigenespacio.}
+  \note[item]{Cuatro referencias geométricas comparables.}
+  \note[item]{$\eta$ normaliza contra Fiedler ingenuo.}
+\end{frame}
+
+% 6
+\renewcommand{\currentspeaker}{Juan Sebastián Mora}
+\begin{frame}[t]
+  \eyebrow{§ 05 · Solución, capa 2}
+  \slidetitle{Una señal geométrica temprana}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.52\textwidth}
+      \[
+        m_d(v)=f_1^{(d,W)}(v)-f_2^{(d,W)}(v)
+      \]
+      \[
+        g_d=\max\bigl\{|\langle\tilde m_d,a_{\mathrm{LR}}\rangle|,
+        |\langle\tilde m_d,a_{\mathrm{TB}}\rangle|\bigr\}
+      \]
+      \vspace{0.5em}
+      \lede{Calculada con las primeras cinco rondas ausentes comunes.}
+    \column{0.42\textwidth}
+      \begin{itemize}
+        \item $\tilde m_d$: campo temprano centrado y normalizado.
+        \item $a_{\mathrm{LR}},a_{\mathrm{TB}}$: plantillas axiales fijas.
+        \item $g_d\in[0,1]$: proyección sobre eje canónico.
+      \end{itemize}
+      \vspace{0.9em}
+      {\sffamily\small\color{urBlue}Hipótesis: $g_d$ alto temprano predice orientación axial estable tardía.}
+  \end{columns}
+  \note[item]{Señal escalar derivada del campo de dominancia.}
+  \note[item]{Ventana muy corta: cinco rondas.}
+  \note[item]{Predice antes de la cristalización.}
+\end{frame}
+
+% 7
+\renewcommand{\currentspeaker}{Ángel Amaya}
+\begin{frame}[t]
+  \eyebrow[urBurgundy]{§ 06 · Resultado 1 · Separación}
+  \slidetitle{Las díadas axiales separan limpiamente el tablero}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.56\textwidth}
+      \figcard{1.0}{spectral_comparison_summary.png}
+      \smallcaption{Comparación axial vs mixta sobre el conjunto primario.}
+    \column{0.40\textwidth}
+      \scriptsize
+      \begin{tabular}{@{}lcc@{}}
+        \toprule
+        Métrica & Axial & Mixta\\
+        \midrule
+        $h(\Sobs)$ & 0,142 & 0,714\\
+        $\eta$ & 1,120 & 0,196\\
+        DLIndex & 0,919 & 0,514\\
+        MI & 0,839 & 0,260\\
+        JSD & 0,842 & 0,284\\
+        \bottomrule
+      \end{tabular}
+      \vspace{0.9em}
+      {\sffamily\small\color{urBurgundy}Mann--Whitney para $h(\Sobs)$: \textbf{$p=3{,}07\times10^{-5}$}}\par
+      \vspace{0.5em}
+      {\sffamily\scriptsize\color{urMid}También significativo en DLIndex, MI y JSD.}
+  \end{columns}
+  \note[item]{$n=29$: 21 axiales y 8 mixtas.}
+  \note[item]{Mann--Whitney bilateral.}
+  \note[item]{Conductancia separa con p-valor del orden de $10^{-5}$.}
+\end{frame}
+
+% 8
+\renewcommand{\currentspeaker}{Ángel Amaya}
+\begin{frame}[t]
+  \eyebrow{§ 07 · Resultado 2 · Dinámica}
+  \slidetitle{La separación es temporalmente estable}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.58\textwidth}
+      \figcard{1.0}{temporal_dynamics.png}
+      \smallcaption{Cortes claros LR/TB convergen al baseline axial; los mixtos oscilan.}
+    \column{0.38\textwidth}
+      \scriptsize
+      \begin{tabular}{@{}lcc@{}}
+        \toprule
+        Ventana 40--60 & Axial & Mixta\\
+        \midrule
+        $h(\Sobs)$ & 0,119 & 0,701\\
+        Especialización suave & 0,906 & 0,492\\
+        Jaccard inter-ventana & 0,934 & 0,651\\
+        \bottomrule
+      \end{tabular}
+      \vspace{0.9em}
+      {\sffamily\small\color{urBlue}La partición axial se conserva en ventanas 30--60, 40--60 y 50--60.}
+  \end{columns}
+  \note[item]{Axiales convergen rápido.}
+  \note[item]{Mixtas no se estabilizan.}
+  \note[item]{Jaccard inter-ventana confirma estabilidad.}
+\end{frame}
+
+% 9
+\renewcommand{\currentspeaker}{Ángel Amaya}
+\begin{frame}[t]
+  \eyebrow{§ 08 · Resultado 3 · Contraejemplo}
+  \slidetitle{La degeneración es estructural, no numérica}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.55\textwidth}
+      \figcard{1.0}{counterexample_P6xP8.png}
+    \column{0.41\textwidth}
+      \bignum{Cuadrada $P_8\boxtimes P_8$}{$\lambda_2=\lambda_3$}
+      {\sffamily\small\color{urMid}multiplicidad 2 · gap $\approx 1{,}8\times10^{-14}$\par}
+      \vspace{0.55em}
+      \bignum{Rectangular $P_6\boxtimes P_8$}{$\lambda_2\ne\lambda_3$}
+      {\sffamily\small\color{urMid}$0{,}4041$ vs $0{,}7288$ · gap $0{,}3247$\par}
+      \vspace{0.9em}
+      {\sffamily\small\color{urBlue}Responsable geométrico: simetría $D_4$.}
+  \end{columns}
+  \note[item]{Cambio de geometría rompe degeneración.}
+  \note[item]{Origen: simetría $D_4$ del cuadrado.}
+  \note[item]{No es artefacto numérico.}
+\end{frame}
+
+% 10
+\renewcommand{\currentspeaker}{Sara Figueredo Laserna}
+\begin{frame}[t]
+  \eyebrow{§ 09 · Resultado 4 · Predicción}
+  \slidetitle{La geometría temprana predice la cristalización}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.55\textwidth}
+      \figcard{0.82}{early_prediction_summary.png}
+    \column{0.41\textwidth}
+      \scriptsize
+      \begin{tabular}{@{}lc@{}}
+        \toprule
+        Modelo logístico & AUC LOOCV\\
+        \midrule
+        Señal geométrica $g_d$ & 0,804\\
+        Métricas oficiales & 0,736\\
+        Combinado & 0,860\\
+        \bottomrule
+      \end{tabular}
+      \vspace{0.9em}
+      {\sffamily\small\color{urMid}$n=45$ · positivas=20 · negativas=25\par}
+      \vspace{0.5em}
+      {\sffamily\small\color{urBlue}Subconjunto válido $(n=32)$: 0,779 · 0,775 · 0,8125.}
+  \end{columns}
+  \note[item]{LOOCV sobre 45 díadas.}
+  \note[item]{$g_d$ supera al trío oficial.}
+  \note[item]{La combinación añade información.}
+\end{frame}
+
+% 11
+\renewcommand{\currentspeaker}{Sara Figueredo Laserna}
+\begin{frame}[t]
+  \eyebrow{§ 10 · Transferencia y alcance}
+  \slidetitle{Qué sí aporta, y qué no}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.45\textwidth}
+      {\sffamily\small\color{urMid}\MakeUppercase{Transferencia a desempeño en rondas presentes}}\par
+      \vspace{0.5em}
+      \begin{tabular}{@{}lcc@{}}
+        \toprule
+        & Axial & Mixta\\
+        \midrule
+        Accuracy & 0,936 & 0,688\\
+        Score & 24,43 & -6,14\\
+        \bottomrule
+      \end{tabular}
+      \vspace{0.9em}
+      {\sffamily\small\color{urMid}Reporte descriptivo; la unidad experimental es la díada.}
+    \column{0.48\textwidth}
+      \bignum{Gate de novedad}{$\rho=0{,}894$}
+      {\sffamily\small\color{urMid}Spearman $\eta$ vs DLIndex · $p=6{,}23\times10^{-11}$\par}
+      \vspace{0.9em}
+      \begin{itemize}
+        \item Aporte real: formulación geométrica y $g_d$.
+        \item No sustituye métricas oficiales.
+        \item Muestras pequeñas: $n=29$ y $n=45$.
+      \end{itemize}
+  \end{columns}
+  \note[item]{Transferencia descriptiva, no causal.}
+  \note[item]{$\eta$ es redundante con DLIndex.}
+  \note[item]{Honestidad sobre tamaño muestral.}
+\end{frame}
+
+% 12
+\renewcommand{\currentspeaker}{Sara Figueredo Laserna}
+\begin{frame}[t]
+  \eyebrow{§ 11 · Cierre}
+  \slidetitle{Tres ideas que sostienen el reanálisis}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.29\textwidth}
+      \bignum{01}{$\lambda_2=\lambda_3$}
+      {\small obliga a usar una familia paramétrica, no un único Fiedler.}
+    \column{0.29\textwidth}
+      \bignum{02}{$g_d$}
+      {\small anticipa la cristalización de roles axiales.}
+    \column{0.29\textwidth}
+      \bignum{03}{$P_6\boxtimes P_8$}
+      {\small rompe la degeneración al reducir la simetría.}
+  \end{columns}
+  \vspace{1.0em}
+  \begin{columns}[T,onlytextwidth]
+    \column{0.62\textwidth}
+      {\rmfamily\fontsize{13.5pt}{16pt}\selectfont
+      Siguiente paso: modificar la simetría del tablero con rectángulos u obstáculos y observar si cambia la distribución de convenciones humanas.\par}
+    \column{0.30\textwidth}
+      \raggedleft{\rmfamily\fontsize{24pt}{27pt}\selectfont\color{urBlue}¿Preguntas?}
+  \end{columns}
+  \note[item]{Tres ideas centrales recapituladas.}
+  \note[item]{Camino: ruptura experimental de simetría.}
+  \note[item]{Abrir Q\&A.}
+\end{frame}
+
+\end{document}

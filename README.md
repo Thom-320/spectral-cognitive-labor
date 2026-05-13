@@ -123,6 +123,12 @@ pip install -r requirements.txt
 ### Pipeline principal
 
 ```bash
+./scripts/run_all.sh
+```
+
+Equivalente manual:
+
+```bash
 python src/00_spectral_grid.py
 python src/01_single_dyad_analysis.py
 python src/02_full_comparison.py
@@ -160,11 +166,15 @@ python src/08_early_prediction.py
 - `docs/EXCLUSIONES.md`
 - `docs/NOTA_ANDRADE.md`
 - `paper/entrega2.tex`
+- `paper/entrega_final_codex.tex`
+- `paper/presentacion_final_codex.tex`
+- `paper/poster_final_codex.tex`
 - `paper/preprint_base.tex`
 
 ## Estado del manuscrito
 
 - `paper/entrega2.tex` queda orientado a la **segunda entrega del curso**.
+- `paper/entrega_final_codex.tex` queda orientado a la **entrega final del curso**.
 - `paper/preprint_base.tex` conserva una version mas cercana a manuscrito de investigacion.
 
 La mejor lectura del proyecto hoy es:

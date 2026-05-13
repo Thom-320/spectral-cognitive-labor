@@ -23,3 +23,13 @@ paper/missfont.log
 
 # Temporales locales
 tmp/
+build/
+dist/
+
+# Exports temporales de herramientas visuales
+SODCL Graph Theory Final Slides/
+SODCL Graph Theory Final Slides.zip
+paper/*_claude.html
+paper/*_claude_*.html
+paper/*_claude.tex
+paper/*.bak

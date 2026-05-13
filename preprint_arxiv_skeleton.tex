@@ -1,0 +1,103 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,booktabs,graphicx,hyperref}
+\usepackage[numbers]{natbib}
+
+\title{Symmetry-aware graph signals predict role specialization in a degenerate spatial coordination task}
+\author{Thomas Chisica}
+\date{Draft skeleton}
+
+\newcommand{\cut}{\mathrm{cut}}
+\newcommand{\vol}{\mathrm{vol}}
+\newcommand{\Sobs}{S_{\mathrm{obs}}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Human groups often develop spontaneous divisions of labor in spatial search tasks, but the geometric constraints shaping such conventions remain underexplored. We reanalyze the public Self-Organized Division of Cognitive Labor / Seeking the Unicorn dataset using a graph-theoretic model of the search board. The board is represented as the strong product $P_8 \boxtimes P_8$, whose square symmetry induces a degenerate Fiedler eigenspace, $\lambda_2=\lambda_3 \approx 0.4164$. This degeneracy makes any single naive Fiedler cut non-canonical and motivates a symmetry-aware comparison to axial left--right and top--bottom partitions. Across late absent trials, dyads with stable axial specialization exhibit lower conductance and higher information-theoretic specialization than mixed dyads. More importantly, a simple geometry-derived signal computed from the first five absent trials predicts later stable axial specialization under leave-one-out validation. In the current analysis, the early geometry-only model obtains AUC $=0.804$ across all 45 dyads, while official early behavioral metrics obtain AUC $=0.736$ and the combined model obtains AUC $=0.860$. On the valid-label subset, the combined model obtains AUC $=0.8125$. These results suggest that early symmetry breaking in spatial visitation patterns can anticipate later role specialization. We frame the findings as a hypothesis-generating reanalysis and identify robustness, null-model, and dyad-level performance analyses required before journal submission.
+\end{abstract}
+
+\section{Introduction}
+
+Spontaneous role specialization is a central phenomenon in collective cognition and multi-agent coordination. The Seeking the Unicorn task provides a public dataset in which pairs of participants repeatedly search a shared $8\times 8$ board without explicit communication. Previous work established the emergence of self-organized division of cognitive labor. Here we ask a narrower graph-theoretic question: can the symmetry structure of the search environment explain and predict the emergence of axial spatial roles?
+
+\section{Dataset}
+
+We use two public SODCL files. The full performance table contains 45 dyads across 60 rounds, with both unicorn-present and unicorn-absent trials. The absent-only table contains rounds in which the unicorn was absent and includes derived behavioral metrics such as DLIndex, Similarity, Consistency, and Joint. Partition and early-geometry analyses use absent trials, while transfer analyses use the full performance table.
+
+\section{Graph model of the board}
+
+The board is modeled as $G=P_8 \boxtimes P_8$, with 64 vertices and 210 undirected king-move edges. For a subset $S\subset V$, conductance is
+\[
+ h(S)=\frac{\cut(S,\bar S)}{\min(\vol(S),\vol(\bar S))}.
+\]
+The combinatorial Laplacian of the square board has a degenerate Fiedler eigenspace, $\lambda_2=\lambda_3\approx 0.4164$. A naive numerical Fiedler vector gives $h=28/210$, while the axial LR/TB cuts give $h=22/210$.
+
+\section{Late axial specialization}
+
+For each dyad and time window, we compute player-wise cell visit frequencies and define the observed hard partition
+\[
+ \Sobs = \{v: f_1(v)>f_2(v)\}.
+\]
+The signed margin field is compared to centered LR and TB templates. Stable axial specialization is defined by consistent LR or TB orientation across late windows.
+
+\begin{table}[h]
+\centering
+\caption{Current late descriptive results in the primary conductance set.}
+\begin{tabular}{lrrrrr}
+\toprule
+Group & $n$ & $h(\Sobs)$ & $\eta$ & MI & JSD \\
+\midrule
+Axial & 21 & 0.142 & 1.120 & 0.839 & 0.842 \\
+Mixed & 8 & 0.714 & 0.196 & 0.260 & 0.284 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Early geometry signal}
+
+From the first five absent trials common to both players, we compute a normalized signed margin field and define
+\[
+ g_d=\max\left\{ |\langle \tilde m_d,a_{LR}\rangle|, |\langle \tilde m_d,a_{TB}\rangle|\right\}.
+\]
+This measures early alignment with either privileged axial direction.
+
+\section{Predictive evaluation}
+
+We compare three logistic models under leave-one-out cross-validation: geometry only, official early behavioral metrics only, and the combined feature set.
+
+\begin{table}[h]
+\centering
+\caption{Current predictive results. These require confidence intervals and permutation tests before journal submission.}
+\begin{tabular}{llrrrr}
+\toprule
+Split & Model & $n$ & Pos. & Neg. & AUC LOOCV \\
+\midrule
+All dyads & Geometry & 45 & 20 & 25 & 0.804 \\
+All dyads & Official metrics & 45 & 20 & 25 & 0.736 \\
+All dyads & Combined & 45 & 20 & 25 & 0.860 \\
+Valid only & Geometry & 32 & 20 & 12 & 0.779 \\
+Valid only & Official metrics & 32 & 20 & 12 & 0.775 \\
+Valid only & Combined & 32 & 20 & 12 & 0.8125 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Transfer to behavioral performance}
+
+Current descriptive summaries suggest that dyads with stable axial specialization perform better in unicorn-present trials. This section must be rewritten using dyad-level aggregation or mixed-effects models, because round-level counts are not independent experimental units.
+
+\section{Robustness analyses required}
+
+Before submission, we will add bootstrap confidence intervals, label-permutation tests, sensitivity to early-window length and target thresholds, D4-preserving null models, diagonal-template controls, and dyad-level transfer analyses.
+
+\section{Limitations}
+
+The current analysis does not show that humans optimize conductance in general. Late conductance is strongly coupled to existing behavioral measures, and several ALL/NOTHING/RS strategies are not well captured by a bipartition model. The contribution is therefore not replacement of existing metrics but an interpretable early graph signal for axial role specialization.
+
+\section{Future work: controlled symmetry breaking}
+
+A natural next experiment manipulates the board's automorphism group and Fiedler eigenspace. Rectangular or perturbed boards should collapse the square-board degeneracy and change the distribution of human conventions. This would turn the current reanalysis into a broader research program on how graph symmetries shape collective role formation.
+
+\end{document}
