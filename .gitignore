@@ -14,10 +14,13 @@ paper/*.aux
 paper/*.log
 paper/*.out
 paper/*.pdf
-!paper/entrega_final.pdf
 paper/*.toc
 paper/*.synctex.gz
 paper/missfont.log
+paper/entrega_final.tex
+paper/IEEEtran.cls
+paper/algorithm.sty
+paper/algorithmic.sty
 
 # PDFs locales en raiz
 /*.pdf

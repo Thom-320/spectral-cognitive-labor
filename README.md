@@ -40,24 +40,15 @@ senal geometrica temprana anticipa la especializacion axial posterior.
 - Combining that early geometric signal with official early behavioral metrics
   gives `AUC_LOOCV = 0.860`.
 
-## Final Paper
+## Portfolio Scope
 
-The final course manuscript is available at:
+This public repository is maintained as a portfolio version of the project by
+Thomas Chisica. It contains the reproducible analysis code, source data,
+generated result tables, figures, and methodological documentation.
 
-- LaTeX source: [`paper/entrega_final.tex`](paper/entrega_final.tex)
-- Compiled PDF: [`paper/entrega_final.pdf`](paper/entrega_final.pdf)
-
-The manuscript is written in Spanish for the Graph Theory course and includes:
-
-- the spectral model of the board,
-- the degeneracy-aware baseline,
-- the late-window comparison between axial and mixed dyads,
-- the informational layer based on mutual information and Jensen-Shannon
-  divergence,
-- the rectangular counterexample `P_6 boxtimes P_8`,
-- the stability analysis across late windows,
-- the early-prediction experiment, and
-- a cautious descriptive transfer to behavioral performance.
+The Spanish course submission PDF is kept in the local submission package, where
+the full course group is listed as required for grading. That group manuscript is
+not published here as a tracked repository artifact.
 
 ## Repository Structure
 
@@ -68,7 +59,6 @@ The manuscript is written in Spanish for the Graph Theory course and includes:
 │   └── results/      # Reproducible CSV/NPZ outputs
 ├── docs/             # Methodological notes and result summaries
 ├── figures/          # Generated figures used in the paper
-├── paper/            # LaTeX sources and final PDF
 ├── scripts/          # Non-interactive pipeline entrypoints
 ├── src/              # Analysis scripts
 ├── Makefile          # Reproducible command shortcuts
@@ -98,13 +88,7 @@ Run the complete analysis pipeline:
 make pipeline
 ```
 
-Build the final paper:
-
-```bash
-make paper
-```
-
-Run both steps:
+Run the default reproducible target:
 
 ```bash
 make all
@@ -180,6 +164,5 @@ This project should be read as a careful reanalysis, not as a causal experiment.
 
 ## Suggested Citation
 
-Chisica, T., Figueredo Laserna, S., Mora, J. S., and Amaya, A. (2026).
-*Board Symmetry and Axial Specialization in Seeking the Unicorn*. Course project,
-Graph Theory, Universidad del Rosario.
+Chisica, T. (2026). *Symmetry-Aware Spectral Reanalysis of Seeking the Unicorn*.
+Portfolio implementation and reproducible analysis repository.

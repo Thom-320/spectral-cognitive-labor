@@ -3,12 +3,13 @@ LATEXMK ?= latexmk
 
 .PHONY: all pipeline paper clean
 
-all: pipeline paper
+all: pipeline
 
 pipeline:
 	./scripts/run_all.sh
 
 paper:
+	@test -f paper/entrega_final.tex || (echo "paper/entrega_final.tex is part of the local course submission package, not the public portfolio repository." && exit 1)
 	mkdir -p dist
 	cd paper && $(LATEXMK) -pdf -interaction=nonstopmode -halt-on-error -outdir=../dist entrega_final.tex
 	cp dist/entrega_final.pdf paper/entrega_final.pdf

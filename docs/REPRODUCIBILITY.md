@@ -26,17 +26,6 @@ make pipeline
 This executes the eight analysis scripts in order and regenerates the main CSV,
 NPZ, and PNG outputs under `data/results/` and `figures/`.
 
-## Final Paper
-
-Run:
-
-```bash
-make paper
-```
-
-This compiles `paper/entrega_final.tex` and copies the final PDF to
-`paper/entrega_final.pdf`.
-
 ## One-Command Rebuild
 
 Run:
@@ -45,18 +34,10 @@ Run:
 make all
 ```
 
-This runs the analysis pipeline and rebuilds the final PDF.
+This runs the complete analysis pipeline.
 
-## Expected Final Artifact
+## Course Submission Artifact
 
-The course submission PDF is:
-
-```text
-paper/entrega_final.pdf
-```
-
-The source used to generate it is:
-
-```text
-paper/entrega_final.tex
-```
+The Spanish course submission PDF is maintained in the local submission package,
+not in this public portfolio repository. The public repository is intended to
+reproduce the analysis tables and figures used by that report.
