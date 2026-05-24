@@ -1,0 +1,7 @@
+split,model,feature_set,n,positives,negatives,auc_in_sample,auc_loocv
+all_dyads,geometry_dominant,dominant_score,45,20,25,0.834,0.8039999999999999
+all_dyads,official_trio,"DLIndex_early,Similarity_early,Consistency_early",45,20,25,0.808,0.736
+all_dyads,geometry_plus_official,"dominant_score,DLIndex_early,Similarity_early,Consistency_early",45,20,25,0.89,0.86
+valid_only,geometry_dominant,dominant_score,32,20,12,0.8250000000000001,0.7791666666666667
+valid_only,official_trio,"DLIndex_early,Similarity_early,Consistency_early",32,20,12,0.8583333333333334,0.775
+valid_only,geometry_plus_official,"dominant_score,DLIndex_early,Similarity_early,Consistency_early",32,20,12,0.9083333333333333,0.8124999999999999
