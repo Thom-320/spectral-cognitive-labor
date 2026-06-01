@@ -12,6 +12,12 @@ understood as axial symmetry breaking inside that geometry. The project does
 not claim that humans globally optimize conductance, nor that conductance
 replaces the behavioral metrics from the original SODCL study.
 
+## Visual Overview
+
+| Spectral geometry | Result summary | Early prediction |
+| --- | --- | --- |
+| <img src="figures/fiedler_grid.png" alt="Fiedler eigenspace references on the 8 by 8 board" width="280"> | <img src="figures/spectral_comparison_summary.png" alt="Conductance and information comparison across partition families" width="280"> | <img src="figures/early_prediction_summary.png" alt="Early geometric signal predicting later axial specialization" width="280"> |
+
 ## Resumen en espanol
 
 Este repositorio reanaliza *Seeking the Unicorn* desde teoria espectral de
@@ -40,15 +46,15 @@ senal geometrica temprana anticipa la especializacion axial posterior.
 - Combining that early geometric signal with official early behavioral metrics
   gives `AUC_LOOCV = 0.860`.
 
-## Portfolio Scope
+## Project Scope
 
-This public repository is maintained as a portfolio version of the project by
-Thomas Chisica. It contains the reproducible analysis code, source data,
-generated result tables, figures, and methodological documentation.
+This repository contains my reproducible implementation of the spectral
+reanalysis: analysis code, public source data, generated result tables, figures,
+and methodological documentation.
 
-The Spanish course submission PDF is kept in the local submission package, where
-the full course group is listed as required for grading. That group manuscript is
-not published here as a tracked repository artifact.
+It is not the original experimental repository and does not claim ownership over
+the SODCL experiment or dataset. The contribution here is the graph-theoretic
+reanalysis and its reproducible computational artifacts.
 
 ## Repository Structure
 
