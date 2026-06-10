@@ -1,0 +1,86 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  pipeline-smoke:
+    name: Reproducible pipeline smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run reproducible pipeline
+        env:
+          MPLBACKEND: Agg
+        run: |
+          make pipeline
+
+      - name: Verify frozen reference numbers
+        run: |
+          set -e
+          # The README and STATUS.md cite these numbers as the canonical
+          # results of this reanalysis. If the pipeline ever changes
+          # them, this CI step forces a deliberate update of the docs
+          # rather than letting a regression slip in.
+          python -c "
+          import pandas as pd
+          from pathlib import Path
+
+          # Required CSVs cited in README and STATUS.md
+          required = [
+              'data/results/spectral_comparison_results.csv',
+              'data/results/spectral_analysis_audit.csv',
+              'data/results/partition_stability_summary.csv',
+              'data/results/entropy_analysis_results.csv',
+              'data/results/early_prediction_features.csv',
+              'data/results/early_prediction_summary.csv',
+              'data/results/performance_transfer_summary.csv',
+              'data/results/present_performance_increment.csv',
+          ]
+          missing = [p for p in required if not Path(p).exists()]
+          assert not missing, f'Missing result files: {missing}'
+          print(f'All {len(required)} required result files present.')
+
+          # Canonical AUC_LOOCV = 0.860 (combined model, all_dyads)
+          df = pd.read_csv('data/results/early_prediction_summary.csv')
+          row = df[(df['model'] == 'geometry_plus_official') & (df['split'] == 'all_dyads')]
+          assert not row.empty, 'canonical row missing: model=geometry_plus_official, split=all_dyads'
+          auc = float(row['auc_loocv'].iloc[0])
+          assert abs(auc - 0.86) < 1e-3, f'canonical AUC_LOOCV drifted: {auc:.4f} (expected 0.86)'
+          print(f'Canonical AUC_LOOCV verified at {auc:.4f}')
+
+          # Required figures cited in README
+          figs = [
+              'figures/fiedler_grid.png',
+              'figures/spectral_comparison_summary.png',
+              'figures/entropy_analysis.png',
+              'figures/temporal_dynamics.png',
+              'figures/counterexample_P6xP8.png',
+              'figures/partition_robustness_summary.png',
+              'figures/early_prediction_summary.png',
+          ]
+          missing_fig = [p for p in figs if not Path(p).exists()]
+          assert not missing_fig, f'Missing figures: {missing_fig}'
+          print(f'All {len(figs)} required figures present.')
+          "
+
+      - name: Lint
+        run: |
+          pip install ruff
+          ruff check --select E,F src/ scripts/ || true
