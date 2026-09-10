@@ -1,186 +1,181 @@
-# Symmetry-Aware Spectral Reanalysis of *Seeking the Unicorn*
+# Spectral analysis of cognitive labor
 
-This repository contains a reproducible graph-theoretic reanalysis of the
-*Seeking the Unicorn* / Self-Organized Division of Cognitive Labor (SODCL)
-experiment. The board is modeled as the strong product graph
-`P_8 boxtimes P_8`, and observed human search patterns are compared against
-spectral and axis-aligned references.
+**What does a spectral representation add to behavioral measures and simple spatial geometry?**
 
-The central claim is deliberately narrow: the square board has a degenerate
-Fiedler eigenspace, and stable human left-right / top-bottom divisions can be
-understood as axial symmetry breaking inside that geometry. The project does
-not claim that humans globally optimize conductance, nor that conductance
-replaces the behavioral metrics from the original SODCL study.
+This project investigates that question through a computational reanalysis of
+*Seeking the Unicorn*, the experiment reported by **Edgar Andrade-Lotero and
+Robert L. Goldstone (2021)** in [Self-organized division of cognitive labor](https://doi.org/10.1371/journal.pone.0254532).
+The reanalysis is by **Thomas Chisica**. Experimental design and data collection
+belong to the original study; participants were recruited at Indiana University.
 
-## Audit status — September 2026
+**Current stage:** temporal reconstruction and representation audit completed;
+behavioral outcome and predictive evaluation protocol pending scientific agreement.
 
-The AUCs below are **historical evaluations**, not validated early prediction
-or evidence of a specifically spectral advantage. The historical early selection
-overlaps candidate outcome periods in 15 of 45 dyads. A separate, model-free
-reconstruction uses the first five truly absent opportunities (cutoffs 6–19).
-Fiedler and coordinate energies are distinct but highly correlated in that cohort.
-See [temporal repair](docs/TEMPORAL_REPAIR.md), [current status](STATUS.md), and
-[literature review](docs/LITERATURE_REVIEW_2026-09-10.md). Outcome and evaluation
-protocol remain pending scientific agreement; no new predictive models are fitted
-by the temporal-repair script.
+[Temporal audit](docs/TEMPORAL_REPAIR.md) · [Literature](docs/LITERATURE_EXPANSION_AND_AUDIT_REVIEW.md) · [Project status](STATUS.md) · [Source experiment](https://github.com/EAndrade-Lotero/SODCL)
 
-## Visual Overview
+## The question
 
-| Spectral geometry | Result summary | Early prediction |
-| --- | --- | --- |
-| <img src="figures/fiedler_grid.png" alt="Fiedler eigenspace references on the 8 by 8 board" width="280"> | <img src="figures/spectral_comparison_summary.png" alt="Conductance and information comparison across partition families" width="280"> | <img src="figures/early_prediction_summary.png" alt="Early geometric signal predicting later axial specialization" width="280"> |
+Pairs searching the same board can develop complementary spatial roles. A spectral
+representation offers a way to describe those patterns, but its usefulness must be
+assessed against the original behavioral measures and simpler coordinate-based descriptions.
 
-## Resumen en espanol
+The project distinguishes three contributions:
 
-Este repositorio reanaliza *Seeking the Unicorn* desde teoria espectral de
-grafos. El tablero se modela como `P_8 boxtimes P_8`; por la simetria cuadrada,
-el segundo autovalor del Laplaciano aparece degenerado
-(`lambda_2 = lambda_3 approx 0.4164`). Esa degeneracion hace que un unico vector
-de Fiedler no sea una referencia canonica. Por eso el proyecto compara las
-particiones humanas contra referencias sensibles a la simetria y estudia si una
-senal geometrica temprana anticipa la especializacion axial posterior.
+1. **Description:** characterize spatial organization with well-defined, invariant quantities.
+2. **Prediction:** assess whether those quantities help anticipate later specialization.
+3. **Mechanism:** identify a behavioral process with predictions that distinguish it from alternatives.
 
-## Main Results
+The current audit establishes computational and mathematical properties. It does
+not establish a predictive advantage or a cognitive mechanism.
 
-- The board graph has 64 vertices and 210 edges.
-- The Fiedler eigenspace is two-dimensional:
-  `lambda_2 = lambda_3 approx 0.4164`.
-- The historical solver-selected Fiedler cut has conductance `28/210 = 0.1333`;
-  this individual-vector reference depends on basis choice in the repeated eigenspace.
-- The axial left-right and top-bottom references have conductance
-  `22/210 = 0.1048` within the evaluated axis-aligned family.
-- In the primary late-window set (`n = 29`), axial dyads have substantially
-  lower observed conductance than mixed dyads:
-  `h_obs = 0.142` vs. `0.714`.
-- Informational metrics point in the same direction:
-  `MI = 0.839` vs. `0.260`, and `JSD = 0.842` vs. `0.284`.
-- Historical geometric-only evaluation: `AUC_LOOCV = 0.804`.
-- Historical geometry + behavioral evaluation: `AUC_LOOCV = 0.860`.
-  These use the former filtered cohort; see the temporal validity limitation above.
+## What the audit found
 
-## Project Scope
+| Finding | Evidence and interpretation |
+| --- | --- |
+| A past-only cohort can be reconstructed | All **45 dyads** have five target-absent opportunities ending between **rounds 6 and 19**. This equalizes opportunities, not elapsed rounds. |
+| Original metrics can be recovered | DLIndex and Similarity match all **1,244 shared historical rows**; Consistency matches **1,194 values and 50 missing entries**. This checks implementation consistency. |
+| A single Fiedler vector is not canonical | The spatial graph has a **two-dimensional Fiedler eigenspace**. A sign cut of one solver-selected vector depends on the choice of basis. |
+| Spectral and coordinate energies are close | Principal angles are approximately **6.59046°**; energy correlation across the reconstructed cohort is **0.999486**. The representations are distinct but highly redundant in this sample. |
+| Predictive value remains unresolved | The audit fits **zero models**. High energy correlation does not establish predictive equivalence, and high spatial energy does not necessarily imply axial specialization. |
 
-This repository contains my reproducible implementation of the spectral
-reanalysis: analysis code, public source data, generated result tables, figures,
-and methodological documentation.
+See the [recorded numerical summary](audit/temporal_repair_v1/summary.json),
+[cohort table](audit/temporal_repair_v1/early_cohort.csv), and
+[definitions and checks](docs/TEMPORAL_REPAIR.md).
 
-It is not the original experimental repository and does not claim ownership over
-the SODCL experiment or dataset. The contribution here is the graph-theoretic
-reanalysis and its reproducible computational artifacts.
+## Representation
 
-## Repository Structure
+The 8 × 8 board is modeled as the unweighted strong product $P_8 \boxtimes P_8$:
+64 vertices, 210 edges, and combinatorial Laplacian $L=D-A$. Eight-neighbor
+adjacency is a **spatial proximity hypothesis**, not a claim that players can
+only select neighboring cells.
 
-```text
-.
-├── data/
-│   ├── raw/          # Official SODCL source tables used in this reanalysis
-│   └── results/      # Reproducible CSV/NPZ outputs
-├── docs/             # Methodological notes and result summaries
-├── figures/          # Generated figures used in the paper
-├── scripts/          # Non-interactive pipeline entrypoints
-├── src/              # Analysis scripts
-├── Makefile          # Reproducible command shortcuts
-├── requirements.txt  # Python dependencies
-└── run.sh            # Interactive runner
-```
+Both representations use the same Euclidean space of 64 cells and orthonormal
+bases of rank two:
 
-## Installation
+- $Q_F$: the complete Fiedler eigenspace, with $\lambda_2=\lambda_3\approx0.4164$.
+- $Q_{xy}$: centered horizontal and vertical coordinates.
 
-Use Python 3.10 or newer.
+For the early difference in cell-visit counts between players, $m$, compare
 
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-```
+$$
+E_F(m)=\frac{m^TQ_FQ_F^Tm}{m^Tm},\qquad
+E_{xy}(m)=\frac{m^TQ_{xy}Q_{xy}^Tm}{m^Tm}.
+$$
 
-For the paper build, install a LaTeX distribution with `latexmk` and `pdflatex`
-available. On macOS, BasicTeX or MacTeX both work if the required packages are
-installed.
+These energies are invariant to changes of orthonormal basis within each
+subspace and to swapping players. A zero margin is flagged explicitly; the
+implementation records zero energy by convention because the ratio is undefined.
+No zero margins occur in the reconstructed cohort.
 
-## Reproducibility
+## Next scientific contrast
 
-Run the complete analysis pipeline:
+A candidate question is whether information available after five target-absent
+opportunities anticipates **sustained late axial specialization**. Before fitting
+models, the team must define persistence, the late window, sufficient observations,
+and the distinction between legitimate nonaxial behavior and unclassifiable cases.
+
+| Candidate model | Information available at the same early cutoff |
+| --- | --- |
+| A | Original behavioral metrics |
+| B | The same metrics + coordinate energy $E_{xy}$ |
+| C | The same metrics + Fiedler energy $E_F$ |
+
+All comparisons require the same dyads, preprocessing and evaluation procedure.
+B–A asks whether this spatial summary helps. C–B asks whether substituting the
+spectral representation helps under that procedure; it does not establish a
+mechanism or additional information conditional on both energies. The uncertainty
+procedure and a materially useful improvement remain to be specified.
+
+## Reproduce the model-free audit
+
+Use **Python 3.11 or newer**; Python 3.12 is recommended for the pinned environment.
+The recorded run used Python 3.12.14 and NumPy 2.3.5.
 
 ```bash
-make pipeline
+python3 -m venv .venv-audit
+.venv-audit/bin/python -m pip install -r requirements-audit.txt
+.venv-audit/bin/python -B -m unittest discover -s tests -p 'test_temporal_repair.py' -v
 ```
 
-Run the default reproducible target:
+To reconstruct the cohort and write a separate snapshot:
 
 ```bash
-make all
+.venv-audit/bin/python -B scripts/audit_temporal_repair.py --output /tmp/sodcl-audit-new
 ```
 
-The non-interactive pipeline is also available directly:
+The output directory **must not already exist**. The script leaves source files
+unchanged and writes reconstructed tables, projectors, checks, hashes and an
+archive of the input checkout. It runs locally without fitting predictive models.
+The existing [audit snapshot](audit/temporal_repair_v1/) records the earlier checkout;
+subsequent documentation corrections remain traceable through Git.
 
-```bash
-./scripts/run_all.sh
-```
+CI runs the six integrity tests and checks stored historical artifacts. Passing
+those checks verifies computational integrity, not the scientific validity of the
+historical predictive analysis.
 
-The interactive runner is:
+## Historical results
 
-```bash
-./run.sh
-```
+The original pipeline and outputs are retained for traceability. Its descriptive
+late-window analysis used **29 dyads**; this is not the population of every AUC.
+The geometric and combined AUCs of **0.804 and 0.860** are historical evaluations.
+Their early selection used an absent-followed-by-absent filter and reaches round
+30 or later in **15 of 45 dyads**, overlapping candidate outcome periods.
+Furthermore, its `dominant_score` uses coordinate templates rather than eigenvectors.
+These values do not establish validated early prediction or spectral advantage.
 
-## Generated Outputs
+The solver-selected Fiedler cut and the favorable axial reference are likewise
+historical comparisons, not a canonical spectral partition or proof of global
+conductance optimality.
 
-Important result tables:
+- [Historical result tables](data/results/)
+- [Historical figures](figures/)
+- [Preserved archive and provenance](audit/temporal_repair_v1/provenance.json)
+- [Historical reproduction instructions](docs/REPRODUCIBILITY.md)
 
-- `data/results/spectral_comparison_results.csv`
-- `data/results/spectral_analysis_audit.csv`
-- `data/results/partition_stability_summary.csv`
-- `data/results/entropy_analysis_results.csv`
-- `data/results/early_prediction_features.csv`
-- `data/results/early_prediction_summary.csv`
-- `data/results/performance_transfer_summary.csv`
-- `data/results/present_performance_increment.csv`
+`make pipeline` and `make all` execute the historical pipeline, including model
+fitting and writes to result/figure paths. Use the separate audit command above
+for the current reconstruction. Older methodological documents describe the
+historical analysis and should be read alongside the temporal audit.
 
-Important figures:
+## Literature and scientific context
 
-- `figures/fiedler_grid.png`
-- `figures/spectral_comparison_summary.png`
-- `figures/entropy_analysis.png`
-- `figures/temporal_dynamics.png`
-- `figures/counterexample_P6xP8.png`
-- `figures/partition_robustness_summary.png`
-- `figures/early_prediction_summary.png`
+Relevant work spans collaborative visual search, emergent roles, joint action,
+hierarchical planning and graph-based representations. The reviewed selection
+is not an exhaustive search and does not establish novelty by absence of a match.
 
-Additional documentation:
+- [Initial annotated review](docs/LITERATURE_REVIEW_2026-09-10.md)
+- [Expanded literature and assessment of external audit claims](docs/LITERATURE_EXPANSION_AND_AUDIT_REVIEW.md)
+- [Paper catalog with source URLs and download hashes](docs/literature/paper_catalog.json)
+- [Prompt for independent research](docs/CHATGPT_PRO_RESEARCH_PROMPT.md)
 
-- [`docs/REPRODUCIBILITY.md`](docs/REPRODUCIBILITY.md)
-- [`docs/RESULTS_SUMMARY.md`](docs/RESULTS_SUMMARY.md)
-- [`docs/METHODOLOGY_NOTES.md`](docs/METHODOLOGY_NOTES.md)
+PDFs are not redistributed in this repository. There is no established transfer
+to Coordinator-and-Foragers/PsyNet; task and outcome comparability would require
+its own assessment.
 
-## Data Source
+## Data and repository guide
 
-The raw datasets come from the public SODCL materials:
+| Location | Contents |
+| --- | --- |
+| `data/raw/performances.csv` | Source table used to reconstruct all target-absent opportunities |
+| `data/raw/humans_only_absent.csv` | Historical filtered table; not the complete set of absent trials |
+| `audit/temporal_repair_v1/` | Reconstructed cohort, round metrics, projectors and provenance |
+| `scripts/audit_temporal_repair.py` | Current model-free reconstruction |
+| `tests/test_temporal_repair.py` | Metric encoding, temporal integrity and invariance tests |
+| `src/`, `data/results/`, `figures/` | Historical pipeline and outputs |
+| `docs/` | Methodology, audit reports and literature |
 
-- Official repository: <https://github.com/EAndrade-Lotero/SODCL>
-- Protocol: <https://www.protocols.io/view/seeking-the-unicorn-8epv5zbdnv1b/v1>
+Source data and protocol are documented in the
+[original SODCL repository](https://github.com/EAndrade-Lotero/SODCL) and
+[study publication](https://doi.org/10.1371/journal.pone.0254532).
+The software license does not grant ownership of the original data or replace
+their source conditions. Citation metadata for this reanalysis and the original
+study are in [CITATION.cff](CITATION.cff).
 
-The analysis uses:
+## Resumen en español
 
-- `data/raw/humans_only_absent.csv` for graph partitions, conductance,
-  informational metrics, stability, and early geometry.
-- `data/raw/performances.csv` only for the descriptive transfer to behavioral
-  performance.
-
-## Methodological Boundaries
-
-This project should be read as a careful reanalysis, not as a causal experiment.
-
-- The graph model captures axial left-right and top-bottom specialization well.
-- It does not fully explain `ALL`, `NOTHING`, `RS`, or other non-bipartite
-  strategies.
-- Late conductance is strongly correlated with the original `DLIndex` measure
-  and should not be presented as a replacement.
-- The early geometry signal is the main additional contribution because it is
-  interpretable, symmetry-aware, and computed before stable specialization is
-  fully established.
-
-## Suggested Citation
-
-Chisica, T. (2026). *Symmetry-Aware Spectral Reanalysis of Seeking the Unicorn*.
-Portfolio implementation and reproducible analysis repository.
+Este proyecto pregunta qué aporta el análisis espectral al estudio de la división
+espontánea del trabajo cognitivo. La reconstrucción temporal recupera 45 díadas
+con información disponible tras cinco oportunidades de búsqueda sin objetivo.
+Las energías de Fiedler y de coordenadas son distintas, pero casi redundantes en
+esta muestra. Falta acordar el resultado conductual y evaluar su utilidad
+predictiva; las AUC históricas no resuelven esa pregunta.
