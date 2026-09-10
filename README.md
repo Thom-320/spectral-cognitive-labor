@@ -12,6 +12,18 @@ understood as axial symmetry breaking inside that geometry. The project does
 not claim that humans globally optimize conductance, nor that conductance
 replaces the behavioral metrics from the original SODCL study.
 
+## Audit status — September 2026
+
+The AUCs below are **historical evaluations**, not validated early prediction
+or evidence of a specifically spectral advantage. The historical early selection
+overlaps candidate outcome periods in 15 of 45 dyads. A separate, model-free
+reconstruction uses the first five truly absent opportunities (cutoffs 6–19).
+Fiedler and coordinate energies are distinct but highly correlated in that cohort.
+See [temporal repair](docs/TEMPORAL_REPAIR.md), [current status](STATUS.md), and
+[literature review](docs/LITERATURE_REVIEW_2026-09-10.md). Outcome and evaluation
+protocol remain pending scientific agreement; no new predictive models are fitted
+by the temporal-repair script.
+
 ## Visual Overview
 
 | Spectral geometry | Result summary | Early prediction |
@@ -33,7 +45,8 @@ senal geometrica temprana anticipa la especializacion axial posterior.
 - The board graph has 64 vertices and 210 edges.
 - The Fiedler eigenspace is two-dimensional:
   `lambda_2 = lambda_3 approx 0.4164`.
-- The naive Fiedler cut has conductance `28/210 = 0.1333`.
+- The historical solver-selected Fiedler cut has conductance `28/210 = 0.1333`;
+  this individual-vector reference depends on basis choice in the repeated eigenspace.
 - The axial left-right and top-bottom references have conductance
   `22/210 = 0.1048` within the evaluated axis-aligned family.
 - In the primary late-window set (`n = 29`), axial dyads have substantially
@@ -41,10 +54,9 @@ senal geometrica temprana anticipa la especializacion axial posterior.
   `h_obs = 0.142` vs. `0.714`.
 - Informational metrics point in the same direction:
   `MI = 0.839` vs. `0.260`, and `JSD = 0.842` vs. `0.284`.
-- An early geometric signal computed from the first five shared absent rounds
-  predicts later axial specialization with `AUC_LOOCV = 0.804`.
-- Combining that early geometric signal with official early behavioral metrics
-  gives `AUC_LOOCV = 0.860`.
+- Historical geometric-only evaluation: `AUC_LOOCV = 0.804`.
+- Historical geometry + behavioral evaluation: `AUC_LOOCV = 0.860`.
+  These use the former filtered cohort; see the temporal validity limitation above.
 
 ## Project Scope
 

@@ -1,0 +1,572 @@
+[
+  {
+    "file": "Andrade_Goldstone_2021_SODCL.pdf",
+    "source_url": "https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0254532&type=printable",
+    "retrieved": "2026-09-10",
+    "resolved_url": "https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0254532&type=printable",
+    "pages": 22,
+    "sha256": "55603e4a61e393c9da38a7797c740e1345942f1191dc98850db7633fbe171f8a",
+    "status": "verified_pdf",
+    "doi": "10.1371/journal.pone.0254532",
+    "title": "Self-organized division of cognitive labor",
+    "authors": [
+      "Edgar Andrade-Lotero",
+      "Robert L. Goldstone"
+    ],
+    "published": {
+      "date-parts": [
+        [
+          2021,
+          7,
+          19
+        ]
+      ]
+    },
+    "published_print": {},
+    "metadata_source": "https://api.crossref.org/works/10.1371/journal.pone.0254532"
+  },
+  {
+    "file": "Goldstone_et_al_2024_Specialized_roles.pdf",
+    "source_url": "https://rdhawkins.com/wp-content/uploads/2023/06/topics-in-cognitive-science-2023-goldstone-the-emergence-of-specialized-roles-within-groups.pdf",
+    "retrieved": "2026-09-10",
+    "resolved_url": "https://rdhawkins.com/wp-content/uploads/2023/06/topics-in-cognitive-science-2023-goldstone-the-emergence-of-specialized-roles-within-groups.pdf",
+    "pages": 25,
+    "sha256": "87dc1326514578fd7e6f6db74ae0df76144dfc353557b777e48afc499f89fc60",
+    "status": "verified_pdf",
+    "doi": "10.1111/tops.12644",
+    "title": "The Emergence of Specialized Roles Within Groups",
+    "authors": [
+      "Robert L. Goldstone",
+      "Edgar J. Andrade‐Lotero",
+      "Robert D. Hawkins",
+      "Michael E. Roberts"
+    ],
+    "published": {
+      "date-parts": [
+        [
+          2023,
+          2,
+          26
+        ]
+      ]
+    },
+    "published_print": {
+      "date-parts": [
+        [
+          2024,
+          4
+        ]
+      ]
+    },
+    "metadata_source": "https://api.crossref.org/works/10.1111/tops.12644"
+  },
+  {
+    "file": "Roberts_Goldstone_2011_Adaptive_coordination.pdf",
+    "source_url": "https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0022377&type=printable",
+    "retrieved": "2026-09-10",
+    "resolved_url": "https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0022377&type=printable",
+    "pages": 8,
+    "sha256": "aedebba07300e1d36ae4ad61b979929df88fc4704ae8d1e5a10e86c734b6672c",
+    "status": "verified_pdf",
+    "doi": "10.1371/journal.pone.0022377",
+    "title": "Adaptive Group Coordination and Role Differentiation",
+    "authors": [
+      "Michael E. Roberts",
+      "Robert L. Goldstone"
+    ],
+    "published": {
+      "date-parts": [
+        [
+          2011,
+          7,
+          19
+        ]
+      ]
+    },
+    "published_print": {},
+    "metadata_source": "https://api.crossref.org/works/10.1371/journal.pone.0022377"
+  },
+  {
+    "file": "Hawkins_Goldstone_2016_Social_conventions.pdf",
+    "source_url": "https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0151670&type=printable",
+    "retrieved": "2026-09-10",
+    "resolved_url": "https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0151670&type=printable",
+    "pages": 14,
+    "sha256": "c4d68639605dd3f80334d375ca73f0a5f38c63a7475a166bcb3920d92b13b04f",
+    "status": "verified_pdf",
+    "doi": "10.1371/journal.pone.0151670",
+    "title": "The Formation of Social Conventions in Real-Time Environments",
+    "authors": [
+      "Robert X. D. Hawkins",
+      "Robert L. Goldstone"
+    ],
+    "published": {
+      "date-parts": [
+        [
+          2016,
+          3,
+          22
+        ]
+      ]
+    },
+    "published_print": {},
+    "metadata_source": "https://api.crossref.org/works/10.1371/journal.pone.0151670"
+  },
+  {
+    "file": "Niehorster_et_al_2019_Searching_together.pdf",
+    "source_url": "https://link.springer.com/content/pdf/10.3758/s13414-018-01640-0.pdf",
+    "retrieved": "2026-09-10",
+    "resolved_url": "https://link.springer.com/content/pdf/10.3758/s13414-018-01640-0.pdf?error=cookies_not_supported&code=711f9bc9-7901-4063-93d9-e121ce1a0710",
+    "pages": 18,
+    "sha256": "4799948cac75fb9dee93d5a7e6f85597f90663a1e88fd33850d8e266495ce356",
+    "status": "verified_pdf",
+    "doi": "10.3758/s13414-018-01640-0",
+    "title": "Searching with and against each other: Spatiotemporal coordination of visual search behavior in collaborative and competitive settings",
+    "authors": [
+      "Diederick C. Niehorster",
+      "Tim Cornelissen",
+      "Kenneth Holmqvist",
+      "Ignace Hooge"
+    ],
+    "published": {
+      "date-parts": [
+        [
+          2018,
+          12,
+          28
+        ]
+      ]
+    },
+    "published_print": {
+      "date-parts": [
+        [
+          2019,
+          4
+        ]
+      ]
+    },
+    "metadata_source": "https://api.crossref.org/works/10.3758/s13414-018-01640-0"
+  },
+  {
+    "file": "Wahn_et_al_2020_Dyadic_triadic_search.pdf",
+    "source_url": "https://link.springer.com/content/pdf/10.3758/s13414-019-01915-0.pdf",
+    "retrieved": "2026-09-10",
+    "resolved_url": "https://link.springer.com/content/pdf/10.3758/s13414-019-01915-0.pdf?error=cookies_not_supported&code=7f1d0635-3cbe-48da-8252-12ca7bb7ea92",
+    "pages": 19,
+    "sha256": "0f1c2fc4fd59c9beb54c7140cc1187d8531de72ed20c3f30a3b5203ff60de54f",
+    "status": "verified_pdf",
+    "doi": "10.3758/s13414-019-01915-0",
+    "title": "Dyadic and triadic search: Benefits, costs, and predictors of group performance",
+    "authors": [
+      "Basil Wahn",
+      "Artur Czeszumski",
+      "Melanie Labusch",
+      "Alan Kingstone",
+      "Peter König"
+    ],
+    "published": {
+      "date-parts": [
+        [
+          2020,
+          1,
+          27
+        ]
+      ]
+    },
+    "published_print": {
+      "date-parts": [
+        [
+          2020,
+          7
+        ]
+      ]
+    },
+    "metadata_source": "https://api.crossref.org/works/10.3758/s13414-019-01915-0"
+  },
+  {
+    "file": "Wahn_Schmitz_2023_Review_visual_search.pdf",
+    "source_url": "https://link.springer.com/content/pdf/10.1007/s00426-022-01767-8.pdf",
+    "retrieved": "2026-09-10",
+    "resolved_url": "https://link.springer.com/content/pdf/10.1007/s00426-022-01767-8.pdf?error=cookies_not_supported&code=ba473b6a-34b0-4896-897f-fddaf245f852",
+    "pages": 11,
+    "sha256": "f430020b09cbeffe56d2653b0faec2c98b40745d00563baed1ceb1e0ff77793d",
+    "status": "verified_pdf",
+    "doi": "10.1007/s00426-022-01767-8",
+    "title": "Labor division in collaborative visual search: a review",
+    "authors": [
+      "Basil Wahn",
+      "Laura Schmitz"
+    ],
+    "published": {
+      "date-parts": [
+        [
+          2022,
+          11,
+          15
+        ]
+      ]
+    },
+    "published_print": {
+      "date-parts": [
+        [
+          2023,
+          7
+        ]
+      ]
+    },
+    "metadata_source": "https://api.crossref.org/works/10.1007/s00426-022-01767-8"
+  },
+  {
+    "file": "Correa_et_al_2023_Task_decomposition.pdf",
+    "source_url": "https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.1011087&type=printable",
+    "retrieved": "2026-09-10",
+    "resolved_url": "https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.1011087&type=printable",
+    "pages": 31,
+    "sha256": "2e72d61dc66c183cbdf1de068b862569d7bdcf3bbc86bd6b5fcee069b525353b",
+    "status": "verified_pdf",
+    "doi": "10.1371/journal.pcbi.1011087",
+    "title": "Humans decompose tasks by trading off utility and computational cost",
+    "authors": [
+      "Carlos G. Correa",
+      "Mark K. Ho",
+      "Frederick Callaway",
+      "Nathaniel D. Daw",
+      "Thomas L. Griffiths"
+    ],
+    "published": {
+      "date-parts": [
+        [
+          2023,
+          6,
+          1
+        ]
+      ]
+    },
+    "published_print": {},
+    "metadata_source": "https://api.crossref.org/works/10.1371/journal.pcbi.1011087"
+  },
+  {
+    "file": "Solway_et_al_2014_Optimal_hierarchy.pdf",
+    "source_url": "https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.1003779&type=printable",
+    "retrieved": "2026-09-10",
+    "resolved_url": "https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.1003779&type=printable",
+    "pages": 10,
+    "sha256": "bf614a41fe8922f2e7b1c05be5795e796e8a4fb15c6b3a72b4e30ca6c9c051a1",
+    "status": "verified_pdf",
+    "doi": "10.1371/journal.pcbi.1003779",
+    "title": "Optimal Behavioral Hierarchy",
+    "authors": [
+      "Alec Solway",
+      "Carlos Diuk",
+      "Natalia Córdova",
+      "Debbie Yee",
+      "Andrew G. Barto",
+      "Yael Niv",
+      "Matthew M. Botvinick"
+    ],
+    "published": {
+      "date-parts": [
+        [
+          2014,
+          8,
+          14
+        ]
+      ]
+    },
+    "published_print": {},
+    "metadata_source": "https://api.crossref.org/works/10.1371/journal.pcbi.1003779"
+  },
+  {
+    "file": "Simsek_et_al_2005_Local_graph_partitioning.pdf",
+    "source_url": "https://icml.cc/Conferences/2005/proceedings/papers/103_Identifying_SimsekEtAl.pdf",
+    "retrieved": "2026-09-10",
+    "resolved_url": "https://icml.cc/Conferences/2005/proceedings/papers/103_Identifying_SimsekEtAl.pdf",
+    "pages": 8,
+    "sha256": "09d51329c4e5baed05b1b0076fceebe7c89950e2bbea8ce848608451a6821d3d",
+    "status": "verified_pdf",
+    "doi": "10.1145/1102351.1102454",
+    "title": "Identifying useful subgoals in reinforcement learning by local graph partitioning",
+    "authors": [
+      "Özgür Şimşek",
+      "Alicia P. Wolfe",
+      "Andrew G. Barto"
+    ],
+    "published": {
+      "date-parts": [
+        [
+          2005
+        ]
+      ]
+    },
+    "published_print": {
+      "date-parts": [
+        [
+          2005
+        ]
+      ]
+    },
+    "metadata_source": "https://api.crossref.org/works/10.1145/1102351.1102454"
+  },
+  {
+    "file": "Mahadevan_Maggioni_2007_Proto_value_functions.pdf",
+    "source_url": "https://www.jmlr.org/papers/volume8/mahadevan07a/mahadevan07a.pdf",
+    "retrieved": "2026-09-10",
+    "resolved_url": "https://www.jmlr.org/papers/volume8/mahadevan07a/mahadevan07a.pdf",
+    "pages": 63,
+    "sha256": "d19196e641df5447eca70207bff2071916f5fad8d83cb4054af276dcfb252520",
+    "status": "verified_pdf",
+    "doi": null,
+    "title": "Proto-value Functions: A Laplacian Framework for Learning Representation and Control in Markov Decision Processes",
+    "metadata_source": "PDF title and author/publisher page"
+  },
+  {
+    "file": "Stachenfeld_et_al_2017_Predictive_map.pdf",
+    "source_url": "https://gershmanlab.com/pubs/Stachenfeld17.pdf",
+    "retrieved": "2026-09-10",
+    "resolved_url": "https://gershmanlab.com/pubs/Stachenfeld17.pdf",
+    "pages": 13,
+    "sha256": "9e707ea48636a37154ad3600ccd431b39d4914646143e6f86339d3436df75c1c",
+    "status": "verified_pdf",
+    "doi": "10.1038/nn.4650",
+    "title": "The hippocampus as a predictive map",
+    "authors": [
+      "Kimberly L Stachenfeld",
+      "Matthew M Botvinick",
+      "Samuel J Gershman"
+    ],
+    "published": {
+      "date-parts": [
+        [
+          2017,
+          10,
+          2
+        ]
+      ]
+    },
+    "published_print": {
+      "date-parts": [
+        [
+          2017,
+          11,
+          1
+        ]
+      ]
+    },
+    "metadata_source": "https://api.crossref.org/works/10.1038/nn.4650"
+  },
+  {
+    "file": "Vargas_Bernal_et_al_2024_Absorbing_InfoMap.pdf",
+    "source_url": "https://www.math.ucla.edu/~mason/papers/esteban-published-2024.pdf",
+    "retrieved": "2026-09-10",
+    "resolved_url": "https://www.math.ucla.edu/~mason/papers/esteban-published-2024.pdf",
+    "pages": 36,
+    "sha256": "9b0f29fdf17df46799166e95e875a8d4d12ba39ff112b2839c01138f5ec0a20a",
+    "status": "verified_pdf",
+    "doi": "10.1137/21M1466803",
+    "title": "Adapting InfoMap to Absorbing Random Walks Using Absorption-Scaled Graphs",
+    "authors": [
+      "Esteban Vargas Bernal",
+      "Mason A. Porter",
+      "Joseph H. Tien"
+    ],
+    "published": {
+      "date-parts": [
+        [
+          2024,
+          9,
+          19
+        ]
+      ]
+    },
+    "published_print": {
+      "date-parts": [
+        [
+          2024,
+          9,
+          30
+        ]
+      ]
+    },
+    "metadata_source": "https://api.crossref.org/works/10.1137/21M1466803"
+  },
+  {
+    "file": "Naito_et_al_2022_Collective_search.pdf",
+    "source_url": "https://www.nature.com/articles/s41598-022-12126-3.pdf",
+    "retrieved": "2026-09-10",
+    "resolved_url": "https://www.nature.com/articles/s41598-022-12126-3.pdf?error=cookies_not_supported&code=02f89076-dee5-43eb-ac83-957400ab1b6d",
+    "pages": 12,
+    "sha256": "ffb4742fe55895dd34f25e9847aac7af74136b101b8b1b0145e2694b6580e14e",
+    "status": "verified_pdf",
+    "doi": "10.1038/s41598-022-12126-3",
+    "title": "Insights about the common generative rule underlying an information foraging task can be facilitated via collective search",
+    "authors": [
+      "Aoi Naito",
+      "Kentaro Katahira",
+      "Tatsuya Kameda"
+    ],
+    "published": {
+      "date-parts": [
+        [
+          2022,
+          5,
+          16
+        ]
+      ]
+    },
+    "published_print": {},
+    "metadata_source": "https://api.crossref.org/works/10.1038/s41598-022-12126-3"
+  },
+  {
+    "file": "Wahn_Kingstone_2020_Labor_division_attention.pdf",
+    "source_url": "https://link.springer.com/content/pdf/10.3758/s13414-020-02012-3.pdf",
+    "retrieved": "2026-09-10",
+    "resolved_url": "https://link.springer.com/content/pdf/10.3758/s13414-020-02012-3.pdf?error=cookies_not_supported&code=24d96581-0526-43ef-9627-60798867224e",
+    "pages": 11,
+    "sha256": "3b4d318cc8efa7316b6107ec03da709d7c7f9dda64198aa342b5db262ebf63eb",
+    "status": "verified_pdf",
+    "doi": "10.3758/s13414-020-02012-3",
+    "title": "Labor division in joint tasks: Humans maximize use of their individual attentional capacities",
+    "authors": [
+      "Basil Wahn",
+      "Alan Kingstone"
+    ],
+    "published": {
+      "date-parts": [
+        [
+          2020,
+          5,
+          20
+        ]
+      ]
+    },
+    "published_print": {
+      "date-parts": [
+        [
+          2020,
+          8
+        ]
+      ]
+    },
+    "metadata_source": "https://api.crossref.org/works/10.3758/s13414-020-02012-3"
+  },
+  {
+    "file": "Malcolmson_et_al_2007_Collaboration_visual_search.pdf",
+    "source_url": "https://link.springer.com/content/pdf/10.3758/BF03196825.pdf",
+    "retrieved": "2026-09-10",
+    "resolved_url": "https://link.springer.com/content/pdf/10.3758/BF03196825.pdf?error=cookies_not_supported&code=bbc6bc0b-6f91-49a0-a8d9-8c559823f35b",
+    "pages": 6,
+    "sha256": "66af26c4ea97a39a6c53bb7d82ddf8d1d380a8b3881d239f008cc7b64f7bda1e",
+    "status": "verified_pdf",
+    "doi": "10.3758/BF03196825",
+    "title": "Collaboration during visual search",
+    "authors": [
+      "Kelly A. Malcolmson",
+      "Michael G. Reynolds",
+      "Daniel Smilek"
+    ],
+    "published": {
+      "date-parts": [
+        [
+          2007,
+          8
+        ]
+      ]
+    },
+    "published_print": {
+      "date-parts": [
+        [
+          2007,
+          8
+        ]
+      ]
+    },
+    "metadata_source": "https://api.crossref.org/works/10.3758/BF03196825"
+  },
+  {
+    "file": "Tomov_et_al_2020_Hierarchy_discovery.pdf",
+    "source_url": "https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.1007594&type=printable",
+    "retrieved": "2026-09-10",
+    "resolved_url": "https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.1007594&type=printable",
+    "pages": 42,
+    "sha256": "52611f861e4bdf9e568b11332d4890c01506156607f81a50fd87178f82ce0fbb",
+    "status": "verified_pdf",
+    "doi": "10.1371/journal.pcbi.1007594",
+    "title": "Discovery of hierarchical representations for efficient planning",
+    "authors": [
+      "Momchil S. Tomov",
+      "Samyukta Yagati",
+      "Agni Kumar",
+      "Wanqian Yang",
+      "Samuel J. Gershman"
+    ],
+    "published": {
+      "date-parts": [
+        [
+          2020,
+          4,
+          6
+        ]
+      ]
+    },
+    "published_print": {},
+    "metadata_source": "https://api.crossref.org/works/10.1371/journal.pcbi.1007594"
+  },
+  {
+    "file": "Wu_et_al_2021_Graph_inference.pdf",
+    "source_url": "https://charleywu.github.io/downloads/wu2021inference.pdf",
+    "retrieved": "2026-09-10",
+    "resolved_url": "https://charleywu.github.io/downloads/wu2021inference.pdf",
+    "pages": 23,
+    "sha256": "c7a8b07ba526ae812360ede759530dfd22a1181db6b314c680df3c183c25d2b2",
+    "status": "verified_pdf",
+    "doi": "10.1007/s42113-020-00091-x",
+    "title": "Inference and Search on Graph-Structured Spaces",
+    "authors": [
+      "Charley M. Wu",
+      "Eric Schulz",
+      "Samuel J. Gershman"
+    ],
+    "published": {
+      "date-parts": [
+        [
+          2020,
+          11,
+          2
+        ]
+      ]
+    },
+    "published_print": {
+      "date-parts": [
+        [
+          2021,
+          6
+        ]
+      ]
+    },
+    "metadata_source": "https://api.crossref.org/works/10.1007/s42113-020-00091-x"
+  },
+  {
+    "file": "Wu_et_al_2021_Specialization_CogSci.pdf",
+    "source_url": "https://charleywu.github.io/downloads/wu2021specialization.pdf",
+    "retrieved": "2026-09-10",
+    "resolved_url": "https://charleywu.github.io/downloads/wu2021specialization.pdf",
+    "pages": 7,
+    "sha256": "32ef5a5d8e802036a56d8e7022a4e993c0ec38af4fe2b41d526961d270e586b2",
+    "status": "verified_pdf",
+    "doi": null,
+    "title": "Specialization and selective social attention establishes the balance between individual and social learning",
+    "metadata_source": "PDF title and author/publisher page"
+  },
+  {
+    "file": "Cazenille_et_al_2024_Spectral_swarm_PREPRINT.pdf",
+    "source_url": "https://arxiv.org/pdf/2403.17147",
+    "retrieved": "2026-09-10",
+    "resolved_url": "https://arxiv.org/pdf/2403.17147",
+    "pages": 43,
+    "sha256": "ee855df2859fb435abf3194efbcd95e59d13cfaa02bb1428548f948952315965",
+    "status": "verified_pdf",
+    "doi": null,
+    "title": "Hearing the shape of an arena with spectral swarm robotics",
+    "metadata_source": "PDF title and author/publisher page"
+  }
+]

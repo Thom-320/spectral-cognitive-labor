@@ -8,7 +8,6 @@ authors:
   - family-names: Chisica
     given-names: Thomas
     affiliation: Universidad del Rosario
-    orcid: ""
 date-released: 2026-03-18
 url: "https://github.com/Thom-320/spectral-cognitive-labor"
 repository-code: "https://github.com/Thom-320/spectral-cognitive-labor"
@@ -27,7 +26,11 @@ references:
     authors:
       - family-names: Andrade-Lotero
         given-names: Edgar
-      - family-names: Giraldo-Grueso
-        given-names: Catalina
-    year: 2024
-    url: "https://github.com/EAndrade-Lotero/SODCL"
+      - family-names: Goldstone
+        given-names: Robert L.
+    year: 2021
+    journal: PLOS ONE
+    volume: "16"
+    issue: "7"
+    doi: "10.1371/journal.pone.0254532"
+    url: "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0254532"

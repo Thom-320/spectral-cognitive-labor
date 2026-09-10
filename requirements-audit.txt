@@ -1,0 +1,3 @@
+# Minimal environment for the model-free temporal repair; Python >=3.11 (3.12 recommended).
+# NumPy version used by the recorded audit.
+numpy==2.3.5

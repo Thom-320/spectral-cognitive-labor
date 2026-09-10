@@ -38,3 +38,6 @@ paper/*_draft.html
 paper/*_draft_*.html
 paper/*_draft.tex
 paper/*.bak
+
+# Isolated model-free audit environment
+.venv-audit/

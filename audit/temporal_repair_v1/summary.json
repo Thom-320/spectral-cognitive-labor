@@ -1,0 +1,80 @@
+{
+  "raw_rows": 5400,
+  "absent_player_rows": 2644,
+  "historical_player_rows": 1244,
+  "dyads": 45,
+  "cutoff_min": 6,
+  "cutoff_max": 19,
+  "historical_cutoffs_ge_30": 15,
+  "zero_margins": 0,
+  "historical_metrics": [
+    {
+      "metric": "DLIndex",
+      "matched": 1244,
+      "matching_missing": 0,
+      "max_abs_error": 0.0
+    },
+    {
+      "metric": "Similarity",
+      "matched": 1244,
+      "matching_missing": 0,
+      "max_abs_error": 0.0
+    },
+    {
+      "metric": "Consistency",
+      "matched": 1194,
+      "matching_missing": 50,
+      "max_abs_error": 0.0
+    },
+    {
+      "metric": "Joint",
+      "matched": 1244,
+      "matching_missing": 0,
+      "max_abs_error": 0.0
+    },
+    {
+      "metric": "Size_visited",
+      "matched": 1244,
+      "matching_missing": 0,
+      "max_abs_error": 0.0
+    }
+  ],
+  "prefix_invariance_dyads": 45,
+  "energy_pearson": 0.9994862483300364,
+  "energy_mean_abs_difference": 0.010949894121463728,
+  "energy_max_abs_difference": 0.06249267556767246,
+  "projectors": {
+    "fiedler_eigenvalues": [
+      0.4164003105349517,
+      0.41640031053495336
+    ],
+    "next_eigenvalue": 0.7399233311174064,
+    "eigenspace_atol": 1e-10,
+    "eigenspace_rtol": 1e-08,
+    "principal_angles_degrees": [
+      6.590464612188725,
+      6.590464612188947
+    ],
+    "projector_frobenius_distance": 0.2295436558388953,
+    "projector_operator_distance": 0.1147718279194478,
+    "F_max_invariance_residual": 1.0151203056989468e-14,
+    "xy_max_invariance_residual": 4.147694447309129e-16,
+    "eigen_residual": 7.24934006812724e-15,
+    "energy_not_axial_orientation_example": {
+      "single": {
+        "margin_zero": false,
+        "E_F": 0.986827427516028,
+        "E_xy": 1.000000000000001,
+        "dominant_score": 1.0000000000000007
+      },
+      "mixed": {
+        "margin_zero": false,
+        "E_F": 0.9868274275160291,
+        "E_xy": 0.9999999999999998,
+        "dominant_score": 0.7071067811865476
+      }
+    }
+  },
+  "models_fitted": 0,
+  "outcome": "pending team decision"
+}
