@@ -26,7 +26,19 @@ an evaluation on the reconstructed cohort. "Zero models" describes the
 model-free audit, not a claim that this cohort has never been explored.
 Future predictive analyses on it are not blind confirmation.
 
-## The question
+## Mathematical and computational contribution
+
+The inspectable artifact is a past-only cohort and a comparison of rank-two
+representations, not a headline classifier score. For mathematical ML readers,
+the key step is replacing an arbitrary eigenvector with a basis-invariant
+projector. For evaluation readers, it is reconstructing what was available at
+each dyad's cutoff before defining a downstream prediction task.
+
+Start with the [audit implementation](scripts/audit_temporal_repair.py) alongside
+the recorded summary above. Integrity tests and empirical representation
+comparisons answer different questions; neither establishes a cognitive mechanism.
+
+## Research question
 
 Pairs searching the same board can develop complementary spatial roles. A spectral
 representation offers a way to describe those patterns, but its usefulness must be
