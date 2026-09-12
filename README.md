@@ -13,6 +13,19 @@ behavioral outcome and predictive evaluation protocol pending scientific agreeme
 
 [Temporal audit](docs/TEMPORAL_REPAIR.md) · [Literature](docs/LITERATURE_EXPANSION_AND_AUDIT_REVIEW.md) · [Project status](STATUS.md) · [Source experiment](https://github.com/EAndrade-Lotero/SODCL)
 
+## Read in five minutes
+
+1. **Question:** does a spectral representation add information beyond simple geometry?
+2. **My contribution:** reconstruct past-only behavioral features and compare basis-invariant spectral and coordinate representations.
+3. **Evidence:** start with the [cohort](audit/temporal_repair_v1/early_cohort.csv), [numerical summary](audit/temporal_repair_v1/summary.json), and [integrity checks](docs/TEMPORAL_REPAIR.md).
+4. **Boundary:** the model-free audit does not validate historical early-prediction claims. No training is necessary to read its results.
+
+**Analysis history:** the [explored-AUC register](docs/EXPLORED_AUC_REGISTER.md)
+also records retrospective fits performed elsewhere in the project, including
+an evaluation on the reconstructed cohort. "Zero models" describes the
+model-free audit, not a claim that this cohort has never been explored.
+Future predictive analyses on it are not blind confirmation.
+
 ## The question
 
 Pairs searching the same board can develop complementary spatial roles. A spectral
