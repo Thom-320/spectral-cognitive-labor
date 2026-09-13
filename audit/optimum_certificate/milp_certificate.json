@@ -1,0 +1,108 @@
+{
+  "python": "3.14.4",
+  "numpy": "2.5.2",
+  "scipy": "1.18.0",
+  "edges": 210,
+  "vol_V": 420,
+  "minimizers": [
+    {
+      "iteration": 0,
+      "status": 0,
+      "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+      "objective_210cut_minus_22vol": 0,
+      "mip_gap": 0.0,
+      "dual_bound": 1.1989473741299374e-12,
+      "size": 32,
+      "cut": 22,
+      "vol": 210,
+      "h": 0.10476190476190476,
+      "grid_rows": [
+        "00000000",
+        "00000000",
+        "00000000",
+        "00000000",
+        "11111111",
+        "11111111",
+        "11111111",
+        "11111111"
+      ]
+    },
+    {
+      "iteration": 1,
+      "status": 0,
+      "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+      "objective_210cut_minus_22vol": 0,
+      "mip_gap": 0.0,
+      "dual_bound": -9.133330922381363e-11,
+      "size": 32,
+      "cut": 22,
+      "vol": 210,
+      "h": 0.10476190476190476,
+      "grid_rows": [
+        "11111111",
+        "11111111",
+        "11111111",
+        "11111111",
+        "00000000",
+        "00000000",
+        "00000000",
+        "00000000"
+      ]
+    },
+    {
+      "iteration": 2,
+      "status": 0,
+      "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+      "objective_210cut_minus_22vol": 0,
+      "mip_gap": 0.0,
+      "dual_bound": 4.945377440890297e-12,
+      "size": 32,
+      "cut": 22,
+      "vol": 210,
+      "h": 0.10476190476190476,
+      "grid_rows": [
+        "11110000",
+        "11110000",
+        "11110000",
+        "11110000",
+        "11110000",
+        "11110000",
+        "11110000",
+        "11110000"
+      ]
+    },
+    {
+      "iteration": 3,
+      "status": 0,
+      "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+      "objective_210cut_minus_22vol": 0,
+      "mip_gap": 0.0,
+      "dual_bound": -3.797648735680406e-13,
+      "size": 32,
+      "cut": 22,
+      "vol": 210,
+      "h": 0.10476190476190476,
+      "grid_rows": [
+        "00001111",
+        "00001111",
+        "00001111",
+        "00001111",
+        "00001111",
+        "00001111",
+        "00001111",
+        "00001111"
+      ]
+    }
+  ],
+  "stops": [
+    {
+      "iteration": 4,
+      "status": 0,
+      "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+      "objective_210cut_minus_22vol": 320,
+      "mip_gap": 0.0,
+      "dual_bound": 319.9999999999934,
+      "note": "no further set with objective <= 0"
+    }
+  ]
+}

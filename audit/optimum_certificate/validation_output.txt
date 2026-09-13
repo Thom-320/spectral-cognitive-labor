@@ -1,0 +1,17 @@
+3x3 ocho vecinos: corte mínimo por volumen idéntico=True; h* fuerza bruta=9/19 DP=9/19
+3x3 cuatro vecinos: corte mínimo por volumen idéntico=True; h* fuerza bruta=1/3 DP=1/3
+3x4 ocho vecinos: corte mínimo por volumen idéntico=True; h* fuerza bruta=7/29 DP=7/29
+3x4 cuatro vecinos: corte mínimo por volumen idéntico=True; h* fuerza bruta=3/17 DP=3/17
+4x3 ocho vecinos: corte mínimo por volumen idéntico=True; h* fuerza bruta=7/29 DP=7/29
+4x3 cuatro vecinos: corte mínimo por volumen idéntico=True; h* fuerza bruta=3/17 DP=3/17
+4x4 ocho vecinos: corte mínimo por volumen idéntico=True; h* fuerza bruta=5/21 DP=5/21
+4x4 cuatro vecinos: corte mínimo por volumen idéntico=True; h* fuerza bruta=1/6 DP=1/6
+3x5 ocho vecinos: corte mínimo por volumen idéntico=True; h* fuerza bruta=4/17 DP=4/17
+3x5 cuatro vecinos: corte mínimo por volumen idéntico=True; h* fuerza bruta=3/17 DP=3/17
+4x5 ocho vecinos: corte mínimo por volumen idéntico=True; h* fuerza bruta=1/5 DP=1/5
+4x5 cuatro vecinos: corte mínimo por volumen idéntico=True; h* fuerza bruta=5/31 DP=5/31
+5x4 ocho vecinos: corte mínimo por volumen idéntico=True; h* fuerza bruta=1/5 DP=1/5
+5x4 cuatro vecinos: corte mínimo por volumen idéntico=True; h* fuerza bruta=5/31 DP=5/31
+8x8 ocho vecinos: igual a dp_results.npz=True; h*=11/105
+8x8 cuatro vecinos: igual a dp_results.npz=True; h*=1/14
+TODAS COINCIDEN
