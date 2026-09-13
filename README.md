@@ -60,6 +60,7 @@ not establish a predictive advantage or a cognitive mechanism.
 | A past-only cohort can be reconstructed | All **45 dyads** have five target-absent opportunities ending between **rounds 6 and 19**. This equalizes opportunities, not elapsed rounds. |
 | Original metrics can be recovered | DLIndex and Similarity match all **1,244 shared historical rows**; Consistency matches **1,194 values and 50 missing entries**. This checks implementation consistency. |
 | A single Fiedler vector is not canonical | The spatial graph has a **two-dimensional Fiedler eigenspace**. A sign cut of one solver-selected vector depends on the choice of basis. |
+| The axial cut is the global conductance minimum | Over all partitions, the minimum conductance is exactly **22/210**, attained only by the left/right and top/bottom halves. An integer MILP and an exhaustive dynamic program agree ([certificate](audit/optimum_certificate/)). This explains why axial cuts are cheap in this graph, not why participants choose them. |
 | Spectral and coordinate energies are close | Principal angles are approximately **6.59046°**; energy correlation across the reconstructed cohort is **0.999486**. The representations are distinct but highly redundant in this sample. |
 | Predictive value remains unresolved | The audit fits **zero models**. High energy correlation does not establish predictive equivalence, and high spatial energy does not necessarily imply axial specialization. |
 
@@ -148,9 +149,12 @@ Their early selection used an absent-followed-by-absent filter and reaches round
 Furthermore, its `dominant_score` uses coordinate templates rather than eigenvectors.
 These values do not establish validated early prediction or spectral advantage.
 
-The solver-selected Fiedler cut and the favorable axial reference are likewise
-historical comparisons, not a canonical spectral partition or proof of global
-conductance optimality.
+The solver-selected Fiedler cut is likewise a historical comparison that depends
+on the basis, not a canonical spectral partition. The axial reference, by
+contrast, is now certified: 22/210 is the exact global minimum conductance of
+$P_8 \boxtimes P_8$, attained only by the left/right and top/bottom halves
+([certificate](audit/optimum_certificate/)). This is a property of the chosen
+graph, not evidence that participants optimize conductance.
 
 - [Historical result tables](data/results/)
 - [Historical figures](figures/)

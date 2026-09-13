@@ -1,6 +1,6 @@
 # Project status
 
-**Last updated:** 2026-09-10
+**Last updated:** 2026-09-13
 
 ## Current scientific scope
 
@@ -41,11 +41,15 @@ predictive AUC or spectral advantage has been established.
 The former predictor reaches round >=30 in 15/45 dyads. `dominant_score` uses
 coordinate templates, not eigenvectors. Historical pipeline reproducibility does
 not establish temporal validity. The naive Fiedler reference is basis dependent.
-No claim of a globally optimal partition is made.
+The axial reference is certified as the exact global minimum conductance of the
+8×8 eight-neighbor graph (22/210, attained only by the LR and TB halves); see
+`audit/optimum_certificate/`. This is a property of the graph, not of participants.
 
 ## Evidence and next action
 
 - [Temporal reconstruction and mathematical checks](docs/TEMPORAL_REPAIR.md)
+- [Certificate of the global conductance minimum](audit/optimum_certificate/README.md)
+- [Register of explored AUCs](docs/EXPLORED_AUC_REGISTER.md)
 - [Directed literature review](docs/LITERATURE_REVIEW_2026-09-10.md)
 - [Expanded search and external-audit assessment](docs/LITERATURE_EXPANSION_AND_AUDIT_REVIEW.md)
 - [Research prompt for independent review](docs/CHATGPT_PRO_RESEARCH_PROMPT.md)
