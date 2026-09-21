@@ -21,6 +21,8 @@ La observación no está truncada por el hallazgo del objetivo en las rondas aus
 
 Tratar `Y_t` como si fuera `Z_t` cambia las conclusiones. La persistencia de una estrategia es 0,92 entre rondas ausentes consecutivas y 0,53 entre rondas de calendario.
 
+**Pero el ajuste del estudio original no incurre en ese problema.** Su código (`R/fitModel.R`) ajusta sobre `humans_only_absent.csv`, y se comprueba que esas 1.244 filas son exactamente las rondas ausentes cuya ronda siguiente también es ausente. Ni el predictor ni el objetivo están truncados. El truncamiento sigue siendo una razón para no extender el análisis a las rondas de calendario, y una razón para el proceso de observación si se quiere usar todo el conjunto, pero no es una objeción al ajuste publicado. Esta corrección sale de leer la fuente original, no de suponerla.
+
 ## Modelos rivales
 
 Todos sobre el mismo estado y la misma observación, y todos por díada.

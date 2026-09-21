@@ -37,7 +37,9 @@ parámetro probados**, con una salvedad de certificación: quince de los diecis�
 casos terminan con `status = 0`, es decir con el óptimo demostrado y gap cero. El
 decimosexto, el núcleo gaussiano más ancho (`s = 2,5`, del orden de dos mil
 aristas), agotó el límite de tiempo y devolvió `status = 1`. Su incumbente también
-es axial, pero eso es una solución, no un certificado. La tabla completa, con el
+es axial, pero eso es una solución, no un certificado. No es cuestión de esperar:
+repetido con un límite de 2.400 segundos vuelve a agotarlo con el mismo valor,
+0,303823. La tabla completa, con el
 estado del solver en cada caso, está en
 [`weight_sensitivity_output.txt`](weight_sensitivity_output.txt).
 
