@@ -1,0 +1,20 @@
+/home/ubuntu/projects/spectral-cognitive-labor/audit/edge_weights/weight_sensitivity.py:45: RuntimeWarning: invalid value encountered in scalar divide
+  newlam=cut/min(vol,d.sum()-vol)
+w = peso de la arista diagonal
+
+particion                                    1.0       0.9       0.8    0.7071       0.6       0.5       0.3
+LR (mitades)                              0.1048    0.1029    0.1008    0.0987    0.0960    0.0932    0.0863
+TB (mitades)                              0.1048    0.1029    0.1008    0.0987    0.0960    0.0932    0.0863
+Diagonal                                  0.1475    0.1473    0.1470    0.1467    0.1463    0.1459    0.1449
+IN 6x6 / OUT                              0.5152    0.5016    0.4868    0.4720    0.4532    0.4340    0.3891
+IN 4x4 / OUT                              0.3438    0.3388    0.3333    0.3277    0.3203    0.3125    0.2933
+Escalera (2 col + 2 col desplazadas)      0.1048    0.1029    0.1008    0.0987    0.0960    0.0932    0.0863
+Cuadrante 4x4                             0.2000    0.1968    0.1933    0.1897    0.1850    0.1801    0.1683
+
+Optimo global (MILP, Dinkelbach):
+  w=1.0     h*=0.10476 status=0 |S|=0 coincide con: otra
+   00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+  w=0.7071  h*=0.09873 status=0 |S|=32 coincide con: ['TB (mitades)']
+   00000000 00000000 00000000 00000000 11111111 11111111 11111111 11111111
+  w=0.5     h*=0.09317 status=0 |S|=32 coincide con: ['TB (mitades)']
+   11111111 11111111 11111111 11111111 00000000 00000000 00000000 00000000
