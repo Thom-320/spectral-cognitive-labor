@@ -568,5 +568,125 @@
     "doi": null,
     "title": "Hearing the shape of an arena with spectral swarm robotics",
     "metadata_source": "PDF title and author/publisher page"
+  },
+  {
+    "file": "DeVicariis_et_al_2024_Computational_joint_action.pdf",
+    "source_url": "https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.1011948&type=printable",
+    "retrieved": "2026-09-21",
+    "resolved_url": "https://journals.plos.org/ploscompbiol/article/file?id=10.1371/journal.pcbi.1011948&type=printable",
+    "pages": 27,
+    "sha256": "f373b2e0a46c81deda2c36afc652e0cc8292aaca60b8998a73fecbfe25ca6ed9",
+    "status": "verified_pdf",
+    "doi": "10.1371/journal.pcbi.1011948",
+    "title": "Computational joint action: Dynamical models to understand the development of joint coordination",
+    "authors": [
+      "Cecilia De Vicariis",
+      "Vinil T. Chackochan",
+      "Laura Bandini",
+      "Eleonora Ravaschio",
+      "Vittorio Sanguineti"
+    ],
+    "published": {
+      "date-parts": [
+        [
+          2024,
+          10,
+          22
+        ]
+      ]
+    },
+    "published_print": {},
+    "metadata_source": "Crossref"
+  },
+  {
+    "file": "Li_et_al_2023_HMM_strategic_thinking.pdf",
+    "source_url": "https://www.frontiersin.org/journals/behavioral-economics/articles/10.3389/frbhe.2023.1225856/pdf",
+    "retrieved": "2026-09-21",
+    "resolved_url": "https://www.frontiersin.org/journals/behavioral-economics/articles/10.3389/frbhe.2023.1225856/pdf",
+    "pages": 18,
+    "sha256": "537925bf29a224587d26f3a185121a2d8ebd3625d1cd5b749e6ade8fe3113040",
+    "status": "verified_pdf",
+    "doi": "10.3389/frbhe.2023.1225856",
+    "title": "Estimating Hidden Markov Models (HMMs) of the cognitive process in strategic thinking using eye-tracking",
+    "authors": [
+      "Xiaomin Li",
+      "Thomas Henning",
+      "Colin Camerer"
+    ],
+    "published": {
+      "date-parts": [
+        [
+          2023,
+          10,
+          19
+        ]
+      ]
+    },
+    "published_print": {},
+    "metadata_source": "Crossref"
+  },
+  {
+    "file": "Deffner_et_al_2024_Collective_incentives.pdf",
+    "source_url": "https://www.nature.com/articles/s41467-024-47010-3.pdf",
+    "retrieved": "2026-09-21",
+    "resolved_url": "https://www.nature.com/articles/s41467-024-47010-3.pdf",
+    "pages": 13,
+    "sha256": "40e7bfea4342794b523f31cb064ff3143df5390909640077e60b4828f6f21c10",
+    "status": "verified_pdf",
+    "doi": "10.1038/s41467-024-47010-3",
+    "title": "Collective incentives reduce over-exploitation of social information in unconstrained human groups",
+    "authors": [
+      "Dominik Deffner",
+      "David Mezey",
+      "Benjamin Kahl",
+      "Alexander Schakowski",
+      "Pawel Romanczuk",
+      "Charley M. Wu",
+      "Ralf H. J. M. Kurvers"
+    ],
+    "published": {
+      "date-parts": [
+        [
+          2024,
+          3,
+          27
+        ]
+      ]
+    },
+    "published_print": {},
+    "metadata_source": "Crossref"
+  },
+  {
+    "file": "Guennouni_Speekenbrink_2022_Opponent_models.pdf",
+    "source_url": "https://link.springer.com/content/pdf/10.1007/s42113-022-00133-6.pdf",
+    "retrieved": "2026-09-21",
+    "resolved_url": "https://link.springer.com/content/pdf/10.1007/s42113-022-00133-6.pdf",
+    "pages": 17,
+    "sha256": "8bbee773b40098dac66cc47967be57a47225262b9226ccc925212824122f4cd0",
+    "status": "verified_pdf",
+    "doi": "10.1007/s42113-022-00133-6",
+    "title": "Transfer of Learned Opponent Models in Zero Sum Games",
+    "authors": [
+      "Ismail Guennouni",
+      "Maarten Speekenbrink"
+    ],
+    "published": {
+      "date-parts": [
+        [
+          2022,
+          5,
+          31
+        ]
+      ]
+    },
+    "published_print": {
+      "date-parts": [
+        [
+          2022,
+          9
+        ]
+      ]
+    },
+    "metadata_source": "Crossref"
   }
 ]
