@@ -1,20 +1,61 @@
-/home/ubuntu/projects/spectral-cognitive-labor/audit/edge_weights/weight_sensitivity.py:45: RuntimeWarning: invalid value encountered in scalar divide
-  newlam=cut/min(vol,d.sum()-vol)
-w = peso de la arista diagonal
 
-particion                                    1.0       0.9       0.8    0.7071       0.6       0.5       0.3
-LR (mitades)                              0.1048    0.1029    0.1008    0.0987    0.0960    0.0932    0.0863
-TB (mitades)                              0.1048    0.1029    0.1008    0.0987    0.0960    0.0932    0.0863
-Diagonal                                  0.1475    0.1473    0.1470    0.1467    0.1463    0.1459    0.1449
-IN 6x6 / OUT                              0.5152    0.5016    0.4868    0.4720    0.4532    0.4340    0.3891
-IN 4x4 / OUT                              0.3438    0.3388    0.3333    0.3277    0.3203    0.3125    0.2933
-Escalera (2 col + 2 col desplazadas)      0.1048    0.1029    0.1008    0.0987    0.0960    0.0932    0.0863
-Cuadrante 4x4                             0.2000    0.1968    0.1933    0.1897    0.1850    0.1801    0.1683
+=== Familia A: descuento uniforme de la diagonal ===
+w = peso de la arista diagonal; las ortogonales valen 1.
 
-Optimo global (MILP, Dinkelbach):
-  w=1.0     h*=0.10476 status=0 |S|=0 coincide con: otra
-   00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
-  w=0.7071  h*=0.09873 status=0 |S|=32 coincide con: ['TB (mitades)']
-   00000000 00000000 00000000 00000000 11111111 11111111 11111111 11111111
-  w=0.5     h*=0.09317 status=0 |S|=32 coincide con: ['TB (mitades)']
-   11111111 11111111 11111111 11111111 00000000 00000000 00000000 00000000
+particion                             w=1      w=0.9      w=0.8   w=0.7071      w=0.6      w=0.5      w=0.3
+LR (mitades)                       0.1048     0.1029     0.1008     0.0987     0.0960     0.0932     0.0863
+TB (mitades)                       0.1048     0.1029     0.1008     0.0987     0.0960     0.0932     0.0863
+Diagonal                           0.1475     0.1473     0.1470     0.1467     0.1463     0.1459     0.1449
+IN 6x6 / OUT                       0.5152     0.5016     0.4868     0.4720     0.4532     0.4340     0.3891
+IN 4x4 / OUT                       0.3438     0.3388     0.3333     0.3277     0.3203     0.3125     0.2933
+Escalera (dos escalones)           0.1238     0.1219     0.1197     0.1176     0.1148     0.1118     0.1047
+Cuadrantes opuestos                0.1905     0.1878     0.1849     0.1819     0.1780     0.1739     0.1641
+Cuadrante 4x4                      0.2000     0.1968     0.1933     0.1897     0.1850     0.1801     0.1683
+
+optimo global (MILP entero, Dinkelbach, gap 0):
+          w=1  h*=0.104762  |S|=32  iter=1  status=0  coincide con: LR (mitades)  [9.7s]
+        w=0.9  h*=0.102897  |S|=32  iter=1  status=0  coincide con: TB (mitades)  [8.8s]
+        w=0.8  h*=0.100840  |S|=32  iter=1  status=0  coincide con: LR (mitades)  [9.1s]
+     w=0.7071  h*=0.098730  |S|=32  iter=1  status=0  coincide con: LR (mitades)  [8.5s]
+        w=0.6  h*=0.096019  |S|=32  iter=1  status=0  coincide con: TB (mitades)  [8.0s]
+        w=0.5  h*=0.093168  |S|=32  iter=1  status=0  coincide con: LR (mitades)  [7.7s]
+        w=0.3  h*=0.086280  |S|=32  iter=1  status=0  coincide con: LR (mitades)  [5.7s]
+
+=== Familia B: anisotropia horizontal / vertical ===
+b = peso de la arista vertical; horizontal y diagonal valen 1.
+
+particion                             b=1      b=0.8      b=0.6      b=0.4      b=1.5
+LR (mitades)                       0.1048     0.1107     0.1173     0.1247     0.0924
+TB (mitades)                       0.1048     0.1026     0.1002     0.0975     0.1092
+Diagonal                           0.1475     0.1478     0.1481     0.1484     0.1470
+IN 6x6 / OUT                       0.5152     0.5290     0.5448     0.5630     0.4868
+IN 4x4 / OUT                       0.3438     0.3487     0.3542     0.3603     0.3333
+Escalera (dos escalones)           0.1238     0.1288     0.1343     0.1406     0.1134
+Cuadrantes opuestos                0.1905     0.1932     0.1962     0.1995     0.1849
+Cuadrante 4x4                      0.2000     0.2032     0.2068     0.2109     0.1933
+
+optimo global (MILP entero, Dinkelbach, gap 0):
+          b=1  h*=0.104762  |S|=32  iter=1  status=0  coincide con: LR (mitades)  [9.7s]
+        b=0.8  h*=0.102616  |S|=32  iter=1  status=0  coincide con: TB (mitades)  [9.3s]
+        b=0.6  h*=0.100213  |S|=32  iter=1  status=0  coincide con: TB (mitades)  [9.0s]
+        b=0.4  h*=0.097506  |S|=32  iter=1  status=0  coincide con: TB (mitades)  [9.7s]
+        b=1.5  h*=0.092437  |S|=32  iter=1  status=0  coincide con: LR (mitades)  [8.6s]
+
+=== Familia C: nucleo gaussiano sobre todas las parejas ===
+s = escala del nucleo exp(-d^2/(2 s^2)); se conservan pesos >= 1e-3.
+
+particion                           s=0.7        s=1      s=1.5      s=2.5
+LR (mitades)                       0.0936     0.1237     0.1851     0.3038
+TB (mitades)                       0.0936     0.1237     0.1851     0.3038
+Diagonal                           0.1524     0.1835     0.2495     0.3680
+IN 6x6 / OUT                       0.4081     0.4807     0.5565     0.6229
+IN 4x4 / OUT                       0.3138     0.3897     0.5004     0.6324
+Escalera (dos escalones)           0.1128     0.1455     0.2086     0.3193
+Cuadrantes opuestos                0.1761     0.2228     0.3085     0.4313
+Cuadrante 4x4                      0.1816     0.2351     0.3394     0.5195
+
+optimo global (MILP entero, Dinkelbach, gap 0):
+        s=0.7  h*=0.093568  |S|=32  iter=1  status=0  coincide con: LR (mitades)  [14.5s]
+          s=1  h*=0.123732  |S|=32  iter=1  status=0  coincide con: TB (mitades)  [31.2s]
+        s=1.5  h*=0.185106  |S|=32  iter=1  status=0  coincide con: LR (mitades)  [207.4s]
+        s=2.5  h*=0.303823  |S|=32  iter=1  status=1  coincide con: LR (mitades)  [300.5s]

@@ -1,6 +1,6 @@
 # Project status
 
-**Last updated:** 2026-09-13
+**Last updated:** 2026-09-21
 
 ## Current scientific scope
 
@@ -24,6 +24,9 @@ predictive AUC or spectral advantage has been established.
 - A small matched comparison of behavioral metrics, + coordinate energy, + Fiedler energy.
 - Scientific interpretation with Andrade. A mathematical review by Esteban Vargas Bernal
   is a proposal supported by his documented network-science work, not an agreed role.
+- Whether the first contrast is an out-of-dyad re-evaluation of the published
+  MBIASES/WSLS/FRA ladder or the latent-state models of the mechanism proposal.
+  Either way it is blocked on a parametric rewrite: see the design check below.
 - Transfer to Coordinator-and-Foragers/PsyNet is not established. Earlier extension
   plans and institutional attributions in this file were not verified and are withdrawn
   from current project status; the earlier version remains in Git and the audit archive.
@@ -45,10 +48,24 @@ The axial reference is certified as the exact global minimum conductance of the
 8×8 eight-neighbor graph (22/210, attained only by the LR and TB halves); see
 `audit/optimum_certificate/`. This is a property of the graph, not of participants.
 
+## Design check before the next contrast
+
+A synthetic power and recovery study, on 2,554 absent-to-absent transitions in 45
+dyads with 200 replicates, shows that the mechanism proposal's rival models written
+as frequency tables cannot be told apart by this design: the richest model is
+recovered 73% of the time and a dyad-clustered interval excludes zero only 11% of
+the time at the effect size the data themselves suggest. The minimum detectable
+effect is roughly twice that. The models must be rewritten parametrically, in the
+shape of the published ladder, and the simulation repeated before any comparison is
+run on the human data. No model comparison on participants has been run.
+See [audit/model_recovery/](audit/model_recovery/README.md).
+
 ## Evidence and next action
 
 - [Temporal reconstruction and mathematical checks](docs/TEMPORAL_REPAIR.md)
+- [Power and model recovery of the proposed contrast](audit/model_recovery/README.md)
 - [Certificate of the global conductance minimum](audit/optimum_certificate/README.md)
+- [Edge-weight sensitivity of the spatial optimum](audit/edge_weights/README.md)
 - [Register of explored AUCs](docs/EXPLORED_AUC_REGISTER.md)
 - [Directed literature review](docs/LITERATURE_REVIEW_2026-09-10.md)
 - [Expanded search and external-audit assessment](docs/LITERATURE_EXPANSION_AND_AUDIT_REVIEW.md)

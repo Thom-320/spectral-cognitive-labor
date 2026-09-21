@@ -112,6 +112,11 @@ spectral representation helps under that procedure; it does not establish a
 mechanism or additional information conditional on both energies. The uncertainty
 procedure and a materially useful improvement remain to be specified.
 
+Whatever contrast is agreed, it needs a design check first. A synthetic power and
+recovery study of the rival models in the mechanism proposal finds 73% recovery of
+the richest model and 11% power at the effect size the data suggest, so a null
+result would not be interpretable ([details](audit/model_recovery/README.md)).
+
 ## Reproduce the model-free audit
 
 Use **Python 3.11 or newer**; Python 3.12 is recommended for the pinned environment.
@@ -188,6 +193,8 @@ its own assessment.
 | `data/raw/performances.csv` | Source table used to reconstruct all target-absent opportunities |
 | `data/raw/humans_only_absent.csv` | Historical filtered table; not the complete set of absent trials |
 | `audit/temporal_repair_v1/` | Reconstructed cohort, round metrics, projectors and provenance |
+| `audit/model_recovery/` | Synthetic power and recovery study of the proposed contrast |
+| `audit/edge_weights/` | Sensitivity of the spatial optimum to three weighting families |
 | `scripts/audit_temporal_repair.py` | Current model-free reconstruction |
 | `tests/test_temporal_repair.py` | Metric encoding, temporal integrity and invariance tests |
 | `src/`, `data/results/`, `figures/` | Historical pipeline and outputs |

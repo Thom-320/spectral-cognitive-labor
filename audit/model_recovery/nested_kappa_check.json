@@ -1,0 +1,38 @@
+{
+  "reps": 40,
+  "meta": {
+    "mode": "absent",
+    "sha256": "9452e653a5ffd08f8148f15269d73b754f782ed7f48bc1c3292dc78b42105c54",
+    "n_transitions": 2554,
+    "n_dyads": 45,
+    "score_cuts": [
+      19.0,
+      32.0
+    ],
+    "joint_equals_intersection": true,
+    "score_identity_holds": true
+  },
+  "rows": [
+    {
+      "generator": "M1",
+      "fast": 1.0,
+      "strict": 1.0,
+      "delta_fast": -0.015561015584038532,
+      "delta_strict": -0.016566508041305973
+    },
+    {
+      "generator": "M2",
+      "fast": 1.0,
+      "strict": 1.0,
+      "delta_fast": -0.009836399202608093,
+      "delta_strict": -0.009287641976098184
+    },
+    {
+      "generator": "M3",
+      "fast": 0.725,
+      "strict": 0.775,
+      "delta_fast": 0.002578763480739557,
+      "delta_strict": 0.0029994101828459915
+    }
+  ]
+}

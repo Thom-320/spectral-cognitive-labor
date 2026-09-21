@@ -1,0 +1,301 @@
+{
+  "meta": {
+    "mode": "absent",
+    "sha256": "9452e653a5ffd08f8148f15269d73b754f782ed7f48bc1c3292dc78b42105c54",
+    "n_transitions": 2554,
+    "n_dyads": 45,
+    "score_cuts": [
+      19.0,
+      32.0
+    ],
+    "joint_equals_intersection": true,
+    "score_identity_holds": true
+  },
+  "kappa": 5.0,
+  "reps": 200,
+  "support_cells": {
+    "M0": 1,
+    "M1": 9,
+    "M2": 22,
+    "M3": 44
+  },
+  "anchor_oracle_delta": 0.011794031015513148,
+  "recovery": {
+    "M0": {
+      "selected": {
+        "M0": 197,
+        "M1": 3,
+        "M2": 0,
+        "M3": 0
+      },
+      "aic_selected": {
+        "M0": 200,
+        "M1": 0,
+        "M2": 0,
+        "M3": 0
+      },
+      "power": 0.0,
+      "delta_mean": -0.010405552524124942,
+      "delta_sd": 0.00246229651869402,
+      "insample_delta_mean": 0.03016257163087067,
+      "kappa_median": {
+        "M0": 0.5,
+        "M1": 80.0,
+        "M2": 80.0,
+        "M3": 80.0
+      }
+    },
+    "M1": {
+      "selected": {
+        "M0": 0,
+        "M1": 199,
+        "M2": 1,
+        "M3": 0
+      },
+      "aic_selected": {
+        "M0": 0,
+        "M1": 200,
+        "M2": 0,
+        "M3": 0
+      },
+      "power": 0.0,
+      "delta_mean": -0.01485752394297156,
+      "delta_sd": 0.0034195477977040007,
+      "insample_delta_mean": 0.016514171446564193,
+      "kappa_median": {
+        "M0": 0.5,
+        "M1": 2.0,
+        "M2": 20.0,
+        "M3": 20.0
+      }
+    },
+    "M2": {
+      "selected": {
+        "M0": 0,
+        "M1": 0,
+        "M2": 200,
+        "M3": 0
+      },
+      "aic_selected": {
+        "M0": 0,
+        "M1": 142,
+        "M2": 58,
+        "M3": 0
+      },
+      "power": 0.0,
+      "delta_mean": -0.00920364012939293,
+      "delta_sd": 0.0031913078655314356,
+      "insample_delta_mean": 0.013857486993029071,
+      "kappa_median": {
+        "M0": 0.5,
+        "M1": 0.5,
+        "M2": 5.0,
+        "M3": 20.0
+      }
+    },
+    "M3": {
+      "selected": {
+        "M0": 0,
+        "M1": 0,
+        "M2": 54,
+        "M3": 146
+      },
+      "aic_selected": {
+        "M0": 0,
+        "M1": 101,
+        "M2": 99,
+        "M3": 0
+      },
+      "power": 0.11,
+      "delta_mean": 0.0021410002767052326,
+      "delta_sd": 0.003893893929533815,
+      "insample_delta_mean": 0.02287908123421447,
+      "kappa_median": {
+        "M0": 0.5,
+        "M1": 0.5,
+        "M2": 5.0,
+        "M3": 20.0
+      }
+    }
+  },
+  "power_curve": [
+    {
+      "theta": 0.0,
+      "oracle_delta": -1.847301320849773e-17,
+      "p_select_M3": 0.0,
+      "power": 0.0,
+      "delta_mean": -0.009690947896662527,
+      "delta_sd": 0.003351276867977022
+    },
+    {
+      "theta": 0.25,
+      "oracle_delta": 0.0008834995059791909,
+      "p_select_M3": 0.0,
+      "power": 0.0,
+      "delta_mean": -0.007987054733605668,
+      "delta_sd": 0.0031965591323242933
+    },
+    {
+      "theta": 0.5,
+      "oracle_delta": 0.0032926656757867366,
+      "p_select_M3": 0.03,
+      "power": 0.0,
+      "delta_mean": -0.005093354841818077,
+      "delta_sd": 0.0029217742493234493
+    },
+    {
+      "theta": 0.75,
+      "oracle_delta": 0.00696773845111995,
+      "p_select_M3": 0.32,
+      "power": 0.015,
+      "delta_mean": -0.0020763275692355365,
+      "delta_sd": 0.003749174172601893
+    },
+    {
+      "theta": 1.0,
+      "oracle_delta": 0.01179403101551312,
+      "p_select_M3": 0.78,
+      "power": 0.11,
+      "delta_mean": 0.0028960810723533204,
+      "delta_sd": 0.0034613004362619966
+    },
+    {
+      "theta": 1.5,
+      "oracle_delta": 0.02493061279396729,
+      "p_select_M3": 1.0,
+      "power": 0.875,
+      "delta_mean": 0.015065864722880164,
+      "delta_sd": 0.00481562477844967
+    },
+    {
+      "theta": 2.0,
+      "oracle_delta": 0.04307747149657365,
+      "p_select_M3": 1.0,
+      "power": 1.0,
+      "delta_mean": 0.03303468572252158,
+      "delta_sd": 0.006250732626846823
+    },
+    {
+      "theta": 3.0,
+      "oracle_delta": 0.09622446938449816,
+      "p_select_M3": 1.0,
+      "power": 1.0,
+      "delta_mean": 0.08331772436293111,
+      "delta_sd": 0.007652472662121288
+    }
+  ],
+  "scale": [
+    {
+      "n_dyads": 45,
+      "n_transitions": 2554,
+      "p_select_M3": 0.7,
+      "power": 0.16,
+      "delta_mean": 0.00259831442233421
+    },
+    {
+      "n_dyads": 90,
+      "n_transitions": 5108,
+      "p_select_M3": 1.0,
+      "power": 0.82,
+      "delta_mean": 0.00682214464926462
+    },
+    {
+      "n_dyads": 180,
+      "n_transitions": 10216,
+      "p_select_M3": 1.0,
+      "power": 1.0,
+      "delta_mean": 0.009783885398266114
+    },
+    {
+      "n_dyads": 360,
+      "n_transitions": 20432,
+      "p_select_M3": 1.0,
+      "power": 1.0,
+      "delta_mean": 0.010745469046809042
+    }
+  ],
+  "heterogeneity": [
+    {
+      "tau": null,
+      "selected": {
+        "M0": 0.0,
+        "M1": 0.0,
+        "M2": 1.0,
+        "M3": 0.0
+      },
+      "insample_delta_mean": 0.013988576391836325,
+      "delta_mean": -0.009411680124667133
+    },
+    {
+      "tau": 200.0,
+      "selected": {
+        "M0": 0.0,
+        "M1": 0.0,
+        "M2": 1.0,
+        "M3": 0.0
+      },
+      "insample_delta_mean": 0.01389249819200648,
+      "delta_mean": -0.009739649930571229
+    },
+    {
+      "tau": 50.0,
+      "selected": {
+        "M0": 0.0,
+        "M1": 0.0,
+        "M2": 1.0,
+        "M3": 0.0
+      },
+      "insample_delta_mean": 0.014346558332986781,
+      "delta_mean": -0.009606779609038751
+    },
+    {
+      "tau": 10.0,
+      "selected": {
+        "M0": 0.0,
+        "M1": 0.0,
+        "M2": 1.0,
+        "M3": 0.0
+      },
+      "insample_delta_mean": 0.015733927452481953,
+      "delta_mean": -0.010779700914467638
+    }
+  ],
+  "smoothing_sensitivity": [
+    {
+      "kappa": 0.5,
+      "M1": 1.0,
+      "M2": 1.0,
+      "M3": 0.0
+    },
+    {
+      "kappa": 2.0,
+      "M1": 1.0,
+      "M2": 1.0,
+      "M3": 0.16
+    },
+    {
+      "kappa": 5.0,
+      "M1": 1.0,
+      "M2": 1.0,
+      "M3": 0.26
+    },
+    {
+      "kappa": 20.0,
+      "M1": 0.06,
+      "M2": 1.0,
+      "M3": 0.96
+    },
+    {
+      "kappa": 80.0,
+      "M1": 0.0,
+      "M2": 0.0,
+      "M3": 1.0
+    },
+    {
+      "kappa": "cv",
+      "M1": 1.0,
+      "M2": 1.0,
+      "M3": 0.72
+    }
+  ]
+}

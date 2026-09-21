@@ -1,0 +1,8 @@
+replicas: 40; diadas: 45; transiciones: 2554
+
+generador      recupera (rapido)   recupera (estricto)  delta rapido  delta estricto
+M1                          1.00                  1.00       -0.0156         -0.0166
+M2                          1.00                  1.00       -0.0098         -0.0093
+M3                          0.72                  0.78        0.0026          0.0030
+
+Escrito: audit/model_recovery/nested_kappa_check.json

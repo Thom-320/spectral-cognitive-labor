@@ -36,6 +36,10 @@ M3 es la estructura del modelo FRA, *Focal Regions as Attractors*, del estudio o
 
 **El score ya contiene una señal social.** En este juego vale 32 o −64 según el acierto, menos las casillas destapadas por ambos, y esa identidad se cumple en las 5.400 filas del conjunto. Por eso M2 frente a M3 **no** contrasta información propia contra información del compañero. Contrasta un feedback escalar que ya incorpora el coste del solapamiento frente a la estructura espacial de ese conflicto. Si se quisiera separar ambas cosas habría que descomponer el score en acierto y penalización, lo que ya no replica WSLS ni FRA y sería otra familia de modelos.
 
+**Los cuatro deben escribirse como modelos paramétricos de baja dimensión**, en la forma de MBIASES, WSLS y FRA, y no como tablas de frecuencias condicionadas. La razón no es de estilo: con tablas, M3 tiene 135 celdas de condicionamiento y solo 44 reciben datos, y la [simulación de potencia](../audit/model_recovery/README.md) muestra que el contraste deja de ser informativo. De la Tabla 3 del artículo, con `AIC = devianza + 2k`, salen 4, 7 y 10 parámetros libres para MBIASES, WSLS y FRA; esa es la escala correcta.
+
+**Y el predictor de M3 debe ser el patrón espacial del solapamiento, no su tamaño.** La identidad del score fija el tamaño dado el acierto, así que un M3 que usara el tamaño estaría contenido en M2 y el contraste sería vacío por construcción.
+
 ## Predicciones que los distinguen
 
 1. **Formación.** Una cadena homogénea de primer orden sí puede aumentar la ocupación con el tiempo si arranca lejos de su distribución estacionaria, así que el aumento por sí solo no distingue modelos. Lo que sí distingue es cuánto aumento explica: la cadena de pares estimada con las rondas 1 a 20, proyectada hacia adelante desde la distribución observada en la ronda 1, se estabiliza en el 5,2 % de ocupación, mientras que lo observado en 41 a 60 es el 19,6 %. Las propias probabilidades de transición cambian con el tiempo. El contraste correcto es condicional: dado el mismo estado actual, ¿mejoran la predicción el score y el patrón de solapamiento?
@@ -51,9 +55,27 @@ M3 es la estructura del modelo FRA, *Focal Regions as Attractors*, del estudio o
 - **Baseline con banda, no con un número.** Con las categorías como estado observado, una cadena de primer orden da entre 0,541 y 0,581 de log-loss en triples de rondas ausentes consecutivas y entre 0,736 y 0,739 sobre todas las rondas, según el suavizado y el soporte de entrenamiento. Antes del contraste se fija una única regla de suavizado y de respaldo, y se aplica igual dentro de cada pliegue. El detalle está en la [auditoría de la cadena](../audit/strategy_chain/README.md).
 - **Margen de utilidad declarado antes.** Se acuerda qué diferencia de log-loss se considera materialmente relevante, para poder distinguir un efecto pequeño de una muestra insuficiente.
 - **Sin selección posterior.** Los cuatro modelos se fijan antes; no se añaden variables para rescatar un resultado.
+- **Suavizado elegido dentro del entrenamiento.** Fijar la constante a mano permite obtener casi cualquier conclusión: en la simulación, con suavizado fuerte M3 se «recupera» el 100 % de las veces y M1 el 0 %. La regla de selección se escribe antes y se aplica dentro de cada pliegue.
+
+### Puerta previa: recuperación y potencia
+
+Antes de tocar los datos humanos hay que demostrar que el procedimiento distingue los modelos. La [simulación](../audit/model_recovery/README.md) ya lo midió para la versión en tablas, sobre 2.554 transiciones entre rondas ausentes consecutivas en 45 díadas, con 200 réplicas:
+
+| Resultado | Valor |
+|---|--:|
+| Recuperación de M0, M1 y M2 | 0,98 · 0,99 · 1,00 |
+| Recuperación de M3 | **0,73** |
+| Potencia con el efecto que los datos sugieren, 0,0118 nats | **0,11** |
+| Efecto mínimo detectable al 80 % de potencia | 0,020 a 0,025 nats |
+| Díadas necesarias para el efecto anclado | unas 90 |
+
+**Conclusión operativa: el contraste no se corre con esa parametrización.** Con 0,11 de potencia, un intervalo que cruzara el cero no distinguiría ausencia de efecto de ausencia de potencia, y el criterio de cierre de abajo sería inaplicable. El paso siguiente es reescribir M2 y M3 como modelos paramétricos y repetir la simulación. Si la potencia sigue siendo baja con los modelos del artículo, eso es un resultado en sí mismo y cambia la pregunta del proyecto.
+
+La simulación también corrige una objeción que circuló antes: el cambio de signo entre el ajuste dentro de muestra y la validación fuera de díada aparece ya con díadas idénticas, así que lo produce el sobreajuste del modelo rico y no la heterogeneidad entre parejas. Lo que sí se sostiene es que una ventaja dentro de muestra que no transfiere no demuestra por sí sola que el mecanismo sea falso.
 
 ## Criterio de cierre
 
+- **El criterio solo se aplica si la puerta anterior está superada.** Sin potencia demostrada frente al efecto de interés, ninguna de las lecturas siguientes es válida.
 - Si M3 no mejora a M2 con un intervalo que excluya cero, la conclusión es que **no se obtiene evidencia** de valor predictivo incremental de la estructura del solapamiento bajo estos modelos y estos datos. Un intervalo que cruza cero puede significar efecto nulo, efecto pequeño, muestra insuficiente o modelo mal especificado, así que no demuestra que esa información no haga falta. Afirmar que no es materialmente necesaria exige que el intervalo quepa dentro del margen acordado.
 - Si ningún modelo bate a la cadena de primer orden, la conclusión es que ninguno de los mecanismos candidatos demuestra valor incremental sobre ese baseline, no que el proceso verdadero sea inercia más truncamiento. El proyecto cerraría con la parte descriptiva: la medida, el certificado del mínimo global y la auditoría del proceso de observación.
 - Si M3 gana, el siguiente paso es una manipulación que cambie la información disponible sobre el compañero, que ya requiere experimento nuevo y otra conversación.
@@ -64,12 +86,12 @@ Un modelo tipo Ising sobre las 64 casillas queda fuera de este contraste. Sobre 
 
 ## Trabajo estimado
 
-Unas 12 a 16 horas de Thomas para escribir los cuatro modelos y el proceso de observación, y de 4 a 6 más para la evaluación y el informe, suponiendo que el estado y la observación queden acordados antes. Cómputo de minutos en un portátil.
+Unas 12 a 16 horas de Thomas para escribir los cuatro modelos y el proceso de observación, y de 4 a 6 más para la evaluación y el informe, suponiendo que el estado y la observación queden acordados antes. Antes de eso, unas 6 a 8 horas para la versión paramétrica de los modelos y repetir la simulación de recuperación, que es lo que decide si el resto del trabajo tiene sentido. Cómputo de minutos en un portátil; la simulación completa, unos 40 minutos.
 
 ## Reparto propuesto, sujeto a acuerdo
 
 - **Andrade** decide si el estado latente y el proceso de observación son fieles a la tarea, y si M3 representa el modelo original.
-- **Esteban** revisa la formulación como cadena oculta, la identificabilidad de los parámetros y si conviene una dinámica alternativa.
+- **Esteban** revisa la formulación como cadena oculta, la identificabilidad de los parámetros y si conviene una dinámica alternativa. La simulación de potencia ya acota el problema: con la versión en tablas no son identificables, y la pregunta es si la versión paramétrica lo es.
 - **Thomas** implementa, evalúa y documenta, y mantiene el registro de lo ya explorado.
 
-Evidencia de apoyo: [cadena de estrategias](../audit/strategy_chain/README.md), [certificado del mínimo global](../audit/optimum_certificate/README.md), [registro de AUC exploradas](EXPLORED_AUC_REGISTER.md).
+Evidencia de apoyo: [potencia y recuperación](../audit/model_recovery/README.md), [cadena de estrategias](../audit/strategy_chain/README.md), [certificado del mínimo global](../audit/optimum_certificate/README.md), [registro de AUC exploradas](EXPLORED_AUC_REGISTER.md).

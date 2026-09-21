@@ -1,0 +1,73 @@
+{
+  "mode": "absent",
+  "sha256": "9452e653a5ffd08f8148f15269d73b754f782ed7f48bc1c3292dc78b42105c54",
+  "n_transitions": 2554,
+  "n_dyads": 45,
+  "score_cuts": [
+    19.0,
+    32.0
+  ],
+  "joint_equals_intersection": true,
+  "score_identity_holds": true
+}
+
+Transiciones: 2554 en 45 diadas (56.8 por diada)
+Celdas de condicionamiento con soporte: M1 9/9, M2 22/27, M3 44/135
+Efecto oraculo de M3 sobre su mejor M2, anclado en humanos: 0.0118 nats
+
+=== 1. Recuperacion: quien gana cuando sabemos quien genero ===
+
+generador                     fuera de diada                 AIC dentro de muestra                 kappa mediano elegido
+                  M0      M1      M2      M3            M0      M1      M2      M3            M0      M1      M2      M3
+M0              0.98    0.01    0.00    0.00          1.00    0.00    0.00    0.00           0.5    80.0    80.0    80.0
+M1              0.00    0.99    0.01    0.00          0.00    1.00    0.00    0.00           0.5     2.0    20.0    20.0
+M2              0.00    0.00    1.00    0.00          0.00    0.71    0.29    0.00           0.5     0.5     5.0    20.0
+M3              0.00    0.00    0.27    0.73          0.00    0.51    0.49    0.00           0.5     0.5     5.0    20.0
+
+=== 2. Potencia frente al tamano de efecto ===
+   P_theta proporcional a refM2 * (M3/refM2)^theta: theta=1 es el anclaje
+   humano y theta>1 amplifica la dependencia del patron de solapamiento.
+
+  theta  efecto oraculo  P(M3 elegido)   P(IC>0)  delta medio  de delta
+   0.00         -0.0000           0.00      0.00      -0.0097    0.0034
+   0.25          0.0009           0.00      0.00      -0.0080    0.0032
+   0.50          0.0033           0.03      0.00      -0.0051    0.0029
+   0.75          0.0070           0.32      0.01      -0.0021    0.0037
+   1.00          0.0118           0.78      0.11       0.0029    0.0035
+   1.50          0.0249           1.00      0.88       0.0151    0.0048
+   2.00          0.0431           1.00      1.00       0.0330    0.0063
+   3.00          0.0962           1.00      1.00       0.0833    0.0077
+
+=== 3. ¿Cuantas diadas harian falta? (generador M3) ===
+
+  diadas  transiciones  P(M3 elegido)   P(IC>0)  delta medio
+      45          2554           0.70      0.16       0.0026
+      90          5108           1.00      0.82       0.0068
+     180         10216           1.00      1.00       0.0098
+     360         20432           1.00      1.00       0.0107
+
+=== 4. Heterogeneidad entre diadas, generador M2 ===
+   Cada diada recibe su propia tabla Dirichlet(tau * M2), asi que la
+   dependencia aparente del solapamiento es idiosincratica y no transfiere.
+   Es la confusion que un revisor va a plantear: dentro de muestra el
+   modelo rico gana, fuera de diada pierde, y eso no refuta el mecanismo.
+
+       tau  delta dentro  delta fuera  M3 fuera  M2 fuera  M1 fuera
+ homogeneo        0.0140      -0.0094      0.00      1.00      0.00
+       200        0.0139      -0.0097      0.00      1.00      0.00
+        50        0.0143      -0.0096      0.00      1.00      0.00
+        10        0.0157      -0.0108      0.00      1.00      0.00
+
+=== 5. El suavizado no es un detalle ===
+   Con kappa fijo a mano la recuperacion cambia de signo; por eso el
+   protocolo debe elegirlo dentro del entrenamiento.
+
+     kappa   recupera M1   recupera M2   recupera M3
+       0.5          1.00          1.00          0.00
+         2          1.00          1.00          0.16
+         5          1.00          1.00          0.26
+        20          0.06          1.00          0.96
+        80          0.00          0.00          1.00
+        cv          1.00          1.00          0.72
+
+Escrito: audit/model_recovery/power_recovery_absent.json
