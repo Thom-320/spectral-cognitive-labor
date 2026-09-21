@@ -9,6 +9,13 @@ Esta carpeta responde esa pregunta con datos sintéticos. **No contiene ninguna
 comparación de modelos sobre las personas.** Ese contraste sigue sin correrse y no
 debe correrse antes de acordar el protocolo.
 
+> **Leer después:** [PARAMETRIC.md](PARAMETRIC.md). Este documento evalúa los
+> modelos rivales escritos como tablas de frecuencias y concluye que no son
+> distinguibles. Esa conclusión es sobre la parametrización, no sobre el
+> experimento: reescritos como los modelos paramétricos del artículo, con 4, 6 y 8
+> parámetros, el mismo diseño los distingue siempre. La recomendación vigente es la
+> de PARAMETRIC.md.
+
 ## Respuesta corta
 
 **El contraste, tal como está escrito hoy en la propuesta, no se debe correr.**

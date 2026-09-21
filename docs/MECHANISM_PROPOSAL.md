@@ -71,7 +71,19 @@ Antes de tocar los datos humanos hay que demostrar que el procedimiento distingu
 | Efecto mínimo detectable al 80 % de potencia | 0,020 a 0,025 nats |
 | Díadas necesarias para el efecto anclado | unas 90 |
 
-**Conclusión operativa: el contraste no se corre con esa parametrización.** Con 0,11 de potencia, un intervalo que cruzara el cero no distinguiría ausencia de efecto de ausencia de potencia, y el criterio de cierre de abajo sería inaplicable. El paso siguiente es reescribir M2 y M3 como modelos paramétricos y repetir la simulación. Si la potencia sigue siendo baja con los modelos del artículo, eso es un resultado en sí mismo y cambia la pregunta del proyecto.
+**Conclusión operativa: el contraste no se corre con esa parametrización.** Con 0,11 de potencia, un intervalo que cruzara el cero no distinguiría ausencia de efecto de ausencia de potencia.
+
+**Ese paso ya se dio, y la puerta está superada.** Reescritos como los modelos paramétricos del artículo, MBIASES, WSLS y FRA, con 4, 6 y 8 parámetros libres, la misma simulación da otra cosa ([detalle](../audit/model_recovery/PARAMETRIC.md)):
+
+| Resultado, versión paramétrica | Valor |
+|---|--:|
+| Recuperación de FRA cuando FRA genera | **1,00** |
+| Error de tipo I eligiendo el de menor log-loss | 0,27 |
+| Error de tipo I exigiendo que el intervalo excluya el cero | **0,02** |
+| Efecto mínimo detectable al 80 % de potencia | 0,017 nats, un 16 % del `delta` ajustado |
+| Díadas necesarias | las 45 del experimento original |
+
+De aquí salen dos exigencias para el protocolo. La primera es que **los modelos se escriban en forma paramétrica**, no como tablas. La segunda es que **el criterio de cierre sea el intervalo y no el mínimo**: elegir el modelo de menor log-loss se equivoca una de cada cuatro veces cuando el mecanismo adicional es falso.
 
 La simulación también corrige una objeción que circuló antes: el cambio de signo entre el ajuste dentro de muestra y la validación fuera de díada aparece ya con díadas idénticas, así que lo produce el sobreajuste del modelo rico y no la heterogeneidad entre parejas. Lo que sí se sostiene es que una ventaja dentro de muestra que no transfiere no demuestra por sí sola que el mecanismo sea falso.
 

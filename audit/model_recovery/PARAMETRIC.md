@@ -16,9 +16,9 @@ experimento son de los autores originales.
 reproducir las cifras que los autores ya publicaron. El contraste fuera de díada
 sobre humanos sigue sin correrse.
 
-> **Estado.** Los resultados 1 y 2 vienen de una corrida de 60 réplicas cuya salida
-> registrada se añade en el commit siguiente, junto con el resultado 3, que estaba
-> ejecutándose cuando se escribió esto.
+> **Estado.** Todos los resultados vienen de corridas de 60 réplicas cuyas salidas
+> registradas están en `parametric_power_output.txt` y `fine_power_output.txt`, con
+> los valores en los `.json` del mismo nombre.
 
 ## Los modelos
 
@@ -181,9 +181,110 @@ contraste detecta el efecto en las 60 réplicas. La curva salta de 0,02 a 1,00 e
 las dos primeras filas, así que el efecto mínimo detectable queda por debajo de
 0,057 nats y hay que localizarlo con una rejilla más fina.
 
-## Resultado 3: efecto mínimo detectable
+## Resultado 3: recuperar el modelo no es recuperar los parámetros
 
-*(pendiente: `fine_power.py`)*
+Sobre las 60 réplicas generadas por FRA, comparando el parámetro que generó los
+datos con el que se estima:
+
+| Parámetro | verdad | media estimada | de |
+|---|--:|--:|--:|
+| bias ALL (log) | −3,46 | −3,63 | 0,22 |
+| bias NOTHING (log) | −3,13 | −3,36 | 0,20 |
+| bias mitades (log) | −7,01 | −64,40 | 374,7 |
+| bias IN/OUT (log) | −34,72 | −25,50 | 41,6 |
+| log alpha | 3,31 | 1,87 | 0,26 |
+| gamma | −63,89 | −104,86 | 126,6 |
+| **log delta** | **−0,99** | **−1,28** | **0,23** |
+| **z** | **0,956** | **0,952** | **0,017** |
+
+**Los dos parámetros que definen el mecanismo propio de FRA, `delta` y `z`, se
+recuperan bien.** `z` con desviación 0,017 alrededor del valor verdadero. Los dos
+sesgos que en el generador valen prácticamente cero están en la frontera del
+espacio y no son identificables, lo cual es esperable y no tiene consecuencias.
+
+El caso interesante es `gamma`, y explica también el sesgo de `alpha`. En estos
+datos `Score = 32 − Joint` cuando el jugador acierta y `−64 − Joint` cuando no, así
+que los dos rangos de score son **disjuntos**: [−32, 32] frente a [−128, −64]. Se
+comprueba aquí que cualquier `gamma` entre −64 y −32 produce **exactamente el mismo
+modelo**, y que ese modelo es el indicador de haber acertado.
+
+> El umbral de win-stay, tal como lo ajusta la verosimilitud sobre estos datos, no
+> dice «el score fue suficientemente alto». Dice «acerté». La penalización por
+> solapamiento, que es lo que hace continuo al score, no interviene en dispararlo.
+
+Por tanto `gamma` solo está identificada dentro de un intervalo de ancho 32, su
+media y su desviación entre réplicas no son interpretables, y `alpha` se desplaza
+para compensar cuando `gamma` cae fuera de ese intervalo. **`alpha` y `gamma` no
+están identificados por separado.**
+
+Un perfil de verosimilitud sobre `gamma`, reajustando el resto, lo muestra: los
+valores −50, −40 y −33 dan los tres exactamente 592,6, mientras que el `gamma = 15`
+publicado queda unos 22 nats peor. Bajo esta reimplementación la verosimilitud
+prefiere con claridad la regla «quédate si acertaste» a un umbral positivo. Como no
+se reproduce exactamente la tubería original, esto se registra como una **diferencia
+que hay que consultar con Andrade**, no como una corrección de su resultado.
+
+Esto extiende con un diagnóstico concreto lo que el propio artículo admite en su
+Fig 8, que el ajuste de parámetros es subóptimo en el caso de FRA: el problema no
+está en `delta` ni en `z`, sino en la pareja `alpha`-`gamma`.
+
+## Resultado 4: cuántas díadas harían falta
+
+Generador FRA con el `delta` ajustado, 30 réplicas por fila.
+
+| Díadas | Transiciones | P(se elige FRA) | P(el IC excluye 0) |
+|--:|--:|--:|--:|
+| 45 | 1.285 | 1,00 | 1,00 |
+| 90 | 2.542 | 1,00 | 1,00 |
+| 180 | 5.102 | 1,00 | 1,00 |
+
+Con este tamaño de efecto el experimento original ya basta; no hace falta recoger
+más díadas. Es la diferencia con la versión en tablas, que necesitaba unas 90.
+
+## Resultado 5: efecto mínimo detectable
+
+La curva principal salta de 0,02 a 1,00 entre sus dos primeras filas, así que
+[`fine_power.py`](fine_power.py) rellena ese tramo con 60 réplicas por punto.
+
+| delta | % del ajustado | Δ log-loss observado | P(se elige FRA) | P(el IC excluye 0) |
+|--:|--:|--:|--:|--:|
+| 0,0186 | 5 % | 0,0018 | 0,65 | 0,07 |
+| 0,0372 | 10 % | 0,0080 | 0,88 | 0,37 |
+| 0,0557 | 15 % | 0,0159 | 0,95 | **0,77** |
+| 0,0743 | 20 % | 0,0221 | 0,98 | **0,88** |
+| 0,1115 | 30 % | 0,0331 | 1,00 | 1,00 |
+
+**El 80 % de potencia se alcanza en torno a `delta ≈ 0,06`, un 16 % del valor
+ajustado, que corresponde a una diferencia de log-loss fuera de díada de unos 0,017
+nats.** Es decir, el experimento original puede detectar un mecanismo FRA unas seis
+veces más débil que el que sus propios datos sugieren.
+
+Aquí la curva se indexa por la diferencia **observada** de log-loss y no por el
+efecto oráculo. La razón es que a estos tamaños el estimador del oráculo, que ajusta
+WSLS a una muestra grande generada por FRA, tiene ruido comparable al efecto que
+mide y sale no monótono: 0,0077 en la primera fila y 0,0077 otra vez en la tercera.
+La columna observada sí es monótona.
+
+## Qué se sigue de todo esto
+
+1. **El contraste se puede correr.** Con los modelos del artículo y 45 díadas, si
+   FRA es el proceso verdadero se recupera siempre, y el diseño detecta mecanismos
+   hasta seis veces más débiles que el ajustado. No hace falta recoger más datos.
+   Esto revierte la conclusión de la [versión en tablas](README.md), que no era
+   informativa; el problema estaba en la parametrización, no en el experimento.
+2. **El criterio de cierre tiene que ser el intervalo.** Elegir el modelo de menor
+   log-loss fuera de díada se equivoca el 27 % de las veces cuando FRA es falso.
+   Exigir que un intervalo agrupado por díada excluya el cero lo baja al 2 %.
+3. **Lo que no se puede concluir es sobre parámetros.** `delta` y `z` se recuperan;
+   `alpha` y `gamma` no están identificados por separado. Cualquier afirmación del
+   tipo «el umbral de win-stay vale tanto» necesita antes resolver eso.
+4. **Hay dos cosas que consultar con Andrade antes de nada.** Que la verosimilitud
+   prefiera aquí un `gamma` que equivale a «acerté» frente al positivo publicado, y
+   que los modelos ajustados no reproduzcan la frecuencia marginal de RS al
+   simularlos hacia adelante. Ninguna de las dos es una refutación; las dos son
+   preguntas.
+
+## Reproducción
 
 ## Reproducción
 

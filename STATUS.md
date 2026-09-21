@@ -55,15 +55,21 @@ dyads with 200 replicates, shows that the mechanism proposal's rival models writ
 as frequency tables cannot be told apart by this design: the richest model is
 recovered 73% of the time and a dyad-clustered interval excludes zero only 11% of
 the time at the effect size the data themselves suggest. The minimum detectable
-effect is roughly twice that. The models must be rewritten parametrically, in the
-shape of the published ladder, and the simulation repeated before any comparison is
-run on the human data. No model comparison on participants has been run.
-See [audit/model_recovery/](audit/model_recovery/README.md).
+effect is roughly twice that. The models were therefore rewritten parametrically,
+in the shape of the published ladder, and the study repeated. With 4, 6 and 8 free
+parameters the same design recovers the generating model in every replicate and
+detects a mechanism about six times weaker than the fitted one, so the contrast is
+viable on the original 45 dyads. The type-I error is the binding constraint:
+picking the model with the lowest out-of-dyad log-loss is wrong 27% of the time
+when the extra mechanism is false, against 2% when a dyad-clustered interval is
+required to exclude zero. No model comparison on participants has been run.
+See [audit/model_recovery/PARAMETRIC.md](audit/model_recovery/PARAMETRIC.md).
 
 ## Evidence and next action
 
 - [Temporal reconstruction and mathematical checks](docs/TEMPORAL_REPAIR.md)
-- [Power and model recovery of the proposed contrast](audit/model_recovery/README.md)
+- [Power and model recovery of the published models](audit/model_recovery/PARAMETRIC.md)
+- [The same study for the table-based version](audit/model_recovery/README.md)
 - [Certificate of the global conductance minimum](audit/optimum_certificate/README.md)
 - [Edge-weight sensitivity of the spatial optimum](audit/edge_weights/README.md)
 - [Register of explored AUCs](docs/EXPLORED_AUC_REGISTER.md)
