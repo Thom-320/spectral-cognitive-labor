@@ -1,6 +1,16 @@
 {
-  "source_rows": 5400,
-  "dyads": 45,
+  "provenance_checks": {
+    "sha256": "9452e653a5ffd08f8148f15269d73b754f782ed7f48bc1c3292dc78b42105c54",
+    "sha256_matches_documented": true,
+    "rows": 5400,
+    "dyads": 45,
+    "category_equals_exact_focal_match": true,
+    "non_rs_rows": 1490,
+    "shared_rows_with_filtered_file": 1244,
+    "shared_category_matches": true,
+    "shared_dlindex_max_abs_diff": 0.0,
+    "note_consistency": "Consistency no se compara: el archivo filtrado la define contra la ronda ausente anterior del mismo jugador"
+  },
   "rounds": [
     1,
     60
@@ -30,7 +40,7 @@
         "NOTHING": 0.834,
         "RS": 0.842
       },
-      "mean_dwell_rounds": {
+      "markov_implied_mean_dwell": {
         "LEFT": 2.13,
         "RIGHT": 2.11,
         "TOP": 2.02,
@@ -59,12 +69,6 @@
         0.5656,
         0.5316,
         0.5274
-      ],
-      "implied_timescales_rounds": [
-        5.0,
-        1.75,
-        1.58,
-        1.56
       ]
     },
     "rondas tempranas 1-20": {
@@ -91,7 +95,7 @@
         "NOTHING": 0.641,
         "RS": 0.881
       },
-      "mean_dwell_rounds": {
+      "markov_implied_mean_dwell": {
         "LEFT": 2.08,
         "RIGHT": 1.82,
         "TOP": 1.5,
@@ -139,7 +143,7 @@
         "NOTHING": 0.894,
         "RS": 0.796
       },
-      "mean_dwell_rounds": {
+      "markov_implied_mean_dwell": {
         "LEFT": 1.9,
         "RIGHT": 1.91,
         "TOP": 2.52,
@@ -187,7 +191,7 @@
         "NOTHING": 0.813,
         "RS": 0.881
       },
-      "mean_dwell_rounds": {
+      "markov_implied_mean_dwell": {
         "LEFT": 13.17,
         "RIGHT": 9.88,
         "TOP": 6.87,
@@ -199,7 +203,7 @@
         "RS": 8.38
       },
       "irreducible": false,
-      "stationary": "no se reporta: la cadena estimada es reducible (hay estados absorbentes con pocos datos)"
+      "stationary": "no se reporta: la cadena estimada es reducible"
     },
     "archivo filtrado (comparacion)": {
       "transitions": 1154,
@@ -225,7 +229,7 @@
         "NOTHING": 0.775,
         "RS": 0.836
       },
-      "mean_dwell_rounds": {
+      "markov_implied_mean_dwell": {
         "LEFT": 10.29,
         "RIGHT": 10.43,
         "TOP": 9.4,
@@ -237,9 +241,66 @@
         "RS": 6.09
       },
       "irreducible": false,
-      "stationary": "no se reporta: la cadena estimada es reducible (hay estados absorbentes con pocos datos)"
+      "stationary": "no se reporta: la cadena estimada es reducible"
     }
   },
+  "empirical_dwell_calendar_rounds": {
+    "LEFT": {
+      "n_runs": 91,
+      "mean_all_runs": 2.08,
+      "mean_complete_runs_only": 2.09,
+      "right_censored_share": 0.044
+    },
+    "RIGHT": {
+      "n_runs": 78,
+      "mean_all_runs": 2.05,
+      "mean_complete_runs_only": 2.05,
+      "right_censored_share": 0.051
+    },
+    "TOP": {
+      "n_runs": 68,
+      "mean_all_runs": 1.91,
+      "mean_complete_runs_only": 1.72,
+      "right_censored_share": 0.103
+    },
+    "BOTTOM": {
+      "n_runs": 71,
+      "mean_all_runs": 2.04,
+      "mean_complete_runs_only": 1.92,
+      "right_censored_share": 0.085
+    },
+    "IN": {
+      "n_runs": 4,
+      "mean_all_runs": 2.0,
+      "mean_complete_runs_only": 2.0,
+      "right_censored_share": 0.0
+    },
+    "OUT": {
+      "n_runs": 14,
+      "mean_all_runs": 2.21,
+      "mean_complete_runs_only": 2.23,
+      "right_censored_share": 0.071
+    },
+    "ALL": {
+      "n_runs": 238,
+      "mean_all_runs": 1.52,
+      "mean_complete_runs_only": 1.52,
+      "right_censored_share": 0.029
+    },
+    "NOTHING": {
+      "n_runs": 88,
+      "mean_all_runs": 5.3,
+      "mean_complete_runs_only": 3.08,
+      "right_censored_share": 0.148
+    },
+    "RS": {
+      "n_runs": 659,
+      "mean_all_runs": 5.93,
+      "mean_complete_runs_only": 4.31,
+      "right_censored_share": 0.073
+    }
+  },
+  "dwell_note": "La duracion observada esta censurada por la derecha en las rachas que llegan a la ronda 60, asi que subestima la duracion real. La diferencia con el valor implicado por la cadena no mide por si sola el ajuste del supuesto de Markov.",
   "share_by_condition": {
     "Unicorn_Absent": {
       "ALL": 0.131,
@@ -272,6 +333,7 @@
     "dyad_rounds": 2700,
     "distinct_states": 18,
     "transitions": 2655,
+    "identity_note": "estados sin identidad de jugador; ver role_transitions para la version ordenada",
     "top_states": {
       "RS/RS": 1652,
       "NOTHING/RS": 229,
@@ -303,7 +365,7 @@
       "RIGHT/RS": 0.13,
       "LEFT/RIGHT": 0.496
     },
-    "mean_dwell_rounds": {
+    "markov_implied_mean_dwell": {
       "RS/RS": 4.68,
       "NOTHING/RS": 2.23,
       "OUT/RS": 2.0,
@@ -331,6 +393,7 @@
       "LEFT/RS": 10.8,
       "RIGHT/RS": 10.1
     },
+    "hitting_note": "Valor implicado por una cadena homogenea estimada mezclando las 45 diadas y las 60 rondas. El proceso no es homogeneo, asi que no es una estimacion de cuanto tardan las personas.",
     "ventana_temprana 1-20": {
       "dyad_rounds": 900,
       "share_complementary_focal": 0.0444,
@@ -343,5 +406,266 @@
       "stay_in_complementary_focal": 0.494,
       "enter_complementary_focal_from_outside": 0.133
     }
-  }
+  },
+  "role_transitions_identity_preserved": {
+    "from_a_complementary_focal_pair": {
+      "stay": 162,
+      "direct_swap": 0,
+      "exit": 180
+    },
+    "by_family": {
+      "IN/OUT": {
+        "stay": 4,
+        "direct_swap": 0,
+        "exit": 3
+      },
+      "BOTTOM/TOP": {
+        "stay": 47,
+        "direct_swap": 0,
+        "exit": 46
+      },
+      "ALL/NOTHING": {
+        "stay": 45,
+        "direct_swap": 0,
+        "exit": 64
+      },
+      "LEFT/RIGHT": {
+        "stay": 66,
+        "direct_swap": 0,
+        "exit": 67
+      }
+    },
+    "note": "Un intercambio directo es que los dos jugadores cambien de lado entre rondas consecutivas. Su ausencia no excluye intercambios que pasen por otro estado intermedio."
+  },
+  "process_order": {
+    "ausentes consecutivas": {
+      "evaluation_positions": 556,
+      "note": "mismo conjunto de evaluacion para los tres ordenes en cada variante",
+      "variants": {
+        "tramos>=2, dirichlet=0.1": {
+          "log_loss": {
+            "0": 1.5666,
+            "1": 0.5415,
+            "2": 0.4709
+          },
+          "accuracy": {
+            "0": 0.572,
+            "1": 0.867,
+            "2": 0.872
+          },
+          "order2_minus_order1_gain": 0.0706,
+          "ci95_clustered_by_dyad": [
+            0.0088,
+            0.1433
+          ]
+        },
+        "tramos>=2, dirichlet=0.5": {
+          "log_loss": {
+            "0": 1.5594,
+            "1": 0.5491,
+            "2": 0.5163
+          },
+          "accuracy": {
+            "0": 0.572,
+            "1": 0.867,
+            "2": 0.872
+          },
+          "order2_minus_order1_gain": 0.0328,
+          "ci95_clustered_by_dyad": [
+            -0.0198,
+            0.0924
+          ]
+        },
+        "tramos>=2, dirichlet=1.0": {
+          "log_loss": {
+            "0": 1.5555,
+            "1": 0.5652,
+            "2": 0.5724
+          },
+          "accuracy": {
+            "0": 0.572,
+            "1": 0.867,
+            "2": 0.872
+          },
+          "order2_minus_order1_gain": -0.0072,
+          "ci95_clustered_by_dyad": [
+            -0.0569,
+            0.0461
+          ]
+        },
+        "tramos>=3, dirichlet=0.1": {
+          "log_loss": {
+            "0": 1.5938,
+            "1": 0.5413,
+            "2": 0.4709
+          },
+          "accuracy": {
+            "0": 0.572,
+            "1": 0.867,
+            "2": 0.872
+          },
+          "order2_minus_order1_gain": 0.0704,
+          "ci95_clustered_by_dyad": [
+            0.0069,
+            0.1447
+          ]
+        },
+        "tramos>=3, dirichlet=0.5": {
+          "log_loss": {
+            "0": 1.574,
+            "1": 0.5585,
+            "2": 0.5163
+          },
+          "accuracy": {
+            "0": 0.572,
+            "1": 0.867,
+            "2": 0.872
+          },
+          "order2_minus_order1_gain": 0.0423,
+          "ci95_clustered_by_dyad": [
+            -0.0131,
+            0.1033
+          ]
+        },
+        "tramos>=3, dirichlet=1.0": {
+          "log_loss": {
+            "0": 1.5658,
+            "1": 0.5811,
+            "2": 0.5724
+          },
+          "accuracy": {
+            "0": 0.572,
+            "1": 0.867,
+            "2": 0.872
+          },
+          "order2_minus_order1_gain": 0.0087,
+          "ci95_clustered_by_dyad": [
+            -0.0447,
+            0.0664
+          ]
+        }
+      },
+      "gain_range_across_variants": [
+        -0.0072,
+        0.0706
+      ],
+      "sign_stable_across_variants": false,
+      "every_ci_excludes_zero": false
+    },
+    "todas las rondas": {
+      "evaluation_positions": 5220,
+      "note": "mismo conjunto de evaluacion para los tres ordenes en cada variante",
+      "variants": {
+        "tramos>=2, dirichlet=0.1": {
+          "log_loss": {
+            "0": 1.1254,
+            "1": 0.7371,
+            "2": 0.6272
+          },
+          "accuracy": {
+            "0": 0.722,
+            "1": 0.781,
+            "2": 0.78
+          },
+          "order2_minus_order1_gain": 0.1099,
+          "ci95_clustered_by_dyad": [
+            0.0837,
+            0.1408
+          ]
+        },
+        "tramos>=2, dirichlet=0.5": {
+          "log_loss": {
+            "0": 1.1244,
+            "1": 0.7359,
+            "2": 0.6316
+          },
+          "accuracy": {
+            "0": 0.722,
+            "1": 0.781,
+            "2": 0.78
+          },
+          "order2_minus_order1_gain": 0.1043,
+          "ci95_clustered_by_dyad": [
+            0.0787,
+            0.1325
+          ]
+        },
+        "tramos>=2, dirichlet=1.0": {
+          "log_loss": {
+            "0": 1.1234,
+            "1": 0.7388,
+            "2": 0.6421
+          },
+          "accuracy": {
+            "0": 0.722,
+            "1": 0.781,
+            "2": 0.78
+          },
+          "order2_minus_order1_gain": 0.0967,
+          "ci95_clustered_by_dyad": [
+            0.0726,
+            0.1239
+          ]
+        },
+        "tramos>=3, dirichlet=0.1": {
+          "log_loss": {
+            "0": 1.1254,
+            "1": 0.7371,
+            "2": 0.6272
+          },
+          "accuracy": {
+            "0": 0.722,
+            "1": 0.781,
+            "2": 0.78
+          },
+          "order2_minus_order1_gain": 0.1099,
+          "ci95_clustered_by_dyad": [
+            0.0815,
+            0.1403
+          ]
+        },
+        "tramos>=3, dirichlet=0.5": {
+          "log_loss": {
+            "0": 1.1244,
+            "1": 0.7359,
+            "2": 0.6316
+          },
+          "accuracy": {
+            "0": 0.722,
+            "1": 0.781,
+            "2": 0.78
+          },
+          "order2_minus_order1_gain": 0.1043,
+          "ci95_clustered_by_dyad": [
+            0.0784,
+            0.1324
+          ]
+        },
+        "tramos>=3, dirichlet=1.0": {
+          "log_loss": {
+            "0": 1.1234,
+            "1": 0.7388,
+            "2": 0.6421
+          },
+          "accuracy": {
+            "0": 0.722,
+            "1": 0.781,
+            "2": 0.78
+          },
+          "order2_minus_order1_gain": 0.0967,
+          "ci95_clustered_by_dyad": [
+            0.0723,
+            0.1223
+          ]
+        }
+      },
+      "gain_range_across_variants": [
+        0.0967,
+        0.1099
+      ],
+      "sign_stable_across_variants": true,
+      "every_ci_excludes_zero": true
+    }
+  },
+  "process_order_note": "Tablas de frecuencias por conteo, evaluadas dejando una diada fuera sobre el mismo conjunto de posiciones para los tres ordenes. Se reporta una rejilla de suavizado y de soporte de entrenamiento porque el resultado en rondas ausentes depende de esas decisiones. Diagnostico del proceso, no una evaluacion de especializacion."
 }

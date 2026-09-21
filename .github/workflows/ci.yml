@@ -27,7 +27,7 @@ jobs:
           pip install pandas
 
       - name: Run model-free integrity checks
-        run: python -B -m unittest discover -s tests -p 'test_temporal_repair.py' -v
+        run: python -B -m unittest discover -s tests -p 'test_*.py' -v
 
       - name: Verify frozen reference numbers
         run: |
