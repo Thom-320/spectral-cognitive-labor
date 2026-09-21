@@ -1,0 +1,347 @@
+{
+  "source_rows": 5400,
+  "dyads": 45,
+  "rounds": [
+    1,
+    60
+  ],
+  "player_chains": {
+    "todas las rondas 1-60": {
+      "transitions": 5310,
+      "n_by_state": {
+        "LEFT": 185,
+        "RIGHT": 156,
+        "TOP": 123,
+        "BOTTOM": 139,
+        "IN": 8,
+        "OUT": 30,
+        "ALL": 354,
+        "NOTHING": 453,
+        "RS": 3862
+      },
+      "stay_probability": {
+        "LEFT": 0.53,
+        "RIGHT": 0.526,
+        "TOP": 0.504,
+        "BOTTOM": 0.532,
+        "IN": 0.5,
+        "OUT": 0.567,
+        "ALL": 0.347,
+        "NOTHING": 0.834,
+        "RS": 0.842
+      },
+      "mean_dwell_rounds": {
+        "LEFT": 2.13,
+        "RIGHT": 2.11,
+        "TOP": 2.02,
+        "BOTTOM": 2.14,
+        "IN": 2.0,
+        "OUT": 2.31,
+        "ALL": 1.53,
+        "NOTHING": 6.04,
+        "RS": 6.32
+      },
+      "irreducible": true,
+      "stationary": {
+        "LEFT": 0.036,
+        "RIGHT": 0.031,
+        "TOP": 0.025,
+        "BOTTOM": 0.028,
+        "IN": 0.001,
+        "OUT": 0.006,
+        "ALL": 0.063,
+        "NOTHING": 0.092,
+        "RS": 0.718
+      },
+      "eigenvalue_moduli": [
+        1.0,
+        0.8188,
+        0.5656,
+        0.5316,
+        0.5274
+      ],
+      "implied_timescales_rounds": [
+        5.0,
+        1.75,
+        1.58,
+        1.56
+      ]
+    },
+    "rondas tempranas 1-20": {
+      "transitions": 1710,
+      "n_by_state": {
+        "LEFT": 27,
+        "RIGHT": 20,
+        "TOP": 9,
+        "BOTTOM": 19,
+        "IN": 0,
+        "OUT": 3,
+        "ALL": 144,
+        "NOTHING": 64,
+        "RS": 1424
+      },
+      "stay_probability": {
+        "LEFT": 0.519,
+        "RIGHT": 0.45,
+        "TOP": 0.333,
+        "BOTTOM": 0.421,
+        "IN": null,
+        "OUT": 0.333,
+        "ALL": 0.271,
+        "NOTHING": 0.641,
+        "RS": 0.881
+      },
+      "mean_dwell_rounds": {
+        "LEFT": 2.08,
+        "RIGHT": 1.82,
+        "TOP": 1.5,
+        "BOTTOM": 1.73,
+        "IN": null,
+        "OUT": 1.5,
+        "ALL": 1.37,
+        "NOTHING": 2.78,
+        "RS": 8.43
+      },
+      "irreducible": true,
+      "stationary": {
+        "LEFT": 0.022,
+        "RIGHT": 0.016,
+        "TOP": 0.007,
+        "BOTTOM": 0.014,
+        "IN": 0.0,
+        "OUT": 0.003,
+        "ALL": 0.075,
+        "NOTHING": 0.036,
+        "RS": 0.828
+      }
+    },
+    "rondas tardias 41-60": {
+      "transitions": 1710,
+      "n_by_state": {
+        "LEFT": 76,
+        "RIGHT": 65,
+        "TOP": 63,
+        "BOTTOM": 70,
+        "IN": 7,
+        "OUT": 15,
+        "ALL": 87,
+        "NOTHING": 218,
+        "RS": 1109
+      },
+      "stay_probability": {
+        "LEFT": 0.474,
+        "RIGHT": 0.477,
+        "TOP": 0.603,
+        "BOTTOM": 0.643,
+        "IN": 0.571,
+        "OUT": 0.733,
+        "ALL": 0.391,
+        "NOTHING": 0.894,
+        "RS": 0.796
+      },
+      "mean_dwell_rounds": {
+        "LEFT": 1.9,
+        "RIGHT": 1.91,
+        "TOP": 2.52,
+        "BOTTOM": 2.8,
+        "IN": 2.33,
+        "OUT": 3.75,
+        "ALL": 1.64,
+        "NOTHING": 9.48,
+        "RS": 4.91
+      },
+      "irreducible": true,
+      "stationary": {
+        "LEFT": 0.045,
+        "RIGHT": 0.038,
+        "TOP": 0.045,
+        "BOTTOM": 0.049,
+        "IN": 0.004,
+        "OUT": 0.008,
+        "ALL": 0.051,
+        "NOTHING": 0.143,
+        "RS": 0.618
+      }
+    },
+    "solo ausentes consecutivas": {
+      "transitions": 1244,
+      "n_by_state": {
+        "LEFT": 79,
+        "RIGHT": 79,
+        "TOP": 55,
+        "BOTTOM": 58,
+        "IN": 4,
+        "OUT": 8,
+        "ALL": 166,
+        "NOTHING": 91,
+        "RS": 704
+      },
+      "stay_probability": {
+        "LEFT": 0.924,
+        "RIGHT": 0.899,
+        "TOP": 0.855,
+        "BOTTOM": 0.914,
+        "IN": 1.0,
+        "OUT": 0.875,
+        "ALL": 0.681,
+        "NOTHING": 0.813,
+        "RS": 0.881
+      },
+      "mean_dwell_rounds": {
+        "LEFT": 13.17,
+        "RIGHT": 9.88,
+        "TOP": 6.87,
+        "BOTTOM": 11.6,
+        "IN": null,
+        "OUT": 8.0,
+        "ALL": 3.13,
+        "NOTHING": 5.35,
+        "RS": 8.38
+      },
+      "irreducible": false,
+      "stationary": "no se reporta: la cadena estimada es reducible (hay estados absorbentes con pocos datos)"
+    },
+    "archivo filtrado (comparacion)": {
+      "transitions": 1154,
+      "n_by_state": {
+        "LEFT": 72,
+        "RIGHT": 73,
+        "TOP": 47,
+        "BOTTOM": 51,
+        "IN": 3,
+        "OUT": 7,
+        "ALL": 157,
+        "NOTHING": 80,
+        "RS": 664
+      },
+      "stay_probability": {
+        "LEFT": 0.903,
+        "RIGHT": 0.904,
+        "TOP": 0.894,
+        "BOTTOM": 0.922,
+        "IN": 1.0,
+        "OUT": 0.857,
+        "ALL": 0.675,
+        "NOTHING": 0.775,
+        "RS": 0.836
+      },
+      "mean_dwell_rounds": {
+        "LEFT": 10.29,
+        "RIGHT": 10.43,
+        "TOP": 9.4,
+        "BOTTOM": 12.75,
+        "IN": null,
+        "OUT": 7.0,
+        "ALL": 3.08,
+        "NOTHING": 4.44,
+        "RS": 6.09
+      },
+      "irreducible": false,
+      "stationary": "no se reporta: la cadena estimada es reducible (hay estados absorbentes con pocos datos)"
+    }
+  },
+  "share_by_condition": {
+    "Unicorn_Absent": {
+      "ALL": 0.131,
+      "BOTTOM": 0.044,
+      "IN": 0.003,
+      "LEFT": 0.059,
+      "NOTHING": 0.073,
+      "OUT": 0.008,
+      "RIGHT": 0.056,
+      "RS": 0.586,
+      "TOP": 0.042
+    },
+    "Unicorn_Present": {
+      "ALL": 0.005,
+      "BOTTOM": 0.01,
+      "IN": 0.0,
+      "LEFT": 0.012,
+      "NOTHING": 0.099,
+      "OUT": 0.004,
+      "RIGHT": 0.005,
+      "RS": 0.857,
+      "TOP": 0.007
+    }
+  },
+  "mean_tiles_uncovered_by_condition": {
+    "Unicorn_Absent": 32.28,
+    "Unicorn_Present": 18.82
+  },
+  "dyad_chain": {
+    "dyad_rounds": 2700,
+    "distinct_states": 18,
+    "transitions": 2655,
+    "top_states": {
+      "RS/RS": 1652,
+      "NOTHING/RS": 229,
+      "ALL/RS": 201,
+      "LEFT/RIGHT": 136,
+      "ALL/NOTHING": 112,
+      "BOTTOM/TOP": 99,
+      "NOTHING/NOTHING": 61,
+      "LEFT/RS": 52,
+      "BOTTOM/RS": 46,
+      "RS/TOP": 30,
+      "ALL/ALL": 24,
+      "RIGHT/RS": 24
+    },
+    "share_complementary_focal": 0.1311,
+    "stay_probability": {
+      "RS/RS": 0.786,
+      "NOTHING/RS": 0.552,
+      "OUT/RS": 0.5,
+      "ALL/RS": 0.251,
+      "IN/OUT": 0.571,
+      "RS/TOP": 0.172,
+      "BOTTOM/RS": 0.196,
+      "ALL/ALL": 0.0,
+      "BOTTOM/TOP": 0.505,
+      "NOTHING/NOTHING": 0.881,
+      "ALL/NOTHING": 0.413,
+      "LEFT/RS": 0.255,
+      "RIGHT/RS": 0.13,
+      "LEFT/RIGHT": 0.496
+    },
+    "mean_dwell_rounds": {
+      "RS/RS": 4.68,
+      "NOTHING/RS": 2.23,
+      "OUT/RS": 2.0,
+      "ALL/RS": 1.34,
+      "IN/OUT": 2.33,
+      "RS/TOP": 1.21,
+      "BOTTOM/RS": 1.24,
+      "ALL/ALL": 1.0,
+      "BOTTOM/TOP": 2.02,
+      "NOTHING/NOTHING": 8.43,
+      "ALL/NOTHING": 1.7,
+      "LEFT/RS": 1.34,
+      "RIGHT/RS": 1.15,
+      "LEFT/RIGHT": 1.99
+    },
+    "expected_rounds_to_reach_a_complementary_focal_pair": {
+      "RS/RS": 13.3,
+      "NOTHING/RS": 9.4,
+      "OUT/RS": 14.1,
+      "ALL/RS": 13.4,
+      "RS/TOP": 11.0,
+      "BOTTOM/RS": 10.5,
+      "ALL/ALL": 14.4,
+      "NOTHING/NOTHING": 17.6,
+      "LEFT/RS": 10.8,
+      "RIGHT/RS": 10.1
+    },
+    "ventana_temprana 1-20": {
+      "dyad_rounds": 900,
+      "share_complementary_focal": 0.0444,
+      "stay_in_complementary_focal": 0.29,
+      "enter_complementary_focal_from_outside": 0.038
+    },
+    "ventana_tardia 41-60": {
+      "dyad_rounds": 900,
+      "share_complementary_focal": 0.1956,
+      "stay_in_complementary_focal": 0.494,
+      "enter_complementary_focal_from_outside": 0.133
+    }
+  }
+}
